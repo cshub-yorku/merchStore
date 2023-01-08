@@ -1,0 +1,71 @@
+/*navigation*/
+
+.navigation {
+  background: #24292e;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 0.1% 0.1% 0.1% 0.1%;
+  text-align: right;
+  overflow: hidden;
+  z-index: 9;
+}
+
+#icon {
+  width: 8%;
+  height: 8%;
+  padding-left: 10px;
+  float: left;
+  margin: 0 auto;
+}
+
+.Navbar__Link-toggle {
+  display: none;
+}
+
+#tog {
+  font-size: 3vw;
+  color: white;
+}
+
+.navigation a:hover {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.849);
+  color: rgb(0, 0, 0);
+}
+
+.scroll {
+  background-color: rgba(255, 255, 255, 0.849);
+  color: rgb(0, 0, 0);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 0.1% 0.1% 0.1% 0.1%;
+  text-align: right;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.navigation a,
+.scroll a {
+  padding: 3% 3%;
+  text-align: left;
+  text-decoration: none;
+  font-size: 1.5vw;
+}
+
+.navigation a {
+  color: #c0c0c0;
+}
+
+.scroll a {
+  color: #414141;
+}
+
+.navigation a:hover {
+  text-decoration: none;
+  background: #414141;
+  color: #ffffff;
+}

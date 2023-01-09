@@ -6,8 +6,7 @@ CREATE TABLE public.ordered_items
     product_id serial NOT NULL,
     PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (order_id)
-        REFERENCES public."order" (order_id) MATCH SIMPLE
-
+        REFERENCES public."order" (order_id),
     FOREIGN KEY (product_id)
         REFERENCES public.product (product_id) MATCH SIMPLE
         ON UPDATE CASCADE

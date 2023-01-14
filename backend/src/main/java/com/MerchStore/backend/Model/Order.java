@@ -5,7 +5,7 @@ import java.util.Date;
 public class Order {
     private final long orderId;
 
-    private int quantity;
+    private long quantity;
 
     private double totalAmount;
 
@@ -13,7 +13,7 @@ public class Order {
 
     private final long cartId;
 
-    public Order(long orderId, int quantity, double totalAmount, String orderStatus, long cartId){
+    public Order(long orderId, long quantity, double totalAmount, String orderStatus, long cartId){
         this.orderId = orderId;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
@@ -25,7 +25,7 @@ public class Order {
         return orderId;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 

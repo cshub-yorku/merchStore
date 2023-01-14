@@ -15,7 +15,7 @@ public class CartList {
 
     private long quantity;
 
-    public CartList(long cartId, long productId, String description, String name, long price, long stock, long quantity){
+    public CartList(long cartId, long productId, long quantity){
         this.cartId = cartId;
         this.productId = productId;
         this.description = description;

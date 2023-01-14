@@ -1,6 +1,6 @@
-CREATE TABLE public."user"
+CREATE TABLE user
 (
-    user_id serial NOT NULL,
+    user_id bigint NOT NULL ,
     first_name character varying(50) NOT NULL,
     last_name character varying(50),
     email character varying(100) NOT NULL,

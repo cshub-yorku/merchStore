@@ -7,9 +7,9 @@ public class OrderedItems {
 
     private double price;
 
-    private int quantity;
+    private long quantity;
 
-    public OrderedItems(long orderId, long productId, double price, int quantity){
+    public OrderedItems(long orderId, double price, long quantity, long productId){
         this.orderId = orderId;
         this.productId = productId;
         this.price = price;
@@ -28,7 +28,7 @@ public class OrderedItems {
         return price;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 }

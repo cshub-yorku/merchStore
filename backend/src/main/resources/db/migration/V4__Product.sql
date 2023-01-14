@@ -1,7 +1,6 @@
-
-CREATE TABLE public.product
+CREATE TABLE product
 (
-    product_id serial NOT NULL,
+    product_id bigint NOT NULL,
     description text,
     name character varying(100) NOT NULL,
     price money NOT NULL,

@@ -91,7 +91,6 @@ public class ProductDao implements Dao<Product> {
     @Override
     public boolean delete(Product product) {
         String statement = "DELETE from product where product_id = ?";
-        LinkedList<Product> resultList = new LinkedList<>();
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);

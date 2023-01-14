@@ -85,7 +85,6 @@ public class CartDao implements Dao<Cart>{
     @Override
     public boolean delete(Cart cart) {
         String statement = "DELETE from cart where cart_id = ?";
-        LinkedList<Cart> resultList = new LinkedList<>();
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);

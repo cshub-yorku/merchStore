@@ -10,9 +10,9 @@ public class Users {
 
     private String email;
 
-    private int phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
+    private long phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
 
-    public Users(long userId, String firstName, String lastName, String email, int phoneNumber){
+    public Users(long userId, String firstName, String lastName, String email, long phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +20,7 @@ public class Users {
         this.phoneNumber = phoneNumber;
     }
 
-    public Users(long userId, String firstName, String email, int phoneNumber){
+    public Users(long userId, String firstName, String email, long phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
         this.email = email;
@@ -43,7 +43,7 @@ public class Users {
         return email;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return this.phoneNumber;
     }
 }

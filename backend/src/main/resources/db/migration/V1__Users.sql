@@ -1,4 +1,4 @@
-CREATE TABLE user
+CREATE TABLE users
 (
     user_id bigint NOT NULL ,
     first_name character varying(50) NOT NULL,

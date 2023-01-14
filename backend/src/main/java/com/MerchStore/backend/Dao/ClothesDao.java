@@ -88,7 +88,6 @@ public class ClothesDao implements Dao<Clothes>{
     @Override
     public boolean delete(Clothes clothes) {
         String statement = "DELETE from clothes where product_id = ?";
-        LinkedList<Clothes> resultList = new LinkedList<>();
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);

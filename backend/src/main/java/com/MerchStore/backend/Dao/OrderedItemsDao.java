@@ -89,7 +89,6 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
     @Override
     public boolean delete(OrderedItems orderedItems) {
         String statement = "DELETE from ordered_items where order_id = ?";
-        LinkedList<OrderedItems> resultList = new LinkedList<>();
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);

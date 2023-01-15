@@ -28,7 +28,7 @@ const center = {
   justifyContent: "center",
   alignItems: "center",
 };
-export default function CSCard({ data, src, onClick }) {
+export default function CSCard({ productState, data, src, onClick }) {
   // console.log(data)
   const { title, price, description, images } = data;
   return (

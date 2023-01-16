@@ -86,21 +86,7 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
 
     @Override
     public boolean update(OrderedItems orderedItems) {
-        String statement = "UPDATE ordered_items set (price, product_quantity) = (?, ?) where order_id = ? ";
-        try{
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, orderedItems.getOrderId());
-            preparedStatement.setDouble(2, orderedItems.getPrice());
-            preparedStatement.setInt(3, orderedItems.getQuantity());
-            preparedStatement.setLong(4, orderedItems.getProductId());
-            preparedStatement.setLong(5, orderedItems.getOrderId());
-
-            return preparedStatement.executeUpdate() == 1;
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return false;
+        throw new UnsupportedOperationException("Unable to update orderedItems");
     }
 
     @Override

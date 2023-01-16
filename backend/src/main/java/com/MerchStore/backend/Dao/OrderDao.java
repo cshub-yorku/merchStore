@@ -71,21 +71,7 @@ public class OrderDao implements Dao<Order>{
 
     @Override
     public boolean update(Order order) {
-        String statement = "UPDATE order set (product_quantity, total_amount, order_status) = (?, ?, ?) where order_id = ?";
-        try{
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-
-            preparedStatement.setInt(1, order.getQuantity());
-            preparedStatement.setDouble(2, order.getTotalAmount());
-            preparedStatement.setString(3, order.getOrderStatus());
-            preparedStatement.setLong(4, order.getOrderId());
-
-            return preparedStatement.executeUpdate() == 1;
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return false;
+        throw new UnsupportedOperationException("Unable to update order");
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
 import com.MerchStore.backend.Model.Order;
-import com.MerchStore.backend.Model.OrderedItems;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +23,7 @@ public class OrderDao implements Dao<Order>{
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                Order order = new Order(resultSet.getLong("order_id"), resultSet.getLong("product_quantity"), resultSet.getDouble("total_amount"), resultSet.getString("order_status"), resultSet.getLong("cart_id"));
+                Order order = new Order(resultSet.getLong("order_id"), resultSet.getInt("product_quantity"), resultSet.getDouble("total_amount"), resultSet.getString("order_status"), resultSet.getLong("cart_id"));
                 return Optional.of(order);
             }
         } catch (SQLException e) {
@@ -41,7 +40,7 @@ public class OrderDao implements Dao<Order>{
             Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while(resultSet.next()){
-                Order order = new Order(resultSet.getLong("order_id"), resultSet.getLong("product_quantity"), resultSet.getDouble("total_amount"), resultSet.getString("order_status"), resultSet.getLong("cart_id"));
+                Order order = new Order(resultSet.getLong("order_id"), resultSet.getInt("product_quantity"), resultSet.getDouble("total_amount"), resultSet.getString("order_status"), resultSet.getLong("cart_id"));
                 resultList.add(order);
             }
         } catch (SQLException e) {
@@ -57,7 +56,7 @@ public class OrderDao implements Dao<Order>{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, order.getOrderId());
-            preparedStatement.setLong(2, order.getQuantity());
+            preparedStatement.setInt(2, order.getQuantity());
             preparedStatement.setDouble(3, order.getTotalAmount());
             preparedStatement.setString(4, order.getOrderStatus());
             preparedStatement.setLong(5, order.getCartId());
@@ -72,16 +71,15 @@ public class OrderDao implements Dao<Order>{
 
     @Override
     public boolean update(Order order) {
-        String statement = "UPDATE order set (order_id, product_quantity, total_amount, order_status, card_id) = (?, ?, ?, ?, ?) where order_id = ?";
+        String statement = "UPDATE order set (product_quantity, total_amount, order_status) = (?, ?, ?) where order_id = ?";
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, order.getOrderId());
-            preparedStatement.setLong(2, order.getQuantity());
-            preparedStatement.setDouble(3, order.getTotalAmount());
-            preparedStatement.setString(4, order.getOrderStatus());
-            preparedStatement.setLong(5, order.getCartId());
-            preparedStatement.setLong(6, order.getOrderId());
+
+            preparedStatement.setInt(1, order.getQuantity());
+            preparedStatement.setDouble(2, order.getTotalAmount());
+            preparedStatement.setString(3, order.getOrderStatus());
+            preparedStatement.setLong(4, order.getOrderId());
 
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
@@ -92,16 +90,6 @@ public class OrderDao implements Dao<Order>{
 
     @Override
     public boolean delete(Order order) {
-        String statement = "DELETE from ordered_items where order_id = ?";
-        try{
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, order.getOrderId());
-
-            return preparedStatement.executeUpdate() == 1;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
+        throw new UnsupportedOperationException("Unable to delete order");
     }
 }

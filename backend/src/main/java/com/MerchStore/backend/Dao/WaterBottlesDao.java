@@ -67,13 +67,12 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
 
     @Override
     public boolean update(WaterBottles waterBottles) {
-        String statement = "UPDATE water_bottles set (product_id, colour) = (?, ?) where product_id = ?";
+        String statement = "UPDATE water_bottles set colour = ? where product_id = ?";
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, waterBottles.getProductId());
-            preparedStatement.setString(2, waterBottles.getColour());
-            preparedStatement.setLong(3, waterBottles.getProductId());
+            preparedStatement.setString(1, waterBottles.getColour());
+            preparedStatement.setLong(2, waterBottles.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {

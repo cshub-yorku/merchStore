@@ -69,15 +69,14 @@ public class ClothesDao implements Dao<Clothes>{
 
     @Override
     public boolean update(Clothes clothes) {
-        String statement = "UPDATE clothes set (product_id, colour, size, sex) = (?, ?, ?, ?) where product_id = ?";
+        String statement = "UPDATE clothes set (colour, size, sex) = (?, ?, ?) where product_id = ?";
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, clothes.getProductId());
-            preparedStatement.setString(2, clothes.getColour());
-            preparedStatement.setString(3, clothes.getSize());
-            preparedStatement.setString(4, clothes.getSex());
-            preparedStatement.setLong(5, clothes.getProductId());
+            preparedStatement.setString(1, clothes.getColour());
+            preparedStatement.setString(2, clothes.getSize());
+            preparedStatement.setString(3, clothes.getSex());
+            preparedStatement.setLong(4, clothes.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){

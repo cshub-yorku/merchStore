@@ -71,16 +71,15 @@ public class UsersDao implements Dao<Users> {
 
     @Override
     public boolean update(Users user) {
-        String statement = "UPDATE users set (user_id, first_name, last_name, email, phone_number) = (?, ?, ?, ?, ?) where user_id = ?";
+        String statement = "UPDATE users set (first_name, last_name, email, phone_number) = (?, ?, ?, ?) where user_id = ?";
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, user.getUserId());
-            preparedStatement.setString(2, user.getFirstName());
-            preparedStatement.setString(3, user.getLastName());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setLong(5, user.getPhoneNumber());
-            preparedStatement.setLong(6, user.getUserId());
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setLong(4, user.getPhoneNumber());
+            preparedStatement.setLong(5, user.getUserId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {

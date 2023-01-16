@@ -13,17 +13,30 @@ import java.util.Optional;
 
 public class OrderedItemsDao implements Dao<OrderedItems>{
 
+    private final long order_id;
+
+    public OrderedItemsDao(long orderId) {
+        order_id = orderId;
+    }
+
+    /**
+     *
+     * @param id This is the product ID
+     * @return an optional object
+     */
     @Override
     public Optional<OrderedItems> get(long id) {
-        String statement = "SELECT * FROM ordered_items where order_id = ?";
+        String statement = "SELECT * FROM ordered_items where order_id = ? AND product_id = ? ";
 
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, order_id);
+            preparedStatement.setLong(2, id);
+
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                OrderedItems orderedItems = new OrderedItems(resultSet.getLong("order_id"), resultSet.getDouble("price"), resultSet.getLong("product_quantity"), resultSet.getLong("product_id"));
+                OrderedItems orderedItems = new OrderedItems(resultSet.getLong("order_id"), resultSet.getDouble("price"), resultSet.getInt("product_quantity"), resultSet.getLong("product_id"));
                 return Optional.of(orderedItems);
             }
         } catch (SQLException e) {
@@ -34,13 +47,16 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
 
     @Override
     public List<OrderedItems> getAll() {
-        String statement = "SELECT * FROM ordered_list";
+        String statement = "SELECT * FROM ordered_list where order_id = ?";
         LinkedList<OrderedItems> resultList = new LinkedList<>();
         try{
             Connection connection = ConnectionManager.getConnection();
-            ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1, order_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
             while(resultSet.next()){
-                OrderedItems orderedItems = new OrderedItems(resultSet.getLong("order_id"), resultSet.getDouble("price"), resultSet.getLong("product_quantity"), resultSet.getLong("product_id"));
+                OrderedItems orderedItems = new OrderedItems(resultSet.getLong("order_id"), resultSet.getDouble("price"), resultSet.getInt("product_quantity"), resultSet.getLong("product_id"));
                 resultList.add(orderedItems);
             }
         } catch (SQLException e) {
@@ -57,7 +73,7 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, orderedItems.getOrderId());
             preparedStatement.setDouble(2, orderedItems.getPrice());
-            preparedStatement.setLong(3, orderedItems.getQuantity());
+            preparedStatement.setInt(3, orderedItems.getQuantity());
             preparedStatement.setLong(4, orderedItems.getProductId());
 
 
@@ -70,13 +86,13 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
 
     @Override
     public boolean update(OrderedItems orderedItems) {
-        String statement = "UPDATE ordered_items set (product_id, colour, size, sex) = (?, ?, ?, ?) where order_id = ?";
+        String statement = "UPDATE ordered_items set (price, product_quantity) = (?, ?) where order_id = ? ";
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, orderedItems.getOrderId());
             preparedStatement.setDouble(2, orderedItems.getPrice());
-            preparedStatement.setLong(3, orderedItems.getQuantity());
+            preparedStatement.setInt(3, orderedItems.getQuantity());
             preparedStatement.setLong(4, orderedItems.getProductId());
             preparedStatement.setLong(5, orderedItems.getOrderId());
 
@@ -89,16 +105,6 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
 
     @Override
     public boolean delete(OrderedItems orderedItems) {
-        String statement = "DELETE from ordered_items where order_id = ?";
-        try{
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, orderedItems.getProductId());
-
-            return preparedStatement.executeUpdate() == 1;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
+        throw new UnsupportedOperationException("Unable to delete orderedItems");
     }
 }

@@ -66,20 +66,7 @@ public class CartDao implements Dao<Cart>{
 
     @Override
     public boolean update(Cart cart) {
-        String statement = "UPDATE cart set (cart_id, user_id) = (?, ?) where cart_id = ?";
-        try{
-            Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, cart.getCartId());
-            preparedStatement.setLong(2, cart.getUserId());
-
-            preparedStatement.setLong(3, cart.getCartId());
-
-            return preparedStatement.executeUpdate() == 1;
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return false;
+    throw new UnsupportedOperationException("Unable to update cart");
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ProductDao implements Dao<Product> {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getLong("stock"));
+                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"));
                 return Optional.of(product);
             }
         } catch (SQLException e) {
@@ -40,7 +40,7 @@ public class ProductDao implements Dao<Product> {
             Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while (resultSet.next()) {
-                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getLong("stock"));
+                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class ProductDao implements Dao<Product> {
             preparedStatement.setString(2, product.getDescription());
             preparedStatement.setString(3, product.getName());
             preparedStatement.setDouble(4, product.getPrice());
-            preparedStatement.setLong(5, product.getStock());
+            preparedStatement.setInt(5, product.getStock());
 
 
             return preparedStatement.executeUpdate() == 1;
@@ -71,16 +71,15 @@ public class ProductDao implements Dao<Product> {
 
     @Override
     public boolean update(Product product) {
-        String statement = "UPDATE product set (product_id, description, name, price, stock) = (?, ?, ?, ?, ?) where product_id = ?";
+        String statement = "UPDATE product set (description, name, price, stock) = (?, ?, ?, ?) where product_id = ?";
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, product.getProductId());
-            preparedStatement.setString(2, product.getDescription());
-            preparedStatement.setString(3, product.getName());
-            preparedStatement.setDouble(4, product.getPrice());
-            preparedStatement.setLong(5, product.getStock());
-            preparedStatement.setLong(6, product.getProductId());
+            preparedStatement.setString(1, product.getDescription());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setDouble(3, product.getPrice());
+            preparedStatement.setInt(4, product.getStock());
+            preparedStatement.setLong(5, product.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {

@@ -4,9 +4,9 @@ public class CartList {
 
     private final long cartId;
     private final long productId;
-    private long quantity;
+    private int quantity;
 
-    public CartList(long cartId, long productId, long quantity){
+    public CartList(long cartId, long productId, int quantity){
         this.cartId = cartId;
         this.productId = productId;
         this.quantity = quantity;
@@ -20,7 +20,7 @@ public class CartList {
         return productId;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 }

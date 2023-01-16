@@ -1,3 +1,4 @@
+Create SCHEMA IF NOT EXISTS merchstore;
 CREATE TABLE users
 (
     user_id bigint NOT NULL ,

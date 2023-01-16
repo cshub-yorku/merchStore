@@ -1,4 +1,4 @@
-CREATE TABLE order
+CREATE TABLE orders
 (
     order_id bigint NOT NULL,
     product_quantity integer NOT NULL,

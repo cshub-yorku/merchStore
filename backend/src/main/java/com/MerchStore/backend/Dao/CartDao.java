@@ -1,5 +1,6 @@
 package com.MerchStore.backend.Dao;
 
+import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
 import com.MerchStore.backend.Model.Cart;
 
 import java.sql.Connection;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CartDao implements Dao<Cart>{
-
     @Override
     public Optional<Cart> get(long id) {
         String statement = "SELECT * FROM cart where cart_id = ?";

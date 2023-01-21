@@ -9,7 +9,7 @@ public class OrderedItems {
 
     private int quantity;
 
-    public OrderedItems(long orderId, long productId, double price, int quantity){
+    public OrderedItems(long orderId, double price, int quantity, long productId){
         this.orderId = orderId;
         this.productId = productId;
         this.price = price;

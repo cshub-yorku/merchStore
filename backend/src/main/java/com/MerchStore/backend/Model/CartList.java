@@ -4,24 +4,11 @@ public class CartList {
 
     private final long cartId;
     private final long productId;
+    private int quantity;
 
-    private String description;
-
-    private final String name;
-
-    private long price;
-
-    private long stock;
-
-    private long quantity;
-
-    public CartList(long cartId, long productId, String description, String name, long price, long stock, long quantity){
+    public CartList(long cartId, long productId, int quantity){
         this.cartId = cartId;
         this.productId = productId;
-        this.description = description;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
         this.quantity = quantity;
     }
 
@@ -33,23 +20,7 @@ public class CartList {
         return productId;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public long getStock() {
-        return stock;
-    }
-
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 }

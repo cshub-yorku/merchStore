@@ -19,10 +19,10 @@ spring:
     filter:
       order: 10
 
-  merchstore:
-    app:
-      jwtSecret: <SecretKeyHere>
-      jwtExpirationMs: 86400000
+merchstore:
+  app:
+    jwtSecret: <SecretKeyHere>
+    jwtExpirationMs: 86400000
 
 
   datasource:

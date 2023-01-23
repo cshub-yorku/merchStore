@@ -2,7 +2,6 @@ package com.MerchStore.backend.jwt;
 
 import com.MerchStore.backend.Model.UserAuthenticator;
 import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
-@Slf4j
 public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);

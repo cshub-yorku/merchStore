@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class UserAuthenticatorDao implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        String statement = "SELECT (email,password) FROM users where user_id = ?";
+        String statement = "SELECT (email,password,user_id) FROM users where user_id = ?";
 
         try {
             Connection connection = ConnectionManager.getConnection();
@@ -24,7 +24,7 @@ public class UserAuthenticatorDao implements UserDetailsService {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return new UserAuthenticator(resultSet.getString("email"),resultSet.getString("password"));
+                return new UserAuthenticator(resultSet.getString("email"),resultSet.getString("password"), resultSet.getLong("user_id"));
             }
             //TODO throw user not found exception
         } catch (SQLException e) {

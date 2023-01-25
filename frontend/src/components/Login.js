@@ -54,10 +54,12 @@ export default function Login({ trigger, onClick }) {
                   </div>
                   <div className='register-button' >
                     <Button onClick={ ()=> navigate('./admin')} type='submit' color="primary" variant='contained' >Login</Button>
+                  <div className='register-button' >
+                    <Button onClick={ ()=> navigate('./admin')} type='submit' color="primary" variant='contained' >Login</Button>
                   </div>
 
                   <Typography className='register-link' sx={{margin:3,fontSize: "1.2rem"}}> Do you have an account ?
-                    <Link onClick={ ()=> setSwtichSignup(true)} sx={{margin:1, color: "white", fontSize: "1.4rem", fontWeight: "700" }} className="signup-style">
+                    <Link onClick={ ()=> navigate('./signup')} sx={{margin:1, color: "white", fontSize: "1.2rem", fontWeight: "700" }} className="signup-style">
                        Sign up
                     </Link>
                   </Typography> 

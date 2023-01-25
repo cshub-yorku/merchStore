@@ -21,13 +21,49 @@ export default function CSCard({ productState, data, src, onClick }) {
             <Typography variant='h5' sx={[cardLabel, bold, fontInter]}>{title}</Typography>
             <Typography variant='h6' sx={[cardSubtitle, normal, fontInter]}>Type</Typography>
           </Box>
-          <Button
-            onClick={() => { onClick(); productState(data) }}
-            sx={[button_theme, cardButton]}
-            variant="contained"
+          <CardContent
+            sx={{ display: "grid", gridAutoRows: "auto", padding: "1.5rem" }}
           >
-            <Typography variant="h6" fontWeight={600} sx={[fontInter, customFontWeight(600)]}>C$ {price}</Typography>
-          </Button>
+            <Box>
+              <Typography
+                variant="h4"
+                sx={{
+                  color: "text.primary",
+                  fontWeight: "bold",
+                  fontSize: "2rem",
+                  marginBottom: "1rem",
+                }}
+              >
+                {title}
+              </Typography>
+              <Typography
+                variant="body"
+                sx={{ color: "#B0B0B0", fontSize: "1.25rem" }}
+              >
+                {description}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button
+                onClick={()=>{onClick(); /*productState(data)*/}}
+                sx={{
+                  padding: "1rem",
+                  fontSize: "1.15rem",
+                  backgroundColor: "#2C3555",
+                  minWidth: "128px",
+                }}
+                variant="contained"
+              >
+                $C {price}
+              </Button>
+            </Box>
+          </CardContent>
         </Box>
       </Card>
     </>

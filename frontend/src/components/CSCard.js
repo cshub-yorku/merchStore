@@ -1,4 +1,3 @@
-import "../styles/CSCard.css";
 import React, { useState, useEffect } from "react";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ProductPopup from "./ProductPopup";
+import { button_black, button_theme } from "./Styles";
 
 const cardStyle = {
   display: "flex",
@@ -29,7 +29,7 @@ const center = {
   alignItems: "center",
 };
 export default function CSCard({ productState, data, src, onClick }) {
-  // console.log(data)
+  console.log(data)
   const { title, price, description, images } = data;
   return (
     <>
@@ -85,12 +85,7 @@ export default function CSCard({ productState, data, src, onClick }) {
             >
               <Button
                 onClick={()=>{onClick(); productState(data)}}
-                sx={{
-                  padding: "1rem",
-                  fontSize: "1.15rem",
-                  backgroundColor: "#2C3555",
-                  minWidth: "128px",
-                }}
+                sx={button_theme}
                 variant="contained"
               >
                 $C {price}

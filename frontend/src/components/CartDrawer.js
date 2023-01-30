@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import "../styles/CartDrawer.css";
 import { IconButton, Button, Typography, Drawer, Box, Stack, Grid } from "@mui/material";
 import { ShoppingBag, VapingRooms } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';

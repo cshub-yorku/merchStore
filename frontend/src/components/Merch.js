@@ -52,7 +52,7 @@ export default function Merch() {
     fetch('https://api.escuelajs.co/api/v1/products')
     .then(res=>res.json())
     .then(json=> {
-      // console.log(json);
+      console.log(json);
       setShopJSON(json)
     })
   }, [])
@@ -61,6 +61,7 @@ export default function Merch() {
     setUserActive(shopJSON[0])
   }, [shopJSON])
 
+  
   return (
     <>
       {!(shopJSON) && <div>Loading...</div>}

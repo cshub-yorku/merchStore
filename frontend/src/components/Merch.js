@@ -30,7 +30,7 @@ const testProduct = {
     "./global/model3.jpg",
     "./global/model4.jpg",
   ],
-  name: "CSHub: Hacker’s Black Shirt",
+  title: "CSHub: Hacker’s Black Shirt",
   price: 25.0,
   description: "The best Black shirt from CSHub",
 };
@@ -52,7 +52,7 @@ export default function Merch() {
     fetch('https://api.escuelajs.co/api/v1/products')
     .then(res=>res.json())
     .then(json=> {
-      console.log(json);
+      //console.log(json);
       setShopJSON(json)
     })
   }, [])
@@ -61,7 +61,6 @@ export default function Merch() {
     setUserActive(shopJSON[0])
   }, [shopJSON])
 
-  
   return (
     <>
       {!(shopJSON) && <div>Loading...</div>}
@@ -155,7 +154,7 @@ export default function Merch() {
             {(() => {
               let list = [];
               if (shopJSON ) {
-                for (let i = 0; i < 8; i++) {
+                for (let i = 0; i < shopJSON.length; i++) {
                   list.push(
                     <div className="merch-card">
                       <CSCard 

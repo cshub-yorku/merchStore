@@ -29,7 +29,7 @@ const center = {
   alignItems: "center",
 };
 export default function CSCard({ productState, data, src, onClick }) {
-  console.log(data)
+  //console.log(data)
   const { title, price, description, images } = data;
   return (
     <>

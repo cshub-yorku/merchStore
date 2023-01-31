@@ -176,8 +176,8 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
                 <ListItem>Adult Heavyweight Hoodie</ListItem>
                 <ListItem>70% Cotton, 30% Polyester</ListItem>
                 <ListItem>
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
                 </ListItem>
               </List>
 

@@ -6,7 +6,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import NavSidebar from "./NavSidebar";
 import "../styles/Merch.css";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -16,6 +16,7 @@ import {
   PriceChange,
   Description,
 } from "@mui/icons-material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -48,16 +49,16 @@ export default function Merch() {
     setUserActive(shopJSON[index]);
   }
 
-  useEffect( () => {
+  useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
-    .then(res=>res.json())
-    .then(json=> {
-      //console.log(json);
-      setShopJSON(json)
-    })
+      .then(res => res.json())
+      .then(json => {
+        //console.log(json);
+        setShopJSON(json)
+      })
   }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     setUserActive(shopJSON[0])
   }, [shopJSON])
 
@@ -76,27 +77,27 @@ export default function Merch() {
               justifyItems: "center",
             }}
           >
-            <Toolbar sx={{position: 'absolute', top: '35%', left: '4vw'}}>
+            <Toolbar sx={{ position: 'absolute', top: '35%', left: '4vw' }}>
               <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
                 <>
                   {/* COMPONENT FOR LEFT DRAWER */}
-                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin}/>
+                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin} />
                   {/* COMPONENT FOR RIGHT DRAWER */}
-                  <CartDrawer cart={cart} setCart={setCart}/>
+                  <CartDrawer cart={cart} setCart={setCart} />
                 </>
               </Stack>
-              </Toolbar>
+            </Toolbar>
 
-              <Box sx={{width: '50%', margin: '0 auto'}}>
-                  <Box
-                  component="img"
-                  src="./global/CSHub_Dark.png"
-                  className="cshub-logo-container"
-                  sx={{ height: 200}}
-                ></Box>
-              </Box>
-              
-              {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
+            <Box sx={{ width: '50%', margin: '0 auto' }}>
+              <Box
+                component="img"
+                src="./global/CSHub_Dark.png"
+                className="cshub-logo-container"
+                sx={{ height: 200 }}
+              ></Box>
+            </Box>
+
+            {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
                 <>
                   <IconButton
                     className="navMenu"
@@ -147,32 +148,34 @@ export default function Merch() {
             </Button>
           </Box>
           <Stack direction='row'>
-            
+
           </Stack>
 
-          <div className="merch-container">
-            {(() => {
-              let list = [];
-              if (shopJSON ) {
-                for (let i = 0; i < shopJSON.length; i++) {
-                  list.push(
-                    <div className="merch-card">
-                      <CSCard 
-                        key={i}
-                        productState={ setProduct}
-                        onClick={() => setStates(i)} 
-                        data={shopJSON[i]} 
+          <Box display='flex' justifyContent='center'>
+            <Grid container rowSpacing={1} spacing={0} justifyContent='center' sx={{ width: '90%' }}>
+              {(() => {
+                let list = [];
+                if (shopJSON) {
+                  for (let i = 0; i < shopJSON.length; i++) {
+                    list.push(
+                      <Grid uhd={4} fhd={4} tablet={6} mobile={12} display='flex' justifyContent='center'>
+                        <CSCard
+                          key={i}
+                          productState={setProduct}
+                          onClick={() => setStates(i)}
+                          data={shopJSON[i]}
                         />
-                    </div>
-                  );
+                      </Grid>
+                    );
+                  }
                 }
-              }
-              return list;
-            })()}
-          </div>
+                return list;
+              })()}
+            </Grid>
+          </Box>
 
           <ProductPopup
-            product={ userActive }
+            product={userActive}
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
@@ -182,8 +185,8 @@ export default function Merch() {
           </ProductPopup>
 
           <Login trigger={openLogin} onClick={() => setOpenLogin(!openLogin)}></Login>
-          </>
-        }
+        </>
+      }
     </>
   );
 }

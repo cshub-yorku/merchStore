@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import Merch from "./Merch";
 import Footer from "./Footer";
 import Home from "./Home";
+import Payment from "./Payment";
 import Checkout from "./Checkout";
 import { dark_Theme, light_Theme } from "./themes";
 import { Route, Routes } from "react-router-dom";
@@ -17,7 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Merch />} />
           <Route path="/csshop" element={<Merch />} />
-          <Route path="/product" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout/payment" element={<Payment />} />
         </Routes>
 
         <div className='footer-section'>

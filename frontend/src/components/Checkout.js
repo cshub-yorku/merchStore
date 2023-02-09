@@ -1,7 +1,8 @@
 import React, { useState, useEffect} from 'react'
 import { Divider, Stack, Box, Grid, Button, Typography, TextField, MenuItem, FormControl, InputLabel, Select} from '@mui/material'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 const linkStyle = {
     textDecoration: 'none',
     fontSize: '1.25rem',
@@ -9,6 +10,7 @@ const linkStyle = {
 };
 
 export default function Checkout() {
+    const navigate = useNavigate();
     let location = useLocation();
     const cart = location.state.cart;
     const [ age, setAge ] = useState('');
@@ -96,7 +98,10 @@ export default function Checkout() {
                             <Button sx={{padding: '1rem', fontSize: '1rem'}}>Return to Cart</Button>
                         </Box>
                         <Box sx={{marginLeft: 'auto'}}>
-                            <Button variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}>Continue to Shipping</Button> 
+                            <Button onClick={ ()=> navigate('./payment', {state: {cart: cart}})}
+                                    variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}>
+                                        Continue to Shipping
+                            </Button> 
                         </Box>
                     </Grid>
                     </Grid>

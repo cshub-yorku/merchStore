@@ -4,7 +4,8 @@ import { create } from "@mui/material/styles/createTransitions";
 
 const coreTheme = createTheme({
   typography: {
-    fontFamily: ["IBM Plex Mono"],
+    fontFamily: ["Inter"],
+    // fontFamily: ["IBM Plex Mono"],
     fontSize: '16px'
   },
   breakpoints: {

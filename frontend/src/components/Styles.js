@@ -19,7 +19,7 @@ export const button_black = {
 }
 
 export const button_theme = {
-    backgroundColor: "#2C3555",
+    backgroundColor: "background",
     color: '#FFF',
     '&:hover': {
         backgroundColor: '#FFF',

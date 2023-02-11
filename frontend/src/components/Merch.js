@@ -131,11 +131,13 @@ export default function Merch() {
             <img src="./global/stock.jpg"></img>
 
             <div className="merch-textboard">
+              <Typography variant="h5" sx={{fontWeight: 700}}>50% off of select merch items</Typography>
+              <Typography>Sale ends March 30th, 2023</Typography>
               <div className="merch-textboard-header">
-                50% off of select merch items
+                
               </div>
               <div className="merch-textboard-subheader">
-                Sale ends March 30th, 2023
+                
               </div>
             </div>
           </div>

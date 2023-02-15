@@ -4,6 +4,8 @@ import com.MerchStore.backend.Dao.UserAuthenticatorDao;
 import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.jwt.AuthenticationPayload.JwtResponse;
 import com.MerchStore.backend.jwt.AuthenticationPayload.LoginRequest;
+import com.MerchStore.backend.jwt.AuthenticationPayload.MessageResponse;
+import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
 import com.MerchStore.backend.jwt.JwtTokenProvider;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +36,10 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         String jwt = jwtTokenProvider.createToken(authentication);
 
         UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
@@ -49,13 +50,20 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUserId(),
-                userDetails.getUsername(),
                 userDetails.getEmail(),
                 new ArrayList<>()));
     }
 
-    // TODO SIGNUP Gateway
-    /*@PostMapping("/signup")
+    @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    }*/
+        if (dao.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }else{
+            signUpRequest.setPassword(encoder.encode(signUpRequest.getPassword()));
+            dao.save(signUpRequest);
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        }
+    }
 }

@@ -1,4 +1,4 @@
-CREATE TABLE ordered_items
+CREATE TABLE IF NOT EXISTS ordered_items
 (
     order_id bigint NOT NULL,
     price float NOT NULL,

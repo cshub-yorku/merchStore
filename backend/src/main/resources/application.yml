@@ -21,8 +21,8 @@ spring:
 
 merchstore:
   app:
-    jwtSecret: <SecretKeyHere>
-    jwtExpirationMs: 86400000
+    jwtSecret: $2a$10$ybpVe8oMXDNH8o63lez.NOB5dDXX4JCKvSCzQryyTI1u4M5gLzH3C
+    jwtExpirationMs: 1800000
 
 
   datasource:

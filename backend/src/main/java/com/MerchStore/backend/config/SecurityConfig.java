@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,8 +52,8 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests((requests) -> requests.requestMatchers("/v1/demo")/*.hasAnyRole(/*Plugin roles here as String)*/)
-                .formLogin((form) -> form.loginPage("/logn").permitAll()).logout(LogoutConfigurer::permitAll);
+                .authorizeHttpRequests((requests) -> requests.requestMatchers("/v1/auth/*").permitAll()/*.hasAnyRole(/*Plugin roles here as String)*/
+                        .anyRequest().authenticated());
 
         http.authenticationProvider(authenticationProvider());
 

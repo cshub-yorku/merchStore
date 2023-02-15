@@ -26,7 +26,8 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Users user = new Users(resultSet.getLong("user_id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getLong("phone_number"));
+                Users user = new Users(resultSet.getLong("user_id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"),
+                        resultSet.getString("phone_number"));
                 return Optional.of(user);
             }
         } catch (SQLException e) {
@@ -43,7 +44,7 @@ public class UsersDao implements Dao<Users> {
             Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while (resultSet.next()) {
-                Users user = new Users(resultSet.getLong("user_id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getLong("phone_number"));
+                Users user = new Users(resultSet.getLong("user_id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"), resultSet.getString("phone_number"));
                 resultList.add(user);
             }
         } catch (SQLException e) {
@@ -62,7 +63,7 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setLong(5, user.getPhoneNumber());
+            preparedStatement.setString(5, user.getPhoneNumber());
 
 
             return preparedStatement.executeUpdate() == 1;
@@ -81,7 +82,7 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setString(1, user.getFirstName());
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setLong(4, user.getPhoneNumber());
+            preparedStatement.setString(4, user.getPhoneNumber());
             preparedStatement.setLong(5, user.getUserId());
 
             return preparedStatement.executeUpdate() == 1;

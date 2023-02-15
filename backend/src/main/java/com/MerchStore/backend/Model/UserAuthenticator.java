@@ -6,14 +6,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class UserAuthenticator implements UserDetails {
-    private final String password;
+    private String password = null;
     private final String userEmail;
     private final long userId;
+    private Users userDetails;
 
-    public UserAuthenticator(String password, String userEmail, long userId) {
+    // Constructor used when retrieving user info from database
+    public UserAuthenticator(Users userDetails, String password){
         this.password = password;
-        this.userEmail = userEmail;
-        this.userId = userId;
+        this.userEmail = userDetails.getEmail();
+        this.userId = userDetails.getUserId();
+        this.userDetails = userDetails;
     }
 
 
@@ -34,22 +37,22 @@ public class UserAuthenticator implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public String getEmail() {
@@ -58,5 +61,9 @@ public class UserAuthenticator implements UserDetails {
 
     public long getUserId() {
         return userId;
+    }
+
+    public Users getUserDetails() {
+        return userDetails;
     }
 }

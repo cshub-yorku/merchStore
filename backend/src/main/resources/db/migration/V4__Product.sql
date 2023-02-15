@@ -1,4 +1,4 @@
-CREATE TABLE product
+CREATE TABLE IF NOT EXISTS product
 (
     product_id bigint NOT NULL,
     description text,

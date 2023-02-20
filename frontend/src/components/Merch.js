@@ -121,8 +121,10 @@ export default function Merch() {
           </AppBar>
           <div className="merch-header">
             <div>
-              <span className="var-color">var </span> store = "
-              <span className="ms-color">MerchStore</span>";
+              <Typography variant="h4" fontFamily={"IBM Plex Mono"} display="inline">
+                <Typography variant="h4" display="inline" sx={{color: "#ed6d11"}}>var </Typography> store = "
+                <Typography variant="h4" display="inline" sx={{color: "#624f82"}}>MerchStore</Typography>";
+              </Typography>
             </div>
           </div>
 
@@ -131,8 +133,8 @@ export default function Merch() {
             <img src="./global/stock.jpg"></img>
 
             <div className="merch-textboard">
-              <Typography variant="h5" sx={{fontWeight: 700}}>50% off of select merch items</Typography>
-              <Typography>Sale ends March 30th, 2023</Typography>
+              <Typography variant="h3" sx={{fontWeight: 700}}>50% off of select merch items</Typography>
+              <Typography variant="h4">Sale ends March 30th, 2023</Typography>
               <div className="merch-textboard-header">
                 
               </div>

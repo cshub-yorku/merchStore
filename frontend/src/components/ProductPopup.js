@@ -123,8 +123,8 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
             </Box>
 
             <Box>
-              <Typography variant="h1">{product.title}</Typography>
-              <Typography variant="h6" sx={{ lineHeight: "50%" }}>
+              <Typography variant="h3">{product.title}</Typography>
+              <Typography variant="body1" sx={{ lineHeight: "50%" }}>
                 ${product.price}
               </Typography>
               <Typography variant="h5">Size</Typography>

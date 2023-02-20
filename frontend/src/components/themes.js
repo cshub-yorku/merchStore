@@ -6,13 +6,13 @@ const coreTheme = createTheme({
   typography: {
     fontFamily: ["Inter"],
     // fontFamily: ["IBM Plex Mono"],
-    fontSize: '16px'
   },
   breakpoints: {
     values: {
       mobile: 0,
       tablet: 770,
-      fhd: 1600,
+      hd: 1200,
+      fhd: 1900,
       uhd: 2100
     }
   },
@@ -20,85 +20,87 @@ const coreTheme = createTheme({
 
 coreTheme.typography.h1 = {
   [coreTheme.breakpoints.up("tablet")]: {
-    fontSize: "6rem",
+    fontSize: "3.338rem",
+  },
+  [coreTheme.breakpoints.up("hd")]: {
+    fontSize: "3.338rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "9rem",
+    fontSize: "5.283rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "13.5rem",
+    fontSize: "7.013rem",
   },
   
 };
 coreTheme.typography.h2 = {
-  [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "3.75rem",
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "2.67rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "5.625rem",
+    fontSize: "4.042rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "8.4375rem",
+    fontSize: "5.261rem",
   },
   
 };
 coreTheme.typography.h3 = {
-  [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "3rem",
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "2.136rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "4.5rem",
+    fontSize: "3.095rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "6.75rem",
+    fontSize: "3.947rem",
   },
   
 };
 coreTheme.typography.h4 = {
-  [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "2.125rem",
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "1.709rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "3.1875rem",
+    fontSize: "2.372rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "4.79125rem",
+    fontSize: "2.961rem",
   },
-  
 };
 coreTheme.typography.h5 = {
-  [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "1.5rem",
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "1.368rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "2.25rem",
+    fontSize: "1.819rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "3.375rem",
+    fontSize: "2.221rem",
   },
   
 };
 coreTheme.typography.h6 = {
   [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "1.25rem",
+    fontSize: "1.094rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "1.875rem",
+    fontSize: "1.397rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "2.8125rem",
+    fontSize: "1.666rem",
   },
   
 };
 coreTheme.typography.body1 = {
   [coreTheme.breakpoints.down("tablet")]: {
-    fontSize: "1rem",
+    fontSize: "0.875rem",
   },
   [coreTheme.breakpoints.up("fhd")]: {
-    fontSize: "1.5rem",
+    fontSize: "1.074rem",
   },
   [coreTheme.breakpoints.up("uhd")]: {
-    fontSize: "2.25rem",
+    fontSize: "1.25rem",
   },
   
 };

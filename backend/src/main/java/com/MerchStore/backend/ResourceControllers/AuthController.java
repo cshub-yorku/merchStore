@@ -18,11 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/v1/auth")
-public class AuthController {
+public class AuthController extends ResponseHandler {
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -34,7 +35,7 @@ public class AuthController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping("/signin")
+    @GetMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -43,15 +44,13 @@ public class AuthController {
         String jwt = jwtTokenProvider.createToken(authentication);
 
         UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
-        //TODO configure roles here
-        /*List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());*/
+        List<String> roles = new ArrayList<>();
+        roles.add(userDetails.getRole().toString());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUserId(),
                 userDetails.getEmail(),
-                new ArrayList<>()));
+                roles));
     }
 
     @PostMapping("/signup")

@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class CartListDao implements Dao<CartList>{
+    private final long cart_id;
+
+    public CartListDao(long userId) {
+        this.cart_id = userId;
+    }
 
     @Override
     public Optional<CartList> get(long id) {
@@ -28,23 +33,27 @@ public class CartListDao implements Dao<CartList>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return Optional.empty();
     }
 
     @Override
     public List<CartList> getAll() {
-        String statement = "SELECT * FROM cart_list";
+        String statement = "SELECT * FROM cart_list where cart_id = ? ";
         LinkedList<CartList> resultList = new LinkedList<>();
         try{
             Connection connection = ConnectionManager.getConnection();
-            ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1,this.cart_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 CartList cart_list = new CartList(resultSet.getLong("cart_id"), resultSet.getLong("product_id"), resultSet.getInt("product_quantity"));
                 resultList.add(cart_list);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return resultList;
     }
@@ -62,6 +71,7 @@ public class CartListDao implements Dao<CartList>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
@@ -78,6 +88,7 @@ public class CartListDao implements Dao<CartList>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }
@@ -93,6 +104,7 @@ public class CartListDao implements Dao<CartList>{
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }

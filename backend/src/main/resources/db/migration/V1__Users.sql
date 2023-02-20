@@ -1,5 +1,5 @@
 Create SCHEMA IF NOT EXISTS merchstore;
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     user_id bigint NOT NULL ,
     first_name character varying(50) NOT NULL,

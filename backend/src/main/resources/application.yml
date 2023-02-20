@@ -13,6 +13,16 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
       ACCEPT_SINGLE_VALUE_AS_ARRAY: true
     default-property-inclusion: non_empty
+  security:
+    user:
+      password: Test12345
+    filter:
+      order: 10
+
+merchstore:
+  app:
+    jwtSecret: $2a$10$ybpVe8oMXDNH8o63lez.NOB5dDXX4JCKvSCzQryyTI1u4M5gLzH3C
+    jwtExpirationMs: 1800000
 
 
   datasource:

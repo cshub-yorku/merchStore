@@ -40,6 +40,7 @@ export default function Merch() {
   const [openPopup, setOpenPopup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [shopJSON, setShopJSON] = useState(false);
+  const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
 
   const setStates = (index) => {
@@ -157,7 +158,8 @@ export default function Merch() {
                   list.push(
                     <div className="merch-card">
                       <CSCard 
-                        key={i} 
+                        key={i}
+                        productState={ setProduct}
                         onClick={() => setStates(i)} 
                         data={shopJSON[i]} 
                         />

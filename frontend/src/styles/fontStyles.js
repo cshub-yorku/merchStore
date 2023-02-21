@@ -21,3 +21,11 @@ export const fontIBM = {
 export const fontInter = {
     fontFamily: "Inter"
 }
+
+export const fontJura = {
+    fontFamily: "Jura"
+}
+
+export const themeColor = {
+    color: "text.primary"
+}

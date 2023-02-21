@@ -12,22 +12,19 @@ import {
   Select,
   Typography,
   styled,
+  ButtonGroup,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
 import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import { button_black, select_menu_black, select_black } from "../styles/Styles";
+import { closeButton, productBuy, productBuyButton, productMain, productMainImage, productPrice, productPriceBox, productSubImage } from "../styles/ProductPopupStyles";
+import { bold, fontJura, themeColor } from "../styles/fontStyles";
 
-const Pic = styled(Box)({
-  width: "25%",
-  borderRadius: 4,
 
-  '&:hover': {
-    border: '1px solid',
-    borderColor: '#FFF',
-  }
-});
 
 export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
   const theme = useTheme();
@@ -78,58 +75,71 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
             <Box
               component="img"
               src={product.images[pic]}
-              sx={{ width: "60%", height: '65%', mb: 5, borderRadius: 7 }}
+              sx={productMainImage}
             ></Box>
             <Stack
               sx={{ width: "65%", borderRadius: 2 }}
               direction="row"
               justifyContent="space-evenly"
             >
-              <Pic
+              <Box
                 onMouseEnter={() => { setPic(1) }}
                 onMouseLeave={() => { setPic(mainPic) }}
                 component="img"
                 src={product.images[1]}
-              ></Pic>
-              <Pic
+                sx={productSubImage}
+              ></Box>
+              <Box
                 onMouseEnter={() => { setPic(2) }}
                 onMouseLeave={() => { setPic(mainPic) }}
                 component="img"
                 src={product.images[2]}
-              ></Pic>
-              <Pic
+                sx={productSubImage}
+              ></Box>
+              <Box
                 onMouseEnter={() => { setPic(3) }}
                 onMouseLeave={() => { setPic(mainPic) }}
                 component="img"
                 src={product.images[3]}
-              ></Pic>
+                sx={productSubImage}
+              ></Box>
             </Stack>
           </Stack>
           <Box
-            sx={{
-              bgcolor: theme.palette.primary.main,
-              width: "50%",
-              height: "100%",
-              border: "#FFFFFF",
-            }}
+            sx={productMain}
           >
-            <Box sx={{ position: 'absolute', right: '1px' }}>
+            <Box sx={closeButton}>
+
               <IconButton
-                sx={{ mr: "2%", mt: "2%", ml: "auto", color: "text.primary" }}
+                sx={themeColor}
                 onClick={onClick}
               >
                 <CloseIcon></CloseIcon>
               </IconButton>
             </Box>
+            <Typography variant="h3">{product.title}</Typography>
+            <hr />
+            <Typography variant="body1">{product.description}</Typography>
+            <Typography variant="body1" sx={bold}>Product Details:</Typography>
 
-            <Box>
-              <Typography variant="h3">{product.title}</Typography>
-              <Typography variant="body1" sx={{ lineHeight: "50%" }}>
-                ${product.price}
-              </Typography>
-              <Typography variant="h5">Size</Typography>
+            <List>
+              <ListItem>Adult Heavyweight Hoodie</ListItem>
+              <ListItem>70% Cotton, 30% Polyester</ListItem>
+              <ListItem>
+                <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
+              </ListItem>
+            </List>
 
-              <FormControl
+            <ToggleButtonGroup>
+              <ToggleButton>S</ToggleButton>
+              <ToggleButton>M</ToggleButton>
+              <ToggleButton>L</ToggleButton>
+            </ToggleButtonGroup>
+
+            <Typography variant="body1" color="gray"> ⓘ Size Guide </Typography>
+
+            {/* <FormControl
                 margin="normal"
                 sx={{ color: "#FFFFFF", width: "25%" }}
               >
@@ -138,9 +148,9 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
                   <MenuItem value={20}>Medium</MenuItem>
                   <MenuItem value={30}>Large</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
 
-              <Typography variant="h5">Quantity</Typography>
+            {/* <Typography variant="h5">Quantity</Typography>
 
               <FormControl
                 margin="normal"
@@ -158,37 +168,26 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
                   <MenuItem value={20}>2</MenuItem>
                   <MenuItem value={30}>3</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
 
-              <Box></Box>
+            <Box sx={productBuy}>
+              <Box sx={productPriceBox}>
+                <Typography variant="h5" sx={[bold, fontJura]}>{product.price}</Typography>
+              </Box>
               <Button
-                sx={button_black}
+                sx={[button_black, productBuyButton]}
                 onClick={() => cartHandler()}
                 variant="outlined"
               >
-                Add To Cart
+                <Typography variant="h6" sx={[bold, fontJura]}>Add To Cart</Typography>
               </Button>
-
-              <Typography variant="body1">{product.description}</Typography>
-              <Typography>Product Details:</Typography>
-
-              <List>
-                <ListItem>Adult Heavyweight Hoodie</ListItem>
-                <ListItem>70% Cotton, 30% Polyester</ListItem>
-                <ListItem>
-                  <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
-                </ListItem>
-              </List>
-
-              <Typography>
-                Shipping Info: Ships within 2-3 business days, available only in
-                Greater Toronto Area.
-              </Typography>
             </Box>
+
+
+            <Typography variant="body1" color="gray"> ⓘ Shipping Details </Typography>
           </Box>
-        </Stack>
-      </DialogContent>
-    </Dialog>
+      </Stack>
+    </DialogContent>
+    </Dialog >
     : "");
 }

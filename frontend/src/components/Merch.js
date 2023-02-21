@@ -17,6 +17,7 @@ import {
   Description,
 } from "@mui/icons-material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { bold, fontIBM } from "../styles/fontStyles";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -119,41 +120,47 @@ export default function Merch() {
                 </>
               </Stack> */}
           </AppBar>
-          <div className="merch-header">
-            <div>
-              <Typography variant="h4" fontFamily={"IBM Plex Mono"} display="inline">
-                <Typography variant="h4" display="inline" sx={{color: "#ed6d11"}}>var </Typography> store = "
-                <Typography variant="h4" display="inline" sx={{color: "#624f82"}}>MerchStore</Typography>";
+          <Box className="merch-header">
+            <Box>
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
+                <Typography variant="h4" display="inline" sx={ [bold, fontIBM, { color: "#ed6d11" }]}>var </Typography> store = "
+                <Typography variant="h4" display="inline" sx={ [bold, fontIBM, { color: "#624f82" }]}>MerchStore</Typography>";
               </Typography>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div className="merch-billboard-container">
-            <div className="opacity"></div>
+          <Box className="merch-billboard-container">
+            <Box className="opacity"></Box>
             <img src="./global/stock.jpg"></img>
 
-            <div className="merch-textboard">
-              <Typography variant="h3" sx={{fontWeight: 700}}>50% off of select merch items</Typography>
+            <Box className="merch-textboard">
+              <Typography variant="h3" sx={{ fontWeight: 700 }}>50% off of select merch items</Typography>
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>
-              <div className="merch-textboard-header">
-                
-              </div>
-              <div className="merch-textboard-subheader">
-                
-              </div>
-            </div>
-          </div>
+              <Box className="merch-textboard-header">
 
-          <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
-            <Button>
-              <Typography variant="h6" color="text.primary">
-                Price
-              </Typography>
-            </Button>
+              </Box>
+              <Box className="merch-textboard-subheader">
+
+              </Box>
+            </Box>
           </Box>
-          <Stack direction='row'>
 
-          </Stack>
+
+          {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+            <Typography>Sort</Typography>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
+              <Button>
+                <Typography variant="h6" color="text.primary">
+                  Price
+                </Typography>
+              </Button>
+              <Button>
+                <Typography variant="h6" color="text.primary">
+                  Type
+                </Typography>
+              </Button>
+            </Box>
+          </Box> */}
 
           <Box display='flex' justifyContent='center'>
             <Grid container rowSpacing={1} spacing={0} justifyContent='center' sx={{ width: '90%' }}>

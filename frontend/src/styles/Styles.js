@@ -1,28 +1,28 @@
 
 
 export const button_white = {
-    backgroundColor: "#FFF",
+    bgcolor: "#FFF",
     color: '#000',
     '&:hover': {
-        backgroundColor: '#000',
+        bgcolor: '#000',
         color: '#FFF'
     }
 }
 
 export const button_black = {
-    backgroundColor: "#000",
+    bgcolor: "#000",
     color: '#FFF',
     '&:hover': {
-        backgroundColor: '#FFF',
+        bgcolor: '#FFF',
         color: '#000'
     }
 }
 
 export const button_theme = {
-    backgroundColor: "background",
+    bgcolor: "#2C3555",
     color: '#FFF',
     '&:hover': {
-        backgroundColor: '#FFF',
+        bgcolor: '#FFF',
         color: '#000'
     }
 }

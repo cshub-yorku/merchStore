@@ -1,20 +1,36 @@
 
-export const cardStyle = {
+export const cardStyle = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
 
     width: '25vw',
     height: '25vw',
+    [theme.breakpoints.down("tablet")]: {
+        width: '90vw',
+        height: '90vw',
+    },
+    [theme.breakpoints.up("tablet")]: {
+        width: '33vw',
+        height: '33vw',
+    },
+    [theme.breakpoints.up("hd")]: {
+        width: '33vw',
+        height: '33vw',
+    },
+    [theme.breakpoints.up("fhd")]: {
+        width: '25vw',
+        height: '25vw',
+      },
 
     boxShadow: 4,
     backgroundColor: "#624F82",
     borderRadius: 2.5,
 
     mb: '10%'
-};
+});
 export const cardImage = {
-    width: '24vw',
-    height: '20vw',
+    width: '95%',
+    height: '80vw',
     mx: 'auto',
     mt: '2.5%',
     borderRadius: 2.5,
@@ -26,8 +42,8 @@ export const cardImage = {
 
 export const cardButton = {
     alignItems: 'center',
-    height: '2.4vw',
-    width: '12vw',
+    height: '70%',
+    width: '60%',
     ml: 'auto',
     mr: '5%',
     boxShadow: 4,
@@ -39,7 +55,7 @@ export const cardTextBox = {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    ml: '1vw'
+    ml: '1vw',
 }
 
 export const cardLabel = {
@@ -56,3 +72,8 @@ export const center = {
     justifyContent: "center",
     alignItems: "center",
 };
+
+export const cardNav = {
+    my: '4%',
+    height: '20hv',
+}

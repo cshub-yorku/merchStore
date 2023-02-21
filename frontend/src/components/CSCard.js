@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ProductPopup from "./ProductPopup";
-import { button_black, button_theme } from "./Styles";
+import { button_black, button_theme } from "../styles/Styles";
 import { fontSize } from "@mui/system";
-import { cardStyle, cardImage, cardTextBox, cardLabel, cardSubtitle, cardButton } from "../styles/cardSyles"
+import { cardStyle, cardImage, cardTextBox, cardLabel, cardSubtitle, cardButton, cardNav } from "../styles/cardSyles"
 
 export default function CSCard({ productState, data, src, onClick }) {
   //console.log(data)
@@ -20,17 +20,17 @@ export default function CSCard({ productState, data, src, onClick }) {
     <>
       <Card sx={cardStyle}>
         <Box component='img' src={images[0]} sx={cardImage}></Box>
-        <Box display='flex' alignItems='center' sx={{ height: '20hv', mt: '3%' }}>
+        <Box display='flex' alignItems='center' sx={cardNav}>
           <Box sx={cardTextBox}>
-            <Typography variant='body1' sx={cardLabel}>{title}</Typography>
-            <Typography variant='subtitle2' sx={cardSubtitle}>Type</Typography>
+            <Typography variant='h5' sx={cardLabel}>{title}</Typography>
+            <Typography variant='h6' sx={cardSubtitle}>Type</Typography>
           </Box>
           <Button
             onClick={() => { onClick(); productState(data) }}
             sx={[button_theme, cardButton]}
             variant="contained"
           >
-            C$ {price}
+            <Typography variant="h6" fontWeight={600}>C$ {price}</Typography>
           </Button>
         </Box>
       </Card>

@@ -17,7 +17,7 @@ import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
-import { button_black, select_menu_black, select_black } from "./Styles";
+import { button_black, select_menu_black, select_black } from "../styles/Styles";
 
 const Pic = styled(Box)({
   width: "25%",

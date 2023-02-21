@@ -109,13 +109,10 @@ export const dark_Theme = createTheme(coreTheme, {
 
   palette: {
     primary: {
-      light: "#FFFFFF",
       main: "#624F82",
-      dark: "#000000",
-      contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#000000",
+      main: "#2C3555",
     },
     background: "#2D2C42",
     text: {

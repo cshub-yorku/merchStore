@@ -5,7 +5,6 @@ import CartDrawer from "./CartDrawer";
 import Login from "./Login";
 import Signup from "./Signup";
 import NavSidebar from "./NavSidebar";
-import "../styles/Merch.css";
 import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PersonIcon from '@mui/icons-material/Person';
@@ -18,6 +17,7 @@ import {
 } from "@mui/icons-material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { bold, fontIBM } from "../styles/fontStyles";
+import { centerItem, merchBillboardContainer, merchBillboardImage, merchTextboard } from "../styles/MerchStyle";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -89,11 +89,10 @@ export default function Merch() {
               </Stack>
             </Toolbar>
 
-            <Box sx={{ width: '50%', margin: '0 auto' }}>
+            <Box sx={ [centerItem, { width: '50%', margin: '0 auto' }]}>
               <Box
                 component="img"
                 src="./global/CSHub_Dark.png"
-                className="cshub-logo-container"
                 sx={{ height: 200 }}
               ></Box>
             </Box>
@@ -120,28 +119,23 @@ export default function Merch() {
                 </>
               </Stack> */}
           </AppBar>
-          <Box className="merch-header">
-            <Box>
-              <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
-                <Typography variant="h4" display="inline" sx={ [bold, fontIBM, { color: "#ed6d11" }]}>var </Typography> store = "
-                <Typography variant="h4" display="inline" sx={ [bold, fontIBM, { color: "#624f82" }]}>MerchStore</Typography>";
-              </Typography>
-            </Box>
+          <Box sx={centerItem}>
+            <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, { color: "#ed6d11" }]}>var </Typography> store = "
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, { color: "#624f82" }]}>MerchStore</Typography>";
+            </Typography>
           </Box>
 
-          <Box className="merch-billboard-container">
-            <Box className="opacity"></Box>
-            <img src="./global/stock.jpg"></img>
+          <Box sx={merchBillboardContainer}>
+            <Box
+                component="img"
+                src="./global/stock.jpg"
+                sx={merchBillboardImage}
+              ></Box>
 
-            <Box className="merch-textboard">
+            <Box sx={merchTextboard}>
               <Typography variant="h3" sx={{ fontWeight: 700 }}>50% off of select merch items</Typography>
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>
-              <Box className="merch-textboard-header">
-
-              </Box>
-              <Box className="merch-textboard-subheader">
-
-              </Box>
             </Box>
           </Box>
 

@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { bold, fontIBM } from "../styles/fontStyles";
-import { centerItem, merchBillboardContainer, merchBillboardImage, merchTextboard } from "../styles/MerchStyle";
+import { centerItem, MerchAppBar, merchBillboardContainer, merchBillboardImage, merchColor, merchTextboard, MerchToolbar, varColor } from "../styles/MerchStyle";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -72,13 +72,9 @@ export default function Merch() {
           <AppBar
             position="relative"
             color="background"
-            sx={{
-              boxShadow: "none",
-              align: "center",
-              justifyItems: "center",
-            }}
+            sx={MerchAppBar}
           >
-            <Toolbar sx={{ position: 'absolute', top: '35%', left: '4vw' }}>
+            <Toolbar sx={MerchToolbar}>
               <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
                 <>
                   {/* COMPONENT FOR LEFT DRAWER */}
@@ -121,8 +117,8 @@ export default function Merch() {
           </AppBar>
           <Box sx={centerItem}>
             <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
-              <Typography variant="h4" display="inline" sx={[bold, fontIBM, { color: "#ed6d11" }]}>var </Typography> store = "
-              <Typography variant="h4" display="inline" sx={[bold, fontIBM, { color: "#624f82" }]}>MerchStore</Typography>";
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, varColor]}>var </Typography> store = "
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, merchColor]}>MerchStore</Typography>";
             </Typography>
           </Box>
 
@@ -134,7 +130,7 @@ export default function Merch() {
               ></Box>
 
             <Box sx={merchTextboard}>
-              <Typography variant="h3" sx={{ fontWeight: 700 }}>50% off of select merch items</Typography>
+              <Typography variant="h3" sx={bold}>50% off of select merch items</Typography>
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>
             </Box>
           </Box>

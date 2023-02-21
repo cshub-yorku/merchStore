@@ -29,3 +29,22 @@ export const merchTextboard = {
     textAlign: "center",
     color: "white",
 }
+
+export const MerchAppBar = {
+    boxShadow: "none",
+    align: "center",
+    justifyItems: "center",
+}
+
+export const varColor = {
+    color: "#ed6d11"
+}
+export const merchColor = {
+    color: "#624f82"
+}
+
+export const MerchToolbar = {
+    position: 'absolute',
+    top: '35%',
+    left: '4vw'
+}

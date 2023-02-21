@@ -63,7 +63,7 @@ public class UserAuthenticatorDao implements UserDetailsService {
     }
 
     public void save(SignupRequest user) {
-        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password,role) VALUES (?,?,?,?,?,?,?)";
+        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password,role,active) VALUES (?,?,?,?,?,?,?,?)";
 
         Connection connection = ConnectionManager.getConnection();
         try {
@@ -75,6 +75,8 @@ public class UserAuthenticatorDao implements UserDetailsService {
             preparedStatement.setString(5,user.getEmail());
             preparedStatement.setString(6,user.getPassword());
             preparedStatement.setString(7, UserRoles.Customer.toString());
+            preparedStatement.setBoolean(8, false);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

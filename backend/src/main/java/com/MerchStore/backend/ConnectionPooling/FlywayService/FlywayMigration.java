@@ -17,7 +17,7 @@ public class FlywayMigration {
         }*/
         // TODO Change parameters passed to dataSource to be from dbURI object
         Flyway flyway = Flyway.configure().
-                dataSource("jdbc:postgresql://localhost:5432/postgres","postgres","postgres")
+                dataSource("jdbc:postgresql://localhost:5432/postgres","postgres","#Bot098")
                 .schemas("merchstore").load();
         flyway.migrate();
     }

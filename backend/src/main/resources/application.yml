@@ -18,6 +18,17 @@ spring:
       password: Test12345
     filter:
       order: 10
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: infinityolympiad@gmail.com
+    password: #Torch12345
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 merchstore:
   app:
@@ -57,4 +68,6 @@ logging:
     org.springframework.security: DEBUG
     com.example: DEBUG
   file: app.log
+
+
   

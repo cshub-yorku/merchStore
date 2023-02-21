@@ -23,13 +23,16 @@ export const closeButton = {
     top: 2,
 }
 
-export const productMain = {
-    bgcolor: "#624F82",
-    width: "50%",
-    height: "100%",
-    border: "#FFFFFF",
-    px: '1%'
-}
+export const productMain = (theme) => (
+    {
+        bgcolor: theme.palette.primary.main,
+        // bgcolor: "#624F82",
+        width: "50%",
+        height: "100%",
+        border: "#FFFFFF",
+        px: '1%'
+    }
+)
 
 export const productPriceBox = {
     position: "absolute",

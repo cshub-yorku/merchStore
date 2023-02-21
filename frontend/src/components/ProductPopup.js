@@ -106,7 +106,7 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
             </Stack>
           </Stack>
           <Box
-            sx={productMain}
+            sx={productMain(theme)}
           >
             <Box sx={closeButton}>
 

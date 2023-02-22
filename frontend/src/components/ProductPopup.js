@@ -5,6 +5,7 @@ import {
   FormControl,
   IconButton,
   ImageList,
+  InputLabel,
   List,
   ListItem,
   MenuItem,
@@ -16,19 +17,21 @@ import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
+import { button_black, select_menu_black, select_black } from "../styles/Styles";
 import CartDrawer from "./CartDrawer";
 import { useNavigate } from "react-router-dom"
 
 const Pic = styled(Box)({
   width: "25%",
   borderRadius: 4,
-  
+
   '&:hover': {
     border: '1px solid',
     borderColor: '#FFF',
   }
 });
 
+export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
 export default function ProductPopup({trigger, onClick, product, cart, setCart}) {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -41,12 +44,12 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
   }
 
   const cartHandler = () => {
-    if (cart.length < 1){
+    if (cart.length < 1) {
       setCart([product]);
     } else {
-      setCart( outdatedCart => {
-        for(let i = 0; i < outdatedCart.length; i++){
-          if ( outdatedCart[i].id === product.id) {
+      setCart(outdatedCart => {
+        for (let i = 0; i < outdatedCart.length; i++) {
+          if (outdatedCart[i].id === product.id) {
             return outdatedCart;
           }
         }
@@ -56,7 +59,7 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
 
     
   }
-  return ( product ? 
+  return (product ?
     <Dialog
       open={trigger}
       maxWidth="xl"
@@ -132,8 +135,8 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
             </Box>
 
             <Box>
-              <Typography variant="h4">{product.title}</Typography>
-              <Typography variant="h6" sx={{ lineHeight: "50%"}}>
+              <Typography variant="h3">{product.title}</Typography>
+              <Typography variant="body1" sx={{ lineHeight: "50%" }}>
                 ${product.price}
               </Typography>
               <Typography variant="h5">Size</Typography>
@@ -153,12 +156,15 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
 
               <FormControl
                 margin="normal"
-                sx={{ color: "#FFFFFF", width: "15%" }}
+                sx={[select_black, { width: '15%'}]}
               >
+                <InputLabel>Quantity</InputLabel>
                 <Select
                   displayEmpty
                   id="product-quantity-select"
                   inputProps={{ "aria-label": "Without label" }}
+                  MenuProps={select_menu_black}
+                  // sx={select_base_black}
                 >
                   <MenuItem value={10}>1</MenuItem>
                   <MenuItem value={20}>2</MenuItem>
@@ -168,6 +174,9 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
 
               <Box></Box>
               <Button
+                sx={button_black}
+                onClick={() => cartHandler()}
+                variant="outlined"
                 sx={{
                   width: "100%",
                   my: 4,
@@ -181,15 +190,15 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
                 Add To Cart
               </Button>
 
-              <Typography>{product.description}</Typography>
+              <Typography variant="body1">{product.description}</Typography>
               <Typography>Product Details:</Typography>
 
               <List>
                 <ListItem>Adult Heavyweight Hoodie</ListItem>
                 <ListItem>70% Cotton, 30% Polyester</ListItem>
                 <ListItem>
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
                 </ListItem>
               </List>
 
@@ -202,5 +211,5 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
         </Stack>
       </DialogContent>
     </Dialog>
-  : "");
+    : "");
 }

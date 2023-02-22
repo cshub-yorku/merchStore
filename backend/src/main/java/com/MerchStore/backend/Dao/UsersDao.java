@@ -2,9 +2,6 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
 import com.MerchStore.backend.Model.Users;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

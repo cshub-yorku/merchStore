@@ -83,4 +83,22 @@ public class CartDao implements Dao<Cart>{
         }
         return false;
     }
+
+    public Optional<Cart> getCartByUserId(long id) {
+        String statement = "SELECT * FROM cart where user_id = ?";
+
+        try{
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
+                return Optional.of(cart);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
 }

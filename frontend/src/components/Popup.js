@@ -34,6 +34,7 @@ export default function Popup( { trigger, onClick }) {
 
         backgroundColor: "#C0BDDB",
     }
+    
     return ( trigger ? 
     <Box sx={box}>
         <Box onClick={onClick} sx={{width: "100%", height: '100%', minWidth: "100vw", backgroundColor: "rgba(0,0,0,0.8)", zIndex: "0",}}></Box>

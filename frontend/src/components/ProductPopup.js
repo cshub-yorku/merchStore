@@ -1,4 +1,6 @@
 import {
+  Grid, 
+  Container, 
   Button,
   Dialog,
   DialogContent,
@@ -65,6 +67,7 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
         sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
       >
         <Stack direction="row" sx={{ height: "100%", hight: "100%" }}>
+          {/* LEFT HALF */}
           <Stack
             sx={{
               width: "50%",
@@ -108,82 +111,85 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
               bgcolor: theme.palette.primary.main,
               width: "50%",
               height: "100%",
-              border: "#FFFFFF",
+              border: "#FFF",
             }}
           >
-            <Box sx={{ position: 'absolute', right: '1px' }}>
+            {/* <Box sx={{ position: 'absolute', right: '1px' }}>
               <IconButton
                 sx={{ mr: "2%", mt: "2%", ml: "auto", color: "text.primary" }}
                 onClick={onClick}
               >
                 <CloseIcon></CloseIcon>
               </IconButton>
-            </Box>
+            </Box> */}
 
-            <Box>
-              <Typography variant="h4">{product.title}</Typography>
-              <Typography variant="h6" sx={{ lineHeight: "50%"}}>
-                ${product.price}
-              </Typography>
-              <Typography variant="h5">Size</Typography>
+            {/* RIGHT HALF */}
+            <Box sx={{m: 2}}>
+              {/* Title */}
+              <Box>
+                <Typography variant="h4">{product.title}</Typography>
+                <Typography variant="h6" sx={{ lineHeight: "50%"}}>
+                  ${product.price}
+                </Typography>
+              </Box>
 
-              <FormControl
-                margin="normal"
-                sx={{ color: "#FFFFFF", width: "25%" }}
-              >
-                <Select displayEmpty id="product-size-select">
-                  <MenuItem value={10}>Small</MenuItem>
-                  <MenuItem value={20}>Medium</MenuItem>
-                  <MenuItem value={30}>Large</MenuItem>
-                </Select>
-              </FormControl>
+              {/* Size */}
+              <Box>
+                <Typography variant="h5">Size</Typography>
+                <Stack direction="row" spacing={1}>
+                  {(() => {
+                    let sizes = ["S", "M", "L"];
+                    let list = [];
+                    for(let i = 0; i < 3; i++){
+                      list.push(
+                        <Button>
+                          <Typography>{sizes[i]}</Typography>
+                        </Button>
+                      )
+                    }
+                    return list;
+                  })()}
+                </Stack>
+              </Box>
+              
+              <Box>
+                <Typography variant="h5">Quantity</Typography>
+                </Box>
 
-              <Typography variant="h5">Quantity</Typography>
+              <Box>
+              <Stack direction="row" spacing={1}>
+                <Button
+                  onClick={() => cartHandler()}
+                > 
+                  Add To Cart
+                </Button>
 
-              <FormControl
-                margin="normal"
-                sx={{ color: "#FFFFFF", width: "15%" }}
-              >
-                <Select
-                  displayEmpty
-                  id="product-quantity-select"
-                  inputProps={{ "aria-label": "Without label" }}
+                <Button
                 >
-                  <MenuItem value={10}>1</MenuItem>
-                  <MenuItem value={20}>2</MenuItem>
-                  <MenuItem value={30}>3</MenuItem>
-                </Select>
-              </FormControl>
+                  Buy Now
+                </Button>
+                </Stack>
+              </Box>
+                
+              <Box>
+                <Typography>{product.description}</Typography>
+                <Typography>Product Details:</Typography>
 
-              <Box></Box>
-              <Button
-                sx={{
-                  width: "100%",
-                  my: 4,
-                  width: "50%",
-                  height: 50
-                }}
-                onClick={() => cartHandler()}
-              >
-                Add To Cart
-              </Button>
+                <List>
+                  <ListItem>Adult Heavyweight Hoodie</ListItem>
+                  <ListItem>70% Cotton, 30% Polyester</ListItem>
+                  <ListItem>
+                    Washing Instructions: Wash 30C. Wash inside out like with
+                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  </ListItem>
+                </List>
 
-              <Typography>{product.description}</Typography>
-              <Typography>Product Details:</Typography>
+                <Typography>
+                  Shipping Info: Ships within 2-3 business days, available only in
+                  Greater Toronto Area.
+                </Typography>
+              </Box>
 
-              <List>
-                <ListItem>Adult Heavyweight Hoodie</ListItem>
-                <ListItem>70% Cotton, 30% Polyester</ListItem>
-                <ListItem>
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                </ListItem>
-              </List>
-
-              <Typography>
-                Shipping Info: Ships within 2-3 business days, available only in
-                Greater Toronto Area.
-              </Typography>
             </Box>
           </Box>
         </Stack>

@@ -51,7 +51,7 @@ public class Users {
     }
 
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
     public void setFirstName(String firstName) {

@@ -13,22 +13,22 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
       ACCEPT_SINGLE_VALUE_AS_ARRAY: true
     default-property-inclusion: non_empty
-  security:
-    user:
-      password: Test12345
-    filter:
-      order: 10
   mail:
     host: smtp.gmail.com
     port: 587
-    username: infinityolympiad@gmail.com
-    password: #Torch12345
+    username: cshubstore@gmail.com
+    password: pxfzzqfsaszshymt
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+
+security:
+  user:
+    name: admin
+    password: root
 
 merchstore:
   app:

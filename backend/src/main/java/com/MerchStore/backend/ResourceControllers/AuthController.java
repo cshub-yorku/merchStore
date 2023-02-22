@@ -17,10 +17,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,28 +46,53 @@ public class AuthController extends ResponseHandler {
     @Autowired
     VerifyUserDao secondDao;
     @Autowired
+    UsersDao activeDao;
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;
-    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public AuthController(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @GetMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtTokenProvider.createToken(authentication);
+        Optional<Users> optionalActiveStatus = activeDao.getByEmail(loginRequest.getEmail());
 
-        UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
-        List<String> roles = new ArrayList<>();
-        roles.add(userDetails.getRole().toString());
+        if (optionalActiveStatus.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Please Signup first!"));
+        }else {
+            Users user = optionalActiveStatus.get();
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getUserId(),
-                userDetails.getEmail(),
-                roles));
+            if (user.isActive()) {
+
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                String jwt = jwtTokenProvider.createToken(authentication);
+
+                UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
+                List<String> roles = new ArrayList<>();
+                roles.add(userDetails.getRole().toString());
+
+                return ResponseEntity.ok(new JwtResponse(jwt,
+                        userDetails.getUserId(),
+                        userDetails.getEmail(),
+                        roles));
+            }else{
+                return ResponseEntity
+                        .badRequest()
+                        .body(new MessageResponse("Error: Please verify your email!"));
+            }
+        }
     }
 
     @PostMapping("/signup")
@@ -108,7 +131,7 @@ public class AuthController extends ResponseHandler {
 
                 String siteURL = request.getRequestURL().toString();
 
-                String verifyURL = siteURL.replace(request.getServletPath(), "") + "/verify?code=" + verifyCode;
+                String verifyURL = "http://localhost:9000/v1/auth" + "/verify?code=" + verifyCode;
 
                 content = content.replace("[[URL]]", verifyURL);
 
@@ -122,7 +145,7 @@ public class AuthController extends ResponseHandler {
     }
 
     @GetMapping("/verify")
-    public String verifyUser(@PathVariable("code") String code) {
+    public String verifyUser(@RequestParam("code") String code) {
 
         boolean status = true;
 
@@ -131,14 +154,13 @@ public class AuthController extends ResponseHandler {
         if (optionalUserCode.isEmpty()) {
             status = false;
         } else {
-            UsersDao dao = new UsersDao();
-            Optional<Users> usersOptional = dao.get(optionalUserCode.get().getUserId());
+            Optional<Users> usersOptional = activeDao.get(optionalUserCode.get().getUserId());
             if(usersOptional.isEmpty()){
                 throw new UsernameNotFoundException("User not found");
             }else{
                 Users user = usersOptional.get();
                 user.setActive(true);
-                dao.update(user);
+                activeDao.update(user);
             }
         }
 

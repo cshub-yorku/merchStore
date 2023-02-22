@@ -76,7 +76,10 @@ export default function Checkout() {
 
                     <Grid sx={{display: 'flex', gridTemplateColumn: '1fr 2fr'}}>
                         <Box sx={{marginRight: 'auto'}}>
-                            <Button sx={{padding: '1rem', fontSize: '1rem'}}>Return to Cart</Button>
+                            <Button sx={{padding: '1rem', fontSize: '1rem'}} 
+                                    onClick={() => navigate('/')}>
+                                Return to Cart
+                            </Button>
                         </Box>
                         <Box sx={{marginLeft: 'auto'}}>
                             <Button variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}

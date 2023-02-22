@@ -1,6 +1,7 @@
 import {
   Grid, 
-  Container, 
+  ButtonGroup, 
+  Divider, 
   Button,
   Dialog,
   DialogContent,
@@ -132,11 +133,30 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
                   ${product.price}
                 </Typography>
               </Box>
+              <Divider sx={{my: 2}}/>
 
-              {/* Size */}
               <Box>
+              <Typography>Product Description:</Typography>
+                <Typography>{product.description}</Typography>
+
+                <Box sx={{my: 3}}>
+                <Typography>Product Details:</Typography>
+                <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                    Washing Instructions: Wash 30C. Wash inside out like with
+                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  </ListItem>
+                </List>
+                </Box>
+              </Box>
+             
+             <Divider sx={{my: 2}}/>
+             {/* Size */}
+                <Box>
                 <Typography variant="h5">Size</Typography>
-                <Stack direction="row" spacing={1}>
+                <ButtonGroup size="large" variant='outlined' aria-label="outlined button group">
                   {(() => {
                     let sizes = ["S", "M", "L"];
                     let list = [];
@@ -149,47 +169,25 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
                     }
                     return list;
                   })()}
-                </Stack>
+                </ButtonGroup>
+
+              <Typography>
+                Size Guide
+              </Typography>
               </Box>
-              
-              <Box>
-                <Typography variant="h5">Quantity</Typography>
-                </Box>
 
               <Box>
-              <Stack direction="row" spacing={1}>
-                <Button
-                  onClick={() => cartHandler()}
-                > 
+              <Stack direction="row" justifyContent="space-between" spacing={1} sx={{m: 2}}>
+                <Button onClick={() => cartHandler()} sx={{width: '60%', p: 2}}> 
                   Add To Cart
                 </Button>
 
-                <Button
-                >
+                <Button sx={{width: '30%'}}>
                   Buy Now
                 </Button>
                 </Stack>
               </Box>
-                
-              <Box>
-                <Typography>{product.description}</Typography>
-                <Typography>Product Details:</Typography>
-
-                <List>
-                  <ListItem>Adult Heavyweight Hoodie</ListItem>
-                  <ListItem>70% Cotton, 30% Polyester</ListItem>
-                  <ListItem>
-                    Washing Instructions: Wash 30C. Wash inside out like with
-                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                  </ListItem>
-                </List>
-
-                <Typography>
-                  Shipping Info: Ships within 2-3 business days, available only in
-                  Greater Toronto Area.
-                </Typography>
-              </Box>
-
+            
             </Box>
           </Box>
         </Stack>

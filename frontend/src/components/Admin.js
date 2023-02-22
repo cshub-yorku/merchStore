@@ -1,5 +1,7 @@
-import { Box } from '@mui/material';
-import React from 'react'
+import { Box, Typography,Button,IconButton } from '@mui/material';
+import React, { useState } from 'react'
+import Profile from "./Profile";
+import Address from "./Address";
 import "../styles/Admin.css";
 
 
@@ -12,23 +14,46 @@ export default function Admin() {
        backgroundColor: "#121212",
        marginLeft: "10vw",
        marginRight: "auto",
-       display: "flex",
-       justifyContent: "center",
-       alignItems: "center"}}>
+       
+       }}>
 
-          {/* <Box
-              sx={{
-                width: "15vw",
-                height: "10vh",
-                backgroundColor: 'primary.dark',
-                '&:hover': {
-                  backgroundColor: 'white';
-                },
-              }}
-            >
+            <Box className="container-info" sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              
+              flexDirection: "row",
+              alignItems: "center",
+              
+              width: '71vw',
+              height: "13rem",
+              marginLeft: "4vw",
+              marginTop: '1vw',
+              marginRight: "auto",
+             
 
+            }}>
+                  <Box className="account-info" sx={{
+                    fontSize: "1.5rem",
+                    fontWeight: "700",
+                    margin: "5px",
+                  }}> Account Details
 
-            </Box> */}
+                      <Profile/>
+                      
+                    </Box>
+                      
+                    <Box className="address-info" sx={{
+                    fontSize: "1.5rem",
+                    fontWeight: "700",
+                    margin: "5px",
+                  }}> Address
+                      <Address/>
+                      </Box>
+
+            
+
+            </Box>
+
             
       </Box>
     </>

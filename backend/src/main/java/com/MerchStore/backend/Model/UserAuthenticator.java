@@ -74,4 +74,5 @@ public class UserAuthenticator implements UserDetails {
     public UserRoles getRole(){
         return this.role;
     }
+
 }

@@ -11,7 +11,7 @@ public class ConnectionManager {
     static {
         dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres");
+        dataSource.setPassword("#Bot098");
         ArrayList<String> datasourceInit = new ArrayList<String>();
         datasourceInit.add("SET SCHEMA 'merchstore';");
         dataSource.setConnectionInitSqls(datasourceInit);

@@ -16,6 +16,8 @@ import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
+import CartDrawer from "./CartDrawer";
+import { useNavigate } from "react-router-dom"
 
 const Pic = styled(Box)({
   width: "25%",
@@ -28,9 +30,16 @@ const Pic = styled(Box)({
 });
 
 export default function ProductPopup({trigger, onClick, product, cart, setCart}) {
+  const navigate = useNavigate();
   const theme = useTheme();
   const mainPic = 0;
   const [pic, setPic] = useState(mainPic);
+  const cartFunc = () => {
+    cartHandler();
+    onClick();
+    navigate('./cartdrawer');
+  }
+
   const cartHandler = () => {
     if (cart.length < 1){
       setCart([product]);
@@ -44,6 +53,8 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
         return [...outdatedCart, product]
       })
     }
+
+    
   }
   return ( product ? 
     <Dialog
@@ -163,7 +174,9 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
                   width: "50%",
                   height: 50
                 }}
-                onClick={() => cartHandler()}
+                onClick={() => cartFunc()}
+                
+                
               >
                 Add To Cart
               </Button>

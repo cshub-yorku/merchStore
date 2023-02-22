@@ -13,7 +13,7 @@ import { createTheme } from "@mui/material";
 // })))
 let coreTheme = {
   typography: {
-    fontFamily: ["IBM Plex Mono"],
+    fontFamily: ["IBM Plex Sans"],
     h2: {
       fontSize: "3rem",
     },

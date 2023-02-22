@@ -1,5 +1,7 @@
 import { Box, Typography,Button,IconButton } from '@mui/material';
 import React, { useState } from 'react'
+import Profile from "./Profile";
+import Address from "./Address";
 import "../styles/Admin.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -77,77 +79,8 @@ export default function Admin() {
                     fontWeight: "700",
                     margin: "5px",
                   }}> Account Details
-                      <Box sx={{width: '20vw',
-                            height: "10rem",
-                            backgroundColor: "white",
-                            border: "none",
-                            borderRadius: "8px",
-                            marginTop: "15px",
-                            display: "flex",
-                            justifyContent:"center",
-                            alignItems:"flex-start",
-                            flexDirection:"column"
-                      }}>
 
-                        <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "2px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick={ ()=> navigate('/')}
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Name</Typography>
-
-
-                        <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "4px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick={ ()=> navigate('/')}
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Email</Typography>
-
-
-                        <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "4px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick={ ()=> navigate('/')}
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Number</Typography>
-
-                      
-                      </Box>
-
+                      <Profile/>
                       
                     </Box>
                       
@@ -156,41 +89,7 @@ export default function Admin() {
                     fontWeight: "700",
                     margin: "5px",
                   }}> Address
-                      <Box sx={{width: '20vw',
-                            height: "10rem",
-                            backgroundColor: "#121212",
-                           
-                            backgroundColor: "white",
-                            border: "none",
-                            borderRadius: "8px",
-                            marginTop: "15px",
-                            display: "flex",
-                            justifyContent:"center",
-                            alignItems:"flex-start",
-                            flexDirection:"column"
-                            
-                      }}>
-
-                    <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                        
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick={ ()=> navigate('/')}
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Address</Typography>
-                        
-                        
-                      </Box>
+                      <Address/>
                       </Box>
 
             

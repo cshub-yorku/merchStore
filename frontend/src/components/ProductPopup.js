@@ -38,13 +38,18 @@ import {
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
 
-export default function ProductPopup({
-  trigger,
-  onClick,
-  product,
-  cart,
-  setCart,
-}) {
+const Pic = styled(Box)({
+  width: "25%",
+  borderRadius: 4,
+
+  '&:hover': {
+    border: '1px solid',
+    borderColor: '#FFF',
+  }
+});
+
+export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
+  const navigate = useNavigate();
   const theme = useTheme();
   const mainPic = 0;
   const navigate = useNavigate();
@@ -207,28 +212,40 @@ export default function ProductPopup({
               ⓘ Size Guide
             </Typography>
 
-            <Box sx={productBuy}>
-              <Box sx={productPriceBox}>
-                <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
-                  {product.price}$
-                </Typography>
-              </Box>
-              <ButtonGroup sx={productBuyButton}>
-                <Button
-                  onClick={() => cartHandler()}
-                  variant="outlined"
-                  sx={[button_black, productBuyButton]}
-                >
-                  <Typography variant="body1" sx={[bold, fontJura]}>
-                    Add To Cart
-                  </Typography>
-                </Button>
-                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product"); console.log("Hi"); }}>
-                  <Typography variant="body1" sx={[bold, fontJura]}>
-                    Buy Now
-                  </Typography>
-                </Button>
-              </ButtonGroup>
+              <Box></Box>
+              <Button
+                
+                onClick={() => cartHandler()}
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  my: 4,
+                  width: "50%",
+                  height: 50, button_black
+                }}
+                
+                
+                
+              >
+                Add To Cart
+              </Button>
+
+              <Typography variant="body1">{product.description}</Typography>
+              <Typography>Product Details:</Typography>
+
+              <List>
+                <ListItem>Adult Heavyweight Hoodie</ListItem>
+                <ListItem>70% Cotton, 30% Polyester</ListItem>
+                <ListItem>
+                  <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
+                </ListItem>
+              </List>
+
+              <Typography>
+                Shipping Info: Ships within 2-3 business days, available only in
+                Greater Toronto Area.
+              </Typography>
             </Box>
 
             <Typography

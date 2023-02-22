@@ -5,8 +5,7 @@ import CartDrawer from "./CartDrawer";
 import Login from "./Login";
 import Signup from "./Signup";
 import NavSidebar from "./NavSidebar";
-import "../styles/Merch.css";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -16,6 +15,9 @@ import {
   PriceChange,
   Description,
 } from "@mui/icons-material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { bold, fontIBM } from "../styles/fontStyles";
+import { centerItem, MerchAppBar, merchBillboardContainer, merchBillboardImage, merchColor, merchTextboard, MerchToolbar, varColor } from "../styles/MerchStyle";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -30,7 +32,7 @@ const testProduct = {
     "./global/model3.jpg",
     "./global/model4.jpg",
   ],
-  name: "CSHub: Hacker’s Black Shirt",
+  title: "CSHub: Hacker’s Black Shirt",
   price: 25.0,
   description: "The best Black shirt from CSHub",
 };
@@ -48,16 +50,16 @@ export default function Merch() {
     setUserActive(shopJSON[index]);
   }
 
-  useEffect( () => {
+  useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')
-    .then(res=>res.json())
-    .then(json=> {
-      // console.log(json);
-      setShopJSON(json)
-    })
+      .then(res => res.json())
+      .then(json => {
+        //console.log(json);
+        setShopJSON(json)
+      })
   }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     setUserActive(shopJSON[0])
   }, [shopJSON])
 
@@ -70,33 +72,28 @@ export default function Merch() {
           <AppBar
             position="relative"
             color="background"
-            sx={{
-              boxShadow: "none",
-              align: "center",
-              justifyItems: "center",
-            }}
+            sx={MerchAppBar}
           >
-            <Toolbar sx={{position: 'absolute', top: '35%', left: '4vw'}}>
+            <Toolbar sx={MerchToolbar}>
               <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
                 <>
                   {/* COMPONENT FOR LEFT DRAWER */}
-                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin}/>
+                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin} />
                   {/* COMPONENT FOR RIGHT DRAWER */}
-                  <CartDrawer cart={cart} setCart={setCart}/>
+                  <CartDrawer cart={cart} setCart={setCart} />
                 </>
               </Stack>
-              </Toolbar>
+            </Toolbar>
 
-              <Box sx={{width: '50%', margin: '0 auto'}}>
-                  <Box
-                  component="img"
-                  src="./global/CSHub_Dark.png"
-                  className="cshub-logo-container"
-                  sx={{ height: 200}}
-                ></Box>
-              </Box>
-              
-              {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
+            <Box sx={ [centerItem, { width: '50%', margin: '0 auto' }]}>
+              <Box
+                component="img"
+                src="./global/CSHub_Dark.png"
+                sx={{ height: 200 }}
+              ></Box>
+            </Box>
+
+            {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
                 <>
                   <IconButton
                     className="navMenu"
@@ -118,61 +115,68 @@ export default function Merch() {
                 </>
               </Stack> */}
           </AppBar>
-          <div className="merch-header">
-            <div>
-              <span className="var-color">var </span> store = "
-              <span className="ms-color">MerchStore</span>";
-            </div>
-          </div>
-
-          <div className="merch-billboard-container">
-            <div className="opacity"></div>
-            <img src="./global/stock.jpg"></img>
-
-            <div className="merch-textboard">
-              <div className="merch-textboard-header">
-                50% off of select merch items
-              </div>
-              <div className="merch-textboard-subheader">
-                Sale ends March 30th, 2023
-              </div>
-            </div>
-          </div>
-
-          <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
-            <Button>
-              <Typography variant="h6" color="text.primary">
-                Price
-              </Typography>
-            </Button>
+          <Box sx={centerItem}>
+            <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, varColor]}>var </Typography> store = "
+              <Typography variant="h4" display="inline" sx={[bold, fontIBM, merchColor]}>MerchStore</Typography>";
+            </Typography>
           </Box>
-          <Stack direction='row'>
-            
-          </Stack>
 
-          <div className="merch-container">
-            {(() => {
-              let list = [];
-              if (shopJSON ) {
-                for (let i = 0; i < 8; i++) {
-                  list.push(
-                    <div className="merch-card">
-                      <CSCard 
-                        key={i}
-                        productState={ setProduct}
-                        onClick={() => setStates(i)} 
-                        data={shopJSON[i]} 
+          <Box sx={merchBillboardContainer}>
+            <Box
+                component="img"
+                src="./global/stock.jpg"
+                sx={merchBillboardImage}
+              ></Box>
+
+            <Box sx={merchTextboard}>
+              <Typography variant="h3" sx={bold}>50% off of select merch items</Typography>
+              <Typography variant="h4">Sale ends March 30th, 2023</Typography>
+            </Box>
+          </Box>
+
+
+          {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+            <Typography>Sort</Typography>
+            <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
+              <Button>
+                <Typography variant="h6" color="text.primary">
+                  Price
+                </Typography>
+              </Button>
+              <Button>
+                <Typography variant="h6" color="text.primary">
+                  Type
+                </Typography>
+              </Button>
+            </Box>
+          </Box> */}
+
+          <Box display='flex' justifyContent='center'>
+            <Grid container rowSpacing={1} spacing={0} justifyContent='center' sx={{ width: '90%' }}>
+              {(() => {
+                let list = [];
+                if (shopJSON) {
+                  for (let i = 0; i < shopJSON.length; i++) {
+                    list.push(
+                      <Grid uhd={4} fhd={4} tablet={6} mobile={12} display='flex' justifyContent='center'>
+                        <CSCard
+                          key={i}
+                          productState={setProduct}
+                          onClick={() => setStates(i)}
+                          data={shopJSON[i]}
                         />
-                    </div>
-                  );
+                      </Grid>
+                    );
+                  }
                 }
-              }
-              return list;
-            })()}
-          </div>
+                return list;
+              })()}
+            </Grid>
+          </Box>
 
           <ProductPopup
-            product={ userActive }
+            product={userActive}
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
@@ -182,8 +186,8 @@ export default function Merch() {
           </ProductPopup>
 
           <Login trigger={openLogin} onClick={() => setOpenLogin(!openLogin)}></Login>
-          </>
-        }
+        </>
+      }
     </>
   );
 }

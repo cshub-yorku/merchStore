@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { Divider, IconButton, Stack, Box, Grid, Button, Typography, TextField, MenuItem, FormControl, InputLabel, Select} from '@mui/material'
+import { Dialog, DialogContent, Divider, IconButton, Stack, Box, Grid, Button, Typography, TextField, MenuItem, FormControl, InputLabel, Select} from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -10,13 +10,15 @@ const linkStyle = {
 };
 
 export default function Checkout() {
+    const [trigger, setTrigger] = useState(false);
     const navigate = useNavigate();
     let location = useLocation();
     const cart = location.state.cart;
-    const [ age, setAge ] = useState('');
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+
+    const handleClose = () => {
+        setTrigger(prev => !prev);
+    }
+
     return (
     <>
         <Box sx={{width: '100vw', height: '100vh'}}>
@@ -77,7 +79,8 @@ export default function Checkout() {
                             <Button sx={{padding: '1rem', fontSize: '1rem'}}>Return to Cart</Button>
                         </Box>
                         <Box sx={{marginLeft: 'auto'}}>
-                            <Button variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}>
+                            <Button variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}
+                                    onClick={handleClose}>
                                         Place Order
                             </Button> 
                         </Box>
@@ -118,6 +121,38 @@ export default function Checkout() {
                 </Box>
             </Grid>
         </Box>
+        <Dialog open={trigger}
+        onClose={handleClose}
+        PaperProps={{
+            sx: {
+                bgcolor: "background",
+                width: "25vw",
+                height: "30vh",
+                borderRadius: "12px",
+            },
+        }}>
+            <DialogContent sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Grid container sx={{textAlign: 'center', width: '100%'}} direction='column' justifyContent='center' alignItems='center' rowSpacing={2}>
+                    <Grid item>
+                        <Typography variant='h4'>
+                            Your Order Was <br/> Successfully Placed!
+                        </Typography>
+                    </Grid>
+                    <Grid item sx={{width: '70%'}}>
+                        <Typography variant='h6'>
+                            You may head back to the home page or continue shopping!
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button onClick={() => navigate('/')}>
+                            <Typography>
+                                Home
+                            </Typography>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </DialogContent>
+        </Dialog>
     </>
     )
 }

@@ -62,7 +62,7 @@ export default function Merch() {
   }, [shopJSON])
 
   return (
-    <>
+    <Box sx={{marginBottom: '8%'}}>
       {!(shopJSON) && <div>Loading...</div>}
 
       {(shopJSON) &&
@@ -184,6 +184,6 @@ export default function Merch() {
           <Login trigger={openLogin} onClick={() => setOpenLogin(!openLogin)}></Login>
           </>
         }
-    </>
+    </Box>
   );
 }

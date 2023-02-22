@@ -16,7 +16,6 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Merch />} />
-          <Route path="/csshop" element={<Merch />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
 

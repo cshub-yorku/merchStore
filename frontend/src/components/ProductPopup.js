@@ -20,16 +20,30 @@ import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
-import { button_black, select_menu_black, select_black } from "../styles/Styles";
-import { closeButton, productBuy, productBuyButton, productMain, productMainImage, productPrice, productPriceBox, productSubImage } from "../styles/ProductPopupStyles";
+import { button_black, select_menu_black, select_black, toggle_button_black } from "../styles/Styles";
+import { closeButton, helperNotation, productBuy, productBuyButton, productMain, productMainImage, productPrice, productPriceBox, productSubImage, SizeButtonGroup, ToggleButtonSeparations } from "../styles/ProductPopupStyles";
 import { bold, fontJura, themeColor } from "../styles/fontStyles";
 
 
 
 export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
+
+
+  const [alignment, setAlignment] = React.useState('left');
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  }
+
   const theme = useTheme();
   const mainPic = 0;
+
   const [pic, setPic] = useState(mainPic);
+  const [size, setSize] = useState();
+  const handleSize = (event, newSize) => {
+    setSize(newSize);
+  }
+
   const cartHandler = () => {
     if (cart.length < 1) {
       setCart([product]);
@@ -131,13 +145,24 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
               </ListItem>
             </List>
 
-            <ToggleButtonGroup>
-              <ToggleButton>S</ToggleButton>
-              <ToggleButton>M</ToggleButton>
-              <ToggleButton>L</ToggleButton>
+            <ToggleButtonGroup
+              value={size}
+              exclusive
+              onChange={handleSize}
+              aria-label="size"
+              sx={SizeButtonGroup}>
+              <ToggleButton value="S" aria-label="small" sx={toggle_button_black}>
+                <Typography variant="h6">S</Typography>
+              </ToggleButton>
+              <ToggleButton value="M" aria-label="medium" sx={[toggle_button_black, ToggleButtonSeparations]}>
+                <Typography variant="h6">M</Typography>
+              </ToggleButton>
+              <ToggleButton value="L" aria-label="large" sx={toggle_button_black}>
+                <Typography variant="h6">L</Typography>
+              </ToggleButton>
             </ToggleButtonGroup>
 
-            <Typography variant="body1" color="gray"> ⓘ Size Guide </Typography>
+            <Typography variant="body1" sx={helperNotation}> ⓘ Size Guide </Typography>
 
             {/* <FormControl
                 margin="normal"
@@ -184,10 +209,10 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
             </Box>
 
 
-            <Typography variant="body1" color="gray"> ⓘ Shipping Details </Typography>
+            <Typography variant="body1" sx={helperNotation}> ⓘ Shipping Details </Typography>
           </Box>
-      </Stack>
-    </DialogContent>
+        </Stack>
+      </DialogContent>
     </Dialog >
     : "");
 }

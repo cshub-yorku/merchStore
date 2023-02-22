@@ -63,3 +63,28 @@ export const productBuyButton = {
     height: "100%",
     width: "100%"
 }
+
+export const ToggledButton = {
+
+}
+
+export const ToggleButtonSeparations = {
+    borderColor: 'white',
+    border: 0,
+    borderRight: 0,
+    borderLeft: 10,
+}
+
+export const SizeButtonGroup = {
+    width: '30%',
+    height: '7%',
+    "& .MuiToggleButtonGroup-grouped": {
+        width: '33%',
+    }
+}
+
+export const helperNotation = {
+    mt: '1%',
+    mb: '3%',
+    color: '#C8C8C8'
+}

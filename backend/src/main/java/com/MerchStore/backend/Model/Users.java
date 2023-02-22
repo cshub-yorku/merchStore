@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Model;
 
-public class User {
+public class Users {
 
     private final long userId;
 
@@ -10,9 +10,9 @@ public class User {
 
     private String email;
 
-    private int phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
+    private String phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
 
-    public User(long userId, String firstName, String lastName, String email, int phoneNumber){
+    public Users(long userId, String firstName, String lastName, String email, String phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +20,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(long userId, String firstName, String email, int phoneNumber){
+    public Users(long userId, String firstName, String email, String phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
         this.email = email;
@@ -43,7 +43,7 @@ public class User {
         return email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 }

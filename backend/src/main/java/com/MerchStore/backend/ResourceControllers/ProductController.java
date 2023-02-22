@@ -53,7 +53,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@RequestBody long id) {
+    public ResponseEntity<Product> getById(@PathVariable long id) {
         Optional<Product> product = ProductService.getById(id);
         if(product.isPresent()){
             return new ResponseEntity<>(product.get(), HttpStatus.OK);
@@ -65,7 +65,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/")
     public ResponseEntity<Product> deleteProduct(@RequestBody Product product) {
         if(ProductService.deleteProduct(product)){
             System.out.println("Product deleted successfully");

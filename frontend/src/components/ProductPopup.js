@@ -32,7 +32,6 @@ const Pic = styled(Box)({
 });
 
 export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
-export default function ProductPopup({trigger, onClick, product, cart, setCart}) {
   const navigate = useNavigate();
   const theme = useTheme();
   const mainPic = 0;
@@ -174,16 +173,16 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
 
               <Box></Box>
               <Button
-                sx={button_black}
+                
                 onClick={() => cartHandler()}
                 variant="outlined"
                 sx={{
                   width: "100%",
                   my: 4,
                   width: "50%",
-                  height: 50
+                  height: 50, button_black
                 }}
-                onClick={() => cartFunc()}
+                
                 
                 
               >

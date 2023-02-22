@@ -84,7 +84,7 @@ export default function CSCard({ productState, data, src, onClick }) {
               }}
             >
               <Button
-                onClick={()=>{onClick(); productState(data)}}
+                onClick={()=>{onClick(); /*productState(data)*/}}
                 sx={{
                   padding: "1rem",
                   fontSize: "1.15rem",

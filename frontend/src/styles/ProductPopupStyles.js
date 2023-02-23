@@ -77,7 +77,7 @@ export const ToggleButtonSeparations = {
 
 export const SizeButtonGroup = {
     width: '30%',
-    height: '7%',
+    height: '6%',
     "& .MuiToggleButtonGroup-grouped": {
         width: '33%',
     }
@@ -87,4 +87,11 @@ export const helperNotation = {
     mt: '1%',
     mb: '3%',
     color: '#C8C8C8'
+}
+
+export const ProductPopover = {
+    m: 1,
+    "& .MuiPaper-root": {
+        bgcolor: 'black'
+    }
 }

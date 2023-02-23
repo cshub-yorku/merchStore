@@ -86,3 +86,7 @@ export const select_black = {
         borderRadius: '3px'
     }
 }
+
+export const PopoverStyle = {
+    PointerEvent: 'none',
+}

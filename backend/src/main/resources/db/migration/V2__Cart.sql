@@ -1,4 +1,4 @@
-CREATE TABLE cart
+CREATE TABLE IF NOT EXISTS cart
 (
     cart_id bigint NOT NULL,
     user_id bigint NOT NULL,

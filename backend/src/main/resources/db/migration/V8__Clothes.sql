@@ -1,4 +1,4 @@
-CREATE TABLE clothes
+CREATE TABLE IF NOT EXISTS clothes
 (
     product_id bigint NOT NULL,
     colour character varying(50) NOT NULL,

@@ -1,4 +1,4 @@
-CREATE TABLE water_bottles
+CREATE TABLE IF NOT EXISTS water_bottles
 (
     product_id bigint NOT NULL,
     colour character varying(50) NOT NULL,

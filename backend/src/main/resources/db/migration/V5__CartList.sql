@@ -1,5 +1,5 @@
 
-CREATE TABLE cart_list
+CREATE TABLE IF NOT EXISTS cart_list
 (
     cart_id bigint NOT NULL,
     product_id bigint NOT NULL,

@@ -31,6 +31,7 @@ import {
 import {
   closeButton,
   helperNotation,
+  PopoverText,
   productBuy,
   productBuyButton,
   productMain,
@@ -238,7 +239,7 @@ export default function ProductPopup({
             <Typography
               variant="body1"
               sx={helperNotation}
-              aria-owns={shippingOpen ? 'mouse-over-popover' : undefined}
+              aria-owns={shippingOpen ? 'shippingP' : undefined}
               aria-haspopup="true"
               onMouseEnter={(event) => {
                 setShippingPopover(event.currentTarget);
@@ -250,10 +251,8 @@ export default function ProductPopup({
               ⓘ Shipping Details
             </Typography>
             <Popover
-              id="mouse-over-popover"
-              sx={{
-                pointerEvents: 'none',
-              }}
+              id="shippingP"
+              sx={[PopoverStyle, ProductPopover]}
               open={shippingOpen}
               anchorEl={shippingPopover}
               anchorOrigin={{
@@ -269,7 +268,7 @@ export default function ProductPopup({
               }}
               disableRestoreFocus
             >
-              <Typography variant="body1" sx={ProductPopover}>
+              <Typography variant="body1" sx={PopoverText}>
                 Ships within 2-3 business days, available only in Greater
                 Toronto Area.
               </Typography>

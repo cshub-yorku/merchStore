@@ -88,5 +88,5 @@ export const select_black = {
 }
 
 export const PopoverStyle = {
-    PointerEvent: 'none',
+    pointerEvents: 'none',
 }

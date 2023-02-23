@@ -90,8 +90,11 @@ export const helperNotation = {
 }
 
 export const ProductPopover = {
-    m: 1,
     "& .MuiPaper-root": {
-        bgcolor: 'black'
+        bgcolor: "#000"
     }
+}
+
+export const PopoverText = {
+    m: 1
 }

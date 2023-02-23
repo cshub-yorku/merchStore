@@ -22,9 +22,9 @@ public class JwtTokenProvider {
     private int jwtExpirationMs;
     
     public String createToken(Authentication authentication) {
-        // TODO INCLUDE ANY ROLES REQUIRED
         UserAuthenticator userPrincipal = (UserAuthenticator) authentication.getPrincipal();
         return Jwts.builder()
+                .claim("role",userPrincipal.getRole().toString())
                 .setSubject((userPrincipal.getEmail()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))

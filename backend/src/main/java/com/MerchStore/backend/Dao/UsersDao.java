@@ -2,8 +2,6 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
 import com.MerchStore.backend.Model.Users;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -14,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class UsersDao implements Dao<Users> {
 
     @Override
@@ -55,7 +54,7 @@ public class UsersDao implements Dao<Users> {
 
     @Override
     public boolean save(Users user) {
-        String statement = "INSERT INTO users values (?, ?, ?, ?, ?)";
+        String statement = "INSERT INTO users values (?, ?, ?, ?, ?, ?)";
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -64,7 +63,7 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setString(3, user.getLastName());
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getPhoneNumber());
-
+            preparedStatement.setBoolean(6, user.isActive());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
@@ -75,7 +74,7 @@ public class UsersDao implements Dao<Users> {
 
     @Override
     public boolean update(Users user) {
-        String statement = "UPDATE users set (first_name, last_name, email, phone_number) = (?, ?, ?, ?) where user_id = ?";
+        String statement = "UPDATE users set (first_name, last_name, email, phone_number, active) = (?, ?, ?, ?, ?) where user_id = ?";
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -83,7 +82,8 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPhoneNumber());
-            preparedStatement.setLong(5, user.getUserId());
+            preparedStatement.setBoolean(5, user.isActive());
+            preparedStatement.setLong(6, user.getUserId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
@@ -105,5 +105,24 @@ public class UsersDao implements Dao<Users> {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    public Optional<Users> getByEmail(String email) {
+        String statement = "SELECT * FROM users where email = ?";
+
+        try {
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Users user = new Users(resultSet.getLong("user_id"), resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("email"),
+                        resultSet.getString("phone_number"), resultSet.getBoolean("active"));
+                return Optional.of(user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
     }
 }

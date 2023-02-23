@@ -21,7 +21,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody Users user) {
         boolean updated = UserService.updateUser(user);
         if (updated) {

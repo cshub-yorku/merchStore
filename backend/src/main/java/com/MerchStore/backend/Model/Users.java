@@ -1,5 +1,8 @@
 package com.MerchStore.backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Users {
 
     private final long userId;
@@ -14,7 +17,8 @@ public class Users {
 
     private boolean active;
 
-    public Users(long userId, String firstName, String lastName, String email, String phoneNumber){
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public Users(@JsonProperty("userId") long userId, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("email") String email, @JsonProperty("phoneNumber") String phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;

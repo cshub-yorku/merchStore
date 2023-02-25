@@ -35,33 +35,6 @@ merchstore:
     jwtSecret: $2a$10$ybpVe8oMXDNH8o63lez.NOB5dDXX4JCKvSCzQryyTI1u4M5gLzH3C
     jwtExpirationMs: 1800000
 
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
-    cachePrepStmts: true
-    prepStmtCacheSize: 250
-    prepStmtCacheSqlLimit: 2048
-    useServerPrepStmts: true
-
-  jpa:
-    openInView: false
-    show_sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      # fixes Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
-      hibernate.jdbc.lob.non_contextual_creation: true
-
-  data:
-    jpa:
-      repositories.enabled: true
-  sql:
-    init:
-      schema-locations: merchstore
-
 logging:
   level:
     org.springframework.web: INFO

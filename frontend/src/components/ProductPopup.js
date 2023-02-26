@@ -1,4 +1,7 @@
 import {
+  Grid, 
+  ButtonGroup, 
+  Divider, 
   Button,
   Dialog,
   DialogContent,
@@ -67,6 +70,7 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
         sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
       >
         <Stack direction="row" sx={{ height: "100%", hight: "100%" }}>
+          {/* LEFT HALF */}
           <Stack
             sx={{
               width: "50%",
@@ -110,81 +114,83 @@ export default function ProductPopup({ trigger, onClick, product, cart, setCart 
               bgcolor: theme.palette.primary.main,
               width: "50%",
               height: "100%",
-              border: "#FFFFFF",
+              border: "#FFF",
             }}
           >
-            <Box sx={{ position: 'absolute', right: '1px' }}>
+            {/* <Box sx={{ position: 'absolute', right: '1px' }}>
               <IconButton
                 sx={{ mr: "2%", mt: "2%", ml: "auto", color: "text.primary" }}
                 onClick={onClick}
               >
                 <CloseIcon></CloseIcon>
               </IconButton>
-            </Box>
+            </Box> */}
 
-            <Box>
-              <Typography variant="h3">{product.title}</Typography>
-              <Typography variant="body1" sx={{ lineHeight: "50%" }}>
-                ${product.price}
-              </Typography>
-              <Typography variant="h5">Size</Typography>
+            {/* RIGHT HALF */}
+            <Box sx={{m: 2}}>
+              {/* Title */}
+              <Box>
+                <Typography variant="h4">{product.title}</Typography>
+                <Typography variant="h6" sx={{ lineHeight: "50%"}}>
+                  ${product.price}
+                </Typography>
+              </Box>
+              <Divider sx={{my: 2}}/>
 
-              <FormControl
-                margin="normal"
-                sx={{ color: "#FFFFFF", width: "25%" }}
-              >
-                <Select displayEmpty id="product-size-select">
-                  <MenuItem value={10}>Small</MenuItem>
-                  <MenuItem value={20}>Medium</MenuItem>
-                  <MenuItem value={30}>Large</MenuItem>
-                </Select>
-              </FormControl>
+              <Box>
+              <Typography>Product Description:</Typography>
+                <Typography>{product.description}</Typography>
 
-              <Typography variant="h5">Quantity</Typography>
 
-              <FormControl
-                margin="normal"
-                sx={[select_black, { width: '15%'}]}
-              >
-                <InputLabel>Quantity</InputLabel>
-                <Select
-                  displayEmpty
-                  id="product-quantity-select"
-                  inputProps={{ "aria-label": "Without label" }}
-                  MenuProps={select_menu_black}
-                  // sx={select_base_black}
-                >
-                  <MenuItem value={10}>1</MenuItem>
-                  <MenuItem value={20}>2</MenuItem>
-                  <MenuItem value={30}>3</MenuItem>
-                </Select>
-              </FormControl>
-
-              <Box></Box>
-              <Button
-                sx={button_black}
-                onClick={() => cartHandler()}
-                variant="outlined"
-              >
-                Add To Cart
-              </Button>
-
-              <Typography variant="body1">{product.description}</Typography>
-              <Typography>Product Details:</Typography>
-
-              <List>
-                <ListItem>Adult Heavyweight Hoodie</ListItem>
-                <ListItem>70% Cotton, 30% Polyester</ListItem>
-                <ListItem>
-                  <Typography variant="body1">Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.</Typography>
-                </ListItem>
-              </List>
+                <Box sx={{my: 3}}>
+                <Typography>Product Details:</Typography>
+                <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                    Washing Instructions: Wash 30C. Wash inside out like with
+                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  </ListItem>
+                </List>
+                </Box>
+              </Box>
+             
+             <Divider sx={{my: 2}}/>
+             {/* Size */}
+                <Box>
+                <Typography variant="h5">Size</Typography>
+                <ButtonGroup size="large" variant='outlined' aria-label="outlined button group">
+                  {(() => {
+                    let sizes = ["S", "M", "L"];
+                    let list = [];
+                    for(let i = 0; i < 3; i++){
+                      list.push(
+                        <Button>
+                          <Typography>{sizes[i]}</Typography>
+                        </Button>
+                      )
+                    }
+                    return list;
+                  })()}
+                </ButtonGroup>
 
               <Typography>
-                Shipping Info: Ships within 2-3 business days, available only in
-                Greater Toronto Area.
+                Size Guide
               </Typography>
+              </Box>
+
+              <Box>
+              <Stack direction="row" justifyContent="space-between" spacing={1} sx={{m: 2}}>
+                <Button onClick={() => cartHandler()} sx={{width: '60%', p: 2}}> 
+                  Add To Cart
+                </Button>
+
+                <Button sx={{width: '30%'}}>
+                  Buy Now
+                </Button>
+                </Stack>
+              </Box>
+            
             </Box>
           </Box>
         </Stack>

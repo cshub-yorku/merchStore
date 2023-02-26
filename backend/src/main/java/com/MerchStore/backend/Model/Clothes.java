@@ -4,15 +4,15 @@ public class Clothes {
 
     private final long productId;
 
-    private String color;
+    private String colour;
 
     private String size;
 
     private final String sex;
 
-    public Clothes(long productId, String color, String sex, String size){
+    public Clothes(long productId, String colour, String sex, String size){
         this.productId = productId;
-        this.color = color;
+        this.colour = colour;
         this.sex = sex;
         this.size = size;
     }
@@ -28,7 +28,7 @@ public class Clothes {
         return size;
     }
 
-    public String getColor() {
-        return color;
+    public String getColour() {
+        return colour;
     }
 }

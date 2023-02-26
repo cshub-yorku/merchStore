@@ -8,6 +8,7 @@ import {
   FormControl,
   IconButton,
   ImageList,
+  InputLabel,
   List,
   ListItem,
   MenuItem,
@@ -19,28 +20,29 @@ import { Box, Stack, display, palette } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
+import { button_black, select_menu_black, select_black } from "../styles/Styles";
 
 const Pic = styled(Box)({
   width: "25%",
   borderRadius: 4,
-  
+
   '&:hover': {
     border: '1px solid',
     borderColor: '#FFF',
   }
 });
 
-export default function ProductPopup({trigger, onClick, product, cart, setCart}) {
+export default function ProductPopup({ trigger, onClick, product, cart, setCart }) {
   const theme = useTheme();
   const mainPic = 0;
   const [pic, setPic] = useState(mainPic);
   const cartHandler = () => {
-    if (cart.length < 1){
+    if (cart.length < 1) {
       setCart([product]);
     } else {
-      setCart( outdatedCart => {
-        for(let i = 0; i < outdatedCart.length; i++){
-          if ( outdatedCart[i].id === product.id) {
+      setCart(outdatedCart => {
+        for (let i = 0; i < outdatedCart.length; i++) {
+          if (outdatedCart[i].id === product.id) {
             return outdatedCart;
           }
         }
@@ -48,7 +50,7 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
       })
     }
   }
-  return ( product ? 
+  return (product ?
     <Dialog
       open={trigger}
       maxWidth="xl"
@@ -139,6 +141,7 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
               <Typography>Product Description:</Typography>
                 <Typography>{product.description}</Typography>
 
+
                 <Box sx={{my: 3}}>
                 <Typography>Product Details:</Typography>
                 <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
@@ -193,5 +196,5 @@ export default function ProductPopup({trigger, onClick, product, cart, setCart})
         </Stack>
       </DialogContent>
     </Dialog>
-  : "");
+    : "");
 }

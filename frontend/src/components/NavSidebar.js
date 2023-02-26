@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import "../styles/NavSidebar.css";
 import { IconButton, Typography, Drawer, Box } from "@mui/material";
 import { Dehaze, Groups, Title } from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';

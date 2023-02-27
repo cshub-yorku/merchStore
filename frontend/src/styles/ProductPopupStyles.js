@@ -49,7 +49,6 @@ export const productPriceBox = {
 }
 
 export const productPriceText = {
-
 }
 
 export const productBuy = {

@@ -1,30 +1,22 @@
 import {
-  Button,
   Dialog,
   DialogContent,
-  FormControl,
   IconButton,
-  ImageList,
-  InputLabel,
   List,
   ListItem,
-  MenuItem,
-  Select,
   Typography,
-  styled,
-  ButtonGroup,
   ToggleButtonGroup,
   ToggleButton,
   Popover,
+  ButtonGroup,
+  Button,
 } from "@mui/material";
-import { Box, Stack, display, palette } from "@mui/system";
-import React, { useEffect, useState } from "react";
+import { Box, Stack } from "@mui/system";
+import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import {
   button_black,
-  select_menu_black,
-  select_black,
   toggle_button_black,
   PopoverStyle,
 } from "../styles/Styles";
@@ -37,13 +29,14 @@ import {
   productMain,
   productMainImage,
   ProductPopover,
-  productPrice,
   productPriceBox,
+  productPriceText,
   productSubImage,
   SizeButtonGroup,
   ToggleButtonSeparations,
 } from "../styles/ProductPopupStyles";
-import { bold, fontJura, themeColor } from "../styles/fontStyles";
+import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
+import { useNavigate } from "react-router";
 
 export default function ProductPopup({
   trigger,
@@ -54,6 +47,7 @@ export default function ProductPopup({
 }) {
   const theme = useTheme();
   const mainPic = 0;
+  const navigate = useNavigate();
 
   const [pic, setPic] = useState(mainPic);
   const [shippingPopover, setShippingPopover] = useState(null);
@@ -160,7 +154,7 @@ export default function ProductPopup({
                 <CloseIcon></CloseIcon>
               </IconButton>
             </Box>
-            <Typography variant="h3">{product.title}</Typography>
+            <Typography variant="h3" sx={[medium, fontJura]}>{product.title}</Typography>
             <hr />
             <Typography variant="body1">{product.description}</Typography>
             <Typography variant="body1" sx={bold}>
@@ -214,12 +208,12 @@ export default function ProductPopup({
 
             <Box sx={productBuy}>
               <Box sx={productPriceBox}>
-                <Typography variant="h5" sx={[bold, fontJura]}>
+                <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
                   {product.price}$
                 </Typography>
               </Box>
-              <ToggleButtonGroup sx={productBuyButton}>
-                <ToggleButton
+              <ButtonGroup sx={productBuyButton}>
+                <Button
                   onClick={() => cartHandler()}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
@@ -227,13 +221,13 @@ export default function ProductPopup({
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Add To Cart
                   </Typography>
-                </ToggleButton>
-                <ToggleButton sx={[button_black, productBuyButton]}>
+                </Button>
+                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product"); console.log("Hi"); }}>
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Buy Now
                   </Typography>
-                </ToggleButton>
-              </ToggleButtonGroup>
+                </Button>
+              </ButtonGroup>
             </Box>
 
             <Typography

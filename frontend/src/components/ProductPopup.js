@@ -95,6 +95,7 @@ export default function ProductPopup({
         sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
       >
         <Stack direction="row" sx={{ height: "100%", hight: "100%" }}>
+          {/* LEFT HALF */}
           <Stack
             sx={{
               width: "50%",
@@ -162,14 +163,14 @@ export default function ProductPopup({
             </Typography>
 
             <List>
-              <ListItem>Adult Heavyweight Hoodie</ListItem>
-              <ListItem>70% Cotton, 30% Polyester</ListItem>
-              <ListItem>
-                <Typography variant="body1">
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                </Typography>
-              </ListItem>
+              <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                    Washing Instructions: Wash 30C. Wash inside out like with
+                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  </ListItem>
+                </List>
             </List>
 
             <ToggleButtonGroup

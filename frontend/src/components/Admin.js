@@ -47,7 +47,9 @@ export default function Admin() {
                     fontWeight: "700",
                     margin: "5px",
                   }}> Address
+
                       <Address/>
+                      
                       </Box>
 
             

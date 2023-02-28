@@ -1,4 +1,4 @@
-import { Box, Typography,Button,IconButton } from '@mui/material';
+import { Box, Typography,Button,IconButton, Input } from '@mui/material';
 import React, { useState } from 'react'
 import "../styles/Admin.css";
 import Table from '@mui/material/Table';
@@ -26,6 +26,10 @@ export default function Profile() {
   const [editEmail, setEditEmail] = useState(false);
   const [editNumber, setEditNumber] = useState(false);
 
+
+ 
+
+
   return (
     <>
               
@@ -42,78 +46,118 @@ export default function Profile() {
                       }}>
 
 
-                      {editName ? (<>
-                                        <Typography sx={{color: "black"}} onClick = {() => setEditName(false)}>EditName Component</Typography>
+                      {editName ? (<>  <Box sx={{marginLeft: "4rem"}}>
+                                                <Typography sx={{color: "black"}} onClick = {() => setEditName(false)}><IconButton
+                                                        className="navMenu"
+                                                        size="large"
+                                                        edge="start"
+                                                        sx={{ color: "text.primary" }}
+                                                        onClick = {() => setEditName(false)}
+                                                      >
+                                                <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
+                                              </IconButton>GO BACK</Typography>
+                                              <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "First Name"/>
+                                              <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Last Name"/>
+                                              <Button onClick = {() => setEditName(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                        </Box>
+                                  
+
                                   </>) : editEmail ? (<>
-                                        <Typography sx={{color: "black"}} onClick = {() => setEditEmail(false)}>EditEmail Component</Typography>
+                                    <Box sx={{marginLeft: "4rem"}}>
+                                                <Typography sx={{color: "black"}} onClick = {() => setEditEmail(false)}><IconButton
+                                                        className="navMenu"
+                                                        size="large"
+                                                        edge="start"
+                                                        sx={{ color: "text.primary" }}
+                                                        onClick = {() => setEditEmail(false)}
+                                                      >
+                                                <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
+                                              </IconButton>GO BACK</Typography>
+                                              <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Email"/>
+                                              <Button onClick = {() => setEditEmail(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                        </Box>
+
                                   </>) : editNumber ? (<>
-                                        <Typography sx={{color: "black"}} onClick = {() => setEditNumber(false)}>EditNumber Component</Typography>
+                                    <Box sx={{marginLeft: "4rem"}}>
+                                                <Typography sx={{color: "black"}} onClick = {() => setEditNumber(false)}><IconButton
+                                                        className="navMenu"
+                                                        size="large"
+                                                        edge="start"
+                                                        sx={{ color: "text.primary" }}
+                                                        onClick = {() => setEditNumber(false)}
+                                                      >
+                                                <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
+                                              </IconButton>GO BACK</Typography>
+                                              <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Number"/>
+                                              <Button onClick = {() => setEditNumber(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                        </Box>
+                                        
                                   </>) : (<><Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "2px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick = {() => setEditName(true)} 
-                      >
-                        <EditIcon 
-                                  sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Name</Typography>
+                                                fontSize: "1.5rem",
+                                                fontWeight: "500",
+                                                paddingLeft: "1rem",
+                                                // paddingTop: "2px",
+                                                color: "black",
+                                                // fontFamily: "IBM Plex Sans"
+                                              }}>
+                                                <IconButton
+                                              className="navMenu"
+                                              size="large"
+                                              edge="start"
+                                              sx={{ color: "text.primary" }}
+                                              onClick = {() => setEditName(true)} 
+                                            >
+                                              <EditIcon 
+                                                        sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
+                                            </IconButton>User Name</Typography>
 
 
-                        <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "4px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick = {() => setEditEmail(true)}
-                        
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Email</Typography>
+                                              <Typography sx={{
+                                                fontSize: "1.5rem",
+                                                fontWeight: "500",
+                                                paddingLeft: "1rem",
+                                                // paddingTop: "4px",
+                                                color: "black",
+                                                // fontFamily: "IBM Plex Sans"
+                                              }}>
+                                                <IconButton
+                                              className="navMenu"
+                                              size="large"
+                                              edge="start"
+                                              sx={{ color: "text.primary" }}
+                                              onClick = {() => setEditEmail(true)}
+                                              
+                                            >
+                                              <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
+                                            </IconButton>User Email</Typography>
 
 
-                        <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
-                          // paddingTop: "4px",
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick = {() => setEditNumber(true)}
-                        
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Number</Typography></>)}
+                                              <Typography sx={{
+                                                fontSize: "1.5rem",
+                                                fontWeight: "500",
+                                                paddingLeft: "1rem",
+                                                // paddingTop: "4px",
+                                                color: "black",
+                                                // fontFamily: "IBM Plex Sans"
+                                              }}>
+                                                <IconButton
+                                              className="navMenu"
+                                              size="large"
+                                              edge="start"
+                                              sx={{ color: "text.primary" }}
+                                              onClick = {() => setEditNumber(true)}
+                                              
+                                            >
+                                              <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
+                                            </IconButton>User Number</Typography></>)}
 
 
-        
-                      
-                      </Box>
+                              
+                                            
+                                            </Box>
 
                       
  
-    </>
+                                  </>
   )
 }

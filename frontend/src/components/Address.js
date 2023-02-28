@@ -1,4 +1,4 @@
-import { Box, Typography,Button,IconButton } from '@mui/material';
+import { Box, Typography,Button,IconButton, Input } from '@mui/material';
 import React, { useState } from 'react'
 import Profile from "./Profile";
 import "../styles/Admin.css";
@@ -17,8 +17,13 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 export default function Address() {
   const navigate = useNavigate();
+
+  
+  const [editAddress, setEditAddress] = useState(false);
+
   return (
     <>
 
@@ -37,26 +42,42 @@ export default function Address() {
                             
                       }}>
 
-                    <Typography sx={{
-                          fontSize: "1.5rem",
-                          fontWeight: "500",
-                          paddingLeft: "1rem",
+
+                      { editAddress ? (<Box sx={{marginLeft: "4rem"}}>
+                                                <Typography sx={{color: "black"}} onClick = {() => setEditAddress(false)}><IconButton
+                                                        className="navMenu"
+                                                        size="large"
+                                                        edge="start"
+                                                        sx={{ color: "text.primary" }}
+                                                        onClick = {() => setEditAddress(false)}
+                                                      >
+                                                <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
+                                              </IconButton>GO BACK</Typography>
+                                              <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Address"/>
+                                              <Button onClick = {() => setEditAddress(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                        </Box>) : (<><Typography sx={{
+                                                      fontSize: "1.5rem",
+                                                      fontWeight: "500",
+                                                      paddingLeft: "1rem",
+                                                    
+                                                      color: "black",
+                                                      // fontFamily: "IBM Plex Sans"
+                                                    }}>
+                                                      <IconButton
+                                                    className="navMenu"
+                                                    size="large"
+                                                    edge="start"
+                                                    sx={{ color: "text.primary" }}
+                                                    onClick = {() => setEditAddress(true)} 
+                                                  >
+                                                    <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
+                                                  </IconButton>User Address</Typography></>)}
+
+
+                    
                         
-                          color: "black",
-                          // fontFamily: "IBM Plex Sans"
-                        }}>
-                          <IconButton
-                        className="navMenu"
-                        size="large"
-                        edge="start"
-                        sx={{ color: "text.primary" }}
-                        onClick={ ()=> navigate('/')}
-                      >
-                        <EditIcon sx={{ fontSize: 30 , color: "black", width:"1.5rem"}}></EditIcon>
-                      </IconButton>User Address</Typography>
                         
-                        
-                      </Box>
+                                       </Box>
                       
     </>
   )

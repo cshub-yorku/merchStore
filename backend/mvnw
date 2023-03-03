@@ -283,6 +283,9 @@ fi
 ##########################################################################################
 
 export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-"$BASE_DIR"}
+export datasource_username=${DATABASE_USERNAME}
+export datasource_password=${DATABASE_PASSWORD}
+export datasource_url=${DATABASE_URL}
 if [ "$MVNW_VERBOSE" = true ]; then
   echo $MAVEN_PROJECTBASEDIR
 fi

@@ -30,13 +30,14 @@ export const cardStyle = (theme) => ({
 });
 export const cardImage = {
     width: '95%',
-    height: '80vw',
+    height: '77%',
     mx: 'auto',
     mt: '2.5%',
     borderRadius: 2.5,
 
     boxShadow: 4,
 
+    objectFit: 'cover',
     filter: 'drop-shadow(0px 0px 23px rgba(0, 0, 0, 0.3))',
 }
 
@@ -47,8 +48,6 @@ export const cardButton = {
     ml: 'auto',
     mr: '5%',
     boxShadow: 4,
-    fontSize: '1.8rem',
-    fontWeight: 800,
 }
 
 export const cardTextBox = {
@@ -60,11 +59,9 @@ export const cardTextBox = {
 
 export const cardLabel = {
     lineHeight: 1.2,
-    fontWeight: 800
 }
 
 export const cardSubtitle = {
-    fontWeight: 400,
 }
 
 export const center = {

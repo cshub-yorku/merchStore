@@ -70,7 +70,7 @@ export default function CartDrawer({ cart, setCart }) {
           })()}
           </Grid>
           <Box sx={{position: 'absolute', bottom: 0, width: '20vw'}}>
-            <Button onClick={ ()=> navigate('./product', {state: {cart: cart}})}
+            <Button onClick={ ()=> navigate('./checkout', {state: {cart: cart}})}
                     sx={{width: '100%', padding: '1.25rem', marginBottom: '1rem'}}>
               <Typography>
                 Checkout

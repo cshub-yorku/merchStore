@@ -13,43 +13,27 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
       ACCEPT_SINGLE_VALUE_AS_ARRAY: true
     default-property-inclusion: non_empty
-  security:
-    user:
-      password: Test12345
-    filter:
-      order: 10
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: cshubstore@gmail.com
+    password: pxfzzqfsaszshymt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+security:
+  user:
+    name: admin
+    password: root
 
 merchstore:
   app:
     jwtSecret: $2a$10$ybpVe8oMXDNH8o63lez.NOB5dDXX4JCKvSCzQryyTI1u4M5gLzH3C
     jwtExpirationMs: 1800000
-
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
-    cachePrepStmts: true
-    prepStmtCacheSize: 250
-    prepStmtCacheSqlLimit: 2048
-    useServerPrepStmts: true
-
-  jpa:
-    openInView: false
-    show_sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      # fixes Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
-      hibernate.jdbc.lob.non_contextual_creation: true
-
-  data:
-    jpa:
-      repositories.enabled: true
-  sql:
-    init:
-      schema-locations: merchstore
 
 logging:
   level:
@@ -57,4 +41,6 @@ logging:
     org.springframework.security: DEBUG
     com.example: DEBUG
   file: app.log
+
+
   

@@ -27,6 +27,22 @@ export const button_theme = {
     }
 }
 
+export const toggle_button_black = {
+    backgroundColor: '#000',
+    color: "#FFF",
+    '&.Mui-selected': {
+      color: '#000',
+      backgroundColor: '#FFF',
+      '&:hover': {
+        backgroundColor: '#FFF',
+        color: '#000',
+      },
+    },
+    '&:hover': {
+        backgroundColor: 'gray',
+      },
+}
+
 export const select_menu_black = {
     PaperProps: {
         sx: {
@@ -69,4 +85,8 @@ export const select_black = {
         px: '7px',
         borderRadius: '3px'
     }
+}
+
+export const PopoverStyle = {
+    pointerEvents: 'none',
 }

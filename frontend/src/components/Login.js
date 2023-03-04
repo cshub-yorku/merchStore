@@ -52,8 +52,7 @@ export default function Login({ trigger, onClick }) {
                     <TextField color="secondary" margin='normal' className='register-text' label="Email Address" variant="outlined"  required/>
                     <TextField color="secondary" margin='normal' className='register-text' label="Password" variant="outlined"  type='password'  required/>
                   </div>
-                  <div className='register-button' >
-                    <Button onClick={ ()=> navigate('./admin')} type='submit' color="primary" variant='contained' >Login</Button>
+                  
                   <div className='register-button' >
                     <Button onClick={ ()=> navigate('./admin')} type='submit' color="primary" variant='contained' >Login</Button>
                   </div>

@@ -10,6 +10,7 @@ import { dark_Theme, light_Theme } from "./themes";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline, responsiveFontSizes } from "@mui/material";
+import CartDrawer from "./CartDrawer";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/product" element={<Checkout />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<CartDrawer />} />
         </Routes>
 
         <div className='footer-section'>

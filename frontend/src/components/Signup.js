@@ -39,6 +39,7 @@ export default function Signup({changeToFalse}) {
                   <div className='register-sign-fields'>
                     <TextField color="secondary" margin='normal' className='register-text signup-text' label="First Name" variant="outlined"  required/>
                     <TextField color="secondary" margin='normal' className='register-text signup-text' label="Last Name" variant="outlined"  required/>
+                    <TextField color="secondary" margin='normal' className='register-text signup-text' label="Phone Number" variant="outlined"   required/>
                     <TextField color="secondary" margin='normal' className='register-text signup-text' label="Email Address" variant="outlined"  required/>
                     <TextField color="secondary" margin='normal' className='register-text signup-text' label="Password" variant="outlined"  type='password'  required/>
                   </div>

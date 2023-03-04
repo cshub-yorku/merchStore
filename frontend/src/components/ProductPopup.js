@@ -15,50 +15,13 @@ import { Box, Stack } from "@mui/system";
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
-import {
-  button_black,
-  toggle_button_black,
-  PopoverStyle,
-} from "../styles/Styles";
-import {
-  closeButton,
-  helperNotation,
-  PopoverText,
-  productBuy,
-  productBuyButton,
-  productMain,
-  productMainImage,
-  ProductPopover,
-  productPriceBox,
-  productPriceText,
-  productSubImage,
-  SizeButtonGroup,
-  ToggleButtonSeparations,
-} from "../styles/ProductPopupStyles";
-import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
-import { useNavigate } from "react-router";
 
-export default function ProductPopup({
-  trigger,
-  onClick,
-  product,
-  cart,
-  setCart,
-}) {
   const theme = useTheme();
   const mainPic = 0;
   const navigate = useNavigate();
 
   const [pic, setPic] = useState(mainPic);
-  const [shippingPopover, setShippingPopover] = useState(null);
-  const shippingOpen = Boolean(shippingPopover);
 
-  const [sizePopover, setSizePopover] = useState(null);
-  const sizeOpen = Boolean(sizePopover);
-  const [size, setSize] = useState();
-  const handleSize = (event, newSize) => {
-    setSize(newSize);
-  };
 
   const cartHandler = () => {
     if (cart.length < 1) {
@@ -73,9 +36,7 @@ export default function ProductPopup({
         return [...outdatedCart, product];
       });
     }
-  };
 
-  return product ? (
     <Dialog
       open={trigger}
       maxWidth="xl"
@@ -192,12 +153,7 @@ export default function ProductPopup({
                 aria-label="medium"
                 sx={[toggle_button_black, ToggleButtonSeparations]}
               >
-                <Typography variant="h6">M</Typography>
-              </ToggleButton>
-              <ToggleButton
-                value="L"
-                aria-label="large"
-                sx={toggle_button_black}
+
               >
                 <Typography variant="h6">L</Typography>
               </ToggleButton>

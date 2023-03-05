@@ -1,6 +1,6 @@
 package com.MerchStore.backend;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.FlywayMigration;
+import com.MerchStore.backend.ConnectionPooling.FlyWayService.FlywayMigration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

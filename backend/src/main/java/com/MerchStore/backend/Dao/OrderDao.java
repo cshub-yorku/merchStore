@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Order;
 
 import java.sql.Connection;
@@ -17,8 +17,8 @@ public class OrderDao implements Dao<Order>{
     public Optional<Order> get(long id) {
         String statement = "SELECT * FROM order where order_id = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,6 +28,8 @@ public class OrderDao implements Dao<Order>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
@@ -36,8 +38,8 @@ public class OrderDao implements Dao<Order>{
     public List<Order> getAll() {
         String statement = "SELECT * FROM order";
         LinkedList<Order> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while(resultSet.next()){
                 Order order = new Order(resultSet.getLong("order_id"), resultSet.getInt("product_quantity"), resultSet.getDouble("total_amount"), resultSet.getString("order_status"), resultSet.getLong("cart_id"));
@@ -45,6 +47,8 @@ public class OrderDao implements Dao<Order>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -52,8 +56,8 @@ public class OrderDao implements Dao<Order>{
     @Override
     public boolean save(Order order){
         String statement = "INSERT INTO order values (?, ?, ?, ?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, order.getOrderId());
             preparedStatement.setInt(2, order.getQuantity());
@@ -65,6 +69,8 @@ public class OrderDao implements Dao<Order>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }

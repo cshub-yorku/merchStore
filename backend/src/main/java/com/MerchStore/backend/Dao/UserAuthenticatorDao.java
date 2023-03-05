@@ -1,11 +1,10 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.Model.UserRoles;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +22,8 @@ public class UserAuthenticatorDao implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         String statement = "SELECT password,user_id,first_name,last_name,email,phone_number,role FROM users where email = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -42,14 +41,16 @@ public class UserAuthenticatorDao implements UserDetailsService {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
     }
 
     public boolean existsByEmail(String email) {
         String statement = "SELECT email FROM users where email = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,6 +59,8 @@ public class UserAuthenticatorDao implements UserDetailsService {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -80,6 +83,8 @@ public class UserAuthenticatorDao implements UserDetailsService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
     }
 }

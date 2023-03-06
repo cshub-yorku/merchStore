@@ -1,5 +1,7 @@
 package com.MerchStore.backend.Model;
 
+import java.util.List;
+
 public class OrderedItems {
 
     private final long orderId;
@@ -8,6 +10,8 @@ public class OrderedItems {
     private double price;
 
     private int quantity;
+
+    private List<OrderedItems> orderedItemsList;
 
     public OrderedItems(long orderId, double price, int quantity, long productId){
         this.orderId = orderId;
@@ -31,4 +35,8 @@ public class OrderedItems {
     public int getQuantity() {
         return quantity;
     }
+
+
+
+
 }

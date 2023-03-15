@@ -9,18 +9,16 @@ import SignUp from "./Signup"
 import { dark_Theme, light_Theme } from "./themes";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { CssBaseline, responsiveFontSizes } from "@mui/material";
+import { Box, CssBaseline, responsiveFontSizes } from "@mui/material";
 import CartDrawer from "./CartDrawer";
+import { main } from "../styles/mainStyle";
 
 function App() {
-
-  console.log(dark_Theme);
 
   return (
     <ThemeProvider theme={dark_Theme}>
       <CssBaseline/>
-      <div className="App">
-        {/* <Nav /> */}
+      <Box sx={main(dark_Theme)}>
 
         <Routes>
           <Route path="/" element={<Merch />} />
@@ -35,7 +33,7 @@ function App() {
           <Footer />
         </div>
 
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }

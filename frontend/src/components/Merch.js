@@ -3,21 +3,13 @@ import CSCard from "./CSCard";
 import ProductPopup from "./ProductPopup";
 import CartDrawer from "./CartDrawer";
 import Login from "./Login";
-import Signup from "./Signup";
 import NavSidebar from "./NavSidebar";
-import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Grid, Toolbar, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import PersonIcon from '@mui/icons-material/Person';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import {
-  ShoppingBag,
-  Dehaze,
-  PriceChange,
-  Description,
-} from "@mui/icons-material";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { bold, fontIBM } from "../styles/fontStyles";
-import { centerItem, MerchAppBar, merchBillboardContainer, merchBillboardImage, merchColor, merchTextboard, MerchToolbar, varColor } from "../styles/MerchStyle";
+import { centerItem, logo, MerchAppBar, merchBillboardContainer, merchBillboardImage, merchColor, merchTextboard, MerchToolbar, StackStyle, varColor } from "../styles/MerchStyle";
+import { useTheme } from "@emotion/react";
+import NavBar from "./navBar";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -38,9 +30,9 @@ const testProduct = {
 };
 
 export default function Merch() {
-  const [cart, setCart] = useState([]);
+  const theme = useTheme();
+  
   const [openPopup, setOpenPopup] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
   const [shopJSON, setShopJSON] = useState(false);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
@@ -64,70 +56,19 @@ export default function Merch() {
   }, [shopJSON])
 
   return (
-    <Box sx={{marginBottom: '8%'}}>
+    <Box sx={{ marginBottom: '8%' }}>
       {!(shopJSON) && <div>Loading...</div>}
 
       {(shopJSON) &&
         <>
-          <AppBar
-            position="relative"
-            color="background"
-            sx={MerchAppBar}
-          >
-            <Toolbar sx={MerchToolbar}>
-              <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
-                <>
-                  {/* COMPONENT FOR LEFT DRAWER */}
-                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin} />
-                  {/* COMPONENT FOR RIGHT DRAWER */}
-                  <CartDrawer cart={cart} setCart={setCart} />
-                </>
-              </Stack>
-            </Toolbar>
-
-            <Box sx={ [centerItem, { width: '50%', margin: '0 auto' }]}>
-              <Box
-                component="img"
-                src="./global/CSHub_Dark.png"
-                sx={{ height: 200 }}
-              ></Box>
-            </Box>
-
-            {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
-                <>
-                  <IconButton
-                    className="navMenu"
-                    size="large"
-                    edge="start"
-                    sx={{ color: "text.primary" }}
-                    >
-                    <PersonIcon fontSize="large"></PersonIcon>
-                  </IconButton>
-
-                  <IconButton
-                    className="navMenu"
-                    size="large"
-                    edge="start"
-                    sx={{ color: "text.primary" }}
-                    >
-                    <PersonAddAlt1Icon fontSize="large"></PersonAddAlt1Icon>
-                  </IconButton>
-                </>
-              </Stack> */}
-          </AppBar>
-          <Box sx={centerItem}>
-            <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
-              <Typography variant="h4" display="inline" sx={[bold, fontIBM, varColor]}>var </Typography> store = "
-              <Typography variant="h4" display="inline" sx={[bold, fontIBM, merchColor]}>MerchStore</Typography>";
-            </Typography>
-          </Box>
+          <NavBar></NavBar>
 
           <Box sx={merchBillboardContainer}>
             <Box
-                component="img"
-                src="./global/stock.jpg"
-                sx={merchBillboardImage}
-              ></Box>
+              component="img"
+              src="./global/stock.jpg"
+              sx={merchBillboardImage}
+            ></Box>
 
             <Box sx={merchTextboard}>
               <Typography variant="h3" sx={bold}>50% off of select merch items</Typography>
@@ -180,14 +121,14 @@ export default function Merch() {
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
-            cart={cart}
-            setCart={setCart}
+            // cart={cart}
+            // setCart={setCart}
           >
           </ProductPopup>
 
-          <Login trigger={openLogin} onClick={() => setOpenLogin(!openLogin)}></Login>
-          </>
-        }
+          {/* <Login trigger={openLogin} onClick={() => setOpenLogin(!openLogin)}></Login> */}
+        </>
+      }
     </Box>
 
   );

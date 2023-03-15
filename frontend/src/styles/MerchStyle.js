@@ -3,7 +3,8 @@ import { textAlign } from "@mui/system"
 
 export const centerItem = {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    flexDirection: "column"
 }
 
 export const merchBillboardContainer = {
@@ -30,12 +31,6 @@ export const merchTextboard = {
     color: "white",
 }
 
-export const MerchAppBar = {
-    boxShadow: "none",
-    align: "center",
-    justifyItems: "center",
-}
-
 export const varColor = {
     color: "#ed6d11"
 }
@@ -43,8 +38,6 @@ export const merchColor = {
     color: "#624f82"
 }
 
-export const MerchToolbar = {
-    position: 'absolute',
-    top: '35%',
-    left: '4vw'
+export const StackStyle = {
+    m: 'auto',
 }

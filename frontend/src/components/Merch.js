@@ -1,15 +1,13 @@
 import { React, useState, useEffect } from "react";
 import CSCard from "./CSCard";
 import ProductPopup from "./ProductPopup";
-import CartDrawer from "./CartDrawer";
-import Login from "./Login";
-import NavSidebar from "./NavSidebar";
-import { AppBar, Grid, Toolbar, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
-import { bold, fontIBM } from "../styles/fontStyles";
-import { centerItem, logo, MerchAppBar, merchBillboardContainer, merchBillboardImage, merchColor, merchTextboard, MerchToolbar, StackStyle, varColor } from "../styles/MerchStyle";
+import { Button, Grid, Snackbar, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { bold } from "../styles/fontStyles";
+import { merchBillboardContainer, merchBillboardImage, merchTextboard } from "../styles/MerchStyle";
 import { useTheme } from "@emotion/react";
 import NavBar from "./navBar";
+import ProductNotification, { SimpleSnackbar } from "./ProductNotification";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -31,11 +29,13 @@ const testProduct = {
 
 export default function Merch() {
   const theme = useTheme();
-  
+
   const [openPopup, setOpenPopup] = useState(false);
   const [shopJSON, setShopJSON] = useState(false);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
+
+  const [productNotification, setProductNotification] = useState(false);
 
   const setStates = (index) => {
     setOpenPopup(!openPopup);
@@ -57,11 +57,13 @@ export default function Merch() {
 
   return (
     <Box sx={{ marginBottom: '8%' }}>
+
       {!(shopJSON) && <div>Loading...</div>}
 
       {(shopJSON) &&
         <>
           <NavBar></NavBar>
+          
 
           <Box sx={merchBillboardContainer}>
             <Box
@@ -76,6 +78,8 @@ export default function Merch() {
             </Box>
           </Box>
 
+          <Button onClick={() => { setProductNotification(true) }}>Hi</Button>
+          <ProductNotification open={productNotification} setOpen={setProductNotification} product={testProduct}></ProductNotification>
 
           {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
@@ -121,8 +125,8 @@ export default function Merch() {
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
-            // cart={cart}
-            // setCart={setCart}
+          // cart={cart}
+          // setCart={setCart}
           >
           </ProductPopup>
 

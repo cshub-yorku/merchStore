@@ -16,7 +16,7 @@ export const logo = (offset) => {
 
 export const MerchAppBar = (theme) => {
     return {
-        bgcolor: theme.palette.background,
+        bgcolor: theme.palette.background.default,
         boxShadow: "none",
         align: "center",
         justifyItems: "center",

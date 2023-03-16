@@ -113,8 +113,12 @@ export const dark_Theme = createTheme(coreTheme, {
     },
     secondary: {
       main: "#2C3555",
+      light: "#2C3555",
+      dark: "#2C3555",
     },
-    background: "#2D2C42",
+    background: {
+      default: "#2D2C42",
+    },
     text: {
       primary: "#FFFFFF",
 

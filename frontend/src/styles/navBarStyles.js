@@ -1,11 +1,12 @@
 
 export const logo = (offset) => {
-    let rate = 200 - offset/2;
-    let picSize =  rate > 100 ? rate : 100 ;
+    let rate = 120 - offset/2;
+    let picSize =  rate > 80 ? rate : 80 ;
     
     return {
         width: picSize,
         m: 'auto',
+        my: "0.5vw",
     }
 }
 
@@ -18,7 +19,55 @@ export const MerchAppBar = (theme) => {
     }
 }
 
-export const NavSidebar = {
-    ml: '5',
-    mr: 'auto'
+export const dehazeStyle = {
+    color: "text.primary",
+    my: 'auto',
+    ml: '1%',
+}
+
+export const accountStyle = {
+    color: "text.primary",
+    m: 'auto',
+    ml: '1%',
+}
+
+export const cartStyle = {
+    color: "text.primary",
+    m: 'auto',
+    mr: '1%',
+    position: 'relative',
+}
+
+export const StackStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%'
+}
+
+export const varColor = {
+    color: "#ed6d11"
+}
+export const merchColor = {
+    color: "#624f82"
+}
+
+export const centerItem = {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    mx: '1',
+}
+
+export const cartNotification = {
+    position: 'absolute',
+    top: "20%",
+    right: "10%",
+    width: '30%',
+    height: '30%',
+    bgcolor: 'red',
+    borderRadius: '50%',
+}
+
+export const title = {
+    mb: '3%',
 }

@@ -16,26 +16,19 @@ import ListItemText from '@mui/material/ListItemText';
 
 
 export default function NavSidebar( {trigger, passFunction} ) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  
+  const [openLogin, setOpenLogin] = useState(false);
+  
 
   return (
     <>
-      <IconButton
-        className="navMenu"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-      </IconButton>
 
       {/* LEFT-SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="left"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
       >
         <Box
           p={5}
@@ -60,7 +53,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
            <IconButton
               size="large"
               sx={{ color: "text.primary" }}
-              onClick={() => setIsDrawerOpen(false)}
+              onClick={() => passFunction(false)}
             >
               <CloseIcon 
               sx={{ 
@@ -77,7 +70,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
            <List>
               
                 <ListItem disablePadding onClick={() => {
-                    setIsDrawerOpen(false);
+                    passFunction(false);
                     passFunction(!trigger);
                   }}>
                 <ListItemButton>

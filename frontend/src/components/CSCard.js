@@ -15,7 +15,7 @@ export default function CSCard({ productState, data, src, onClick }) {
   return (
     <>
       <Card sx={cardStyle}>
-        <Box component='img' src={images[0]} sx={cardImage}></Box>
+        <Box component='img' onClick={() => { onClick(); productState(data) }} src={images[0]} sx={cardImage}></Box>
         <Box display='flex' alignItems='center' sx={cardNav}>
           <Box sx={cardTextBox}>
             <Typography variant='h5' sx={[cardLabel, bold, fontInter]}>{title}</Typography>

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react"
-import { AppBar, Slide, Toolbar, Typography } from "@mui/material"
+import { AppBar, IconButton, Slide, Toolbar, Typography } from "@mui/material"
 import NavSidebar from "./NavSidebar"
 import CartDrawer from "./CartDrawer"
 import { Box, Stack } from "@mui/system"
-import { useTheme } from "@emotion/react"
-import { centerItem, merchColor, StackStyle, varColor } from "../styles/MerchStyle"
 import { bold, fontIBM } from "../styles/fontStyles"
-import { logo, MerchAppBar } from "../styles/navBarStyles"
+import { cartStyle, dehazeStyle, logo, MerchAppBar, StackStyle, centerItem, merchColor, varColor, cartNotification, title, accountStyle } from "../styles/navBarStyles"
+import { AccountCircle, Dehaze, ShoppingBag } from "@mui/icons-material"
+import { useTheme } from "@emotion/react"
 
 export default function NavBar() {
 
     const theme = useTheme();
 
     const [openLogin, setOpenLogin] = useState(false);
+    const [openCart, setOpenCart] = useState(false);
     const [cart, setCart] = useState([]);
 
     const [offset, setOffset] = useState(0);
@@ -25,34 +26,63 @@ export default function NavBar() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    console.log(offset);
-
     return (
         < AppBar
             sx={MerchAppBar(theme)}
         >
             <Toolbar >
-                <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" sx={StackStyle}>
+                <Box sx={StackStyle}>
                     <>
                         {/* COMPONENT FOR LEFT DRAWER */}
-                        <NavSidebar trigger={openLogin} passFunction={setOpenLogin} sx={NavSidebar} />
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            sx={dehazeStyle}
+                            onClick={() => setOpenLogin(true)}
+                        >
+                            <Dehaze sx={{ fontSize: 40 }}></Dehaze>
+                        </IconButton>
+
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            sx={accountStyle}
+                            onClick={() => setOpenLogin(true)}
+                        >
+                            <AccountCircle sx={{ fontSize: 40 }}></AccountCircle>
+                        </IconButton>
+
+                        <NavSidebar trigger={openLogin} passFunction={setOpenLogin}/>
                         <Box sx={[centerItem]}>
                             <Box
                                 component="img"
-                                src="./global/CSHub_Dark.png"
+                                src="./global/logo.svg"
                                 sx={logo(offset)}
                             ></Box>
                             <Slide direction="down" in={!offset} mountOnEnter unmountOnExit>
-                                <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
+                                <Typography variant="h4" display="inline" sx={[bold, fontIBM, title]}>
                                     <Typography variant="h4" display="inline" sx={[bold, fontIBM, varColor]}>var </Typography> store = "
                                     <Typography variant="h4" display="inline" sx={[bold, fontIBM, merchColor]}>MerchStore</Typography>";
                                 </Typography>
                             </Slide>
                         </Box>
+
                         {/* COMPONENT FOR RIGHT DRAWER */}
-                        <CartDrawer cart={cart} setCart={setCart} />
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            sx={cartStyle}
+                            onClick={() => setOpenCart(true)}
+                        >
+                            <Box sx={cartNotification}>
+                                <Typography variant="subtitle1">1</Typography>
+                            </Box>
+                            <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
+                        </IconButton>
+
+                        <CartDrawer cart={cart} setCart={setCart} trigger={openCart} passFunction={setOpenCart}/>
                     </>
-                </Stack>
+                </Box>
             </Toolbar>
         </AppBar >
     )

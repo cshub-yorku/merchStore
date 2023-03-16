@@ -2,15 +2,33 @@ import React, { useEffect, useState } from "react"
 import { AppBar, IconButton, Slide, Toolbar, Typography } from "@mui/material"
 import NavSidebar from "./NavSidebar"
 import CartDrawer from "./CartDrawer"
-import { Box, Stack } from "@mui/system"
+import { Box } from "@mui/system"
 import { bold, fontIBM } from "../styles/fontStyles"
-import { cartStyle, dehazeStyle, logo, MerchAppBar, StackStyle, centerItem, merchColor, varColor, cartNotification, title, accountStyle } from "../styles/navBarStyles"
+import { cartStyle, dehazeStyle, logo, MerchAppBar, StackStyle, centerItem, merchColor, varColor, cartNotification, title, accountStyle, cartNotificationText, notificationAnima } from "../styles/navBarStyles"
 import { AccountCircle, Dehaze, ShoppingBag } from "@mui/icons-material"
-import { useTheme } from "@emotion/react"
+import { keyframes, useTheme } from "@emotion/react"
 
 export default function NavBar() {
 
     const theme = useTheme();
+
+
+    //for some reason if i put this animation in styles file whole app breaks :(
+    //hopelfully will fix it later
+    const notifAnim = keyframes`
+0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+  const anim = {
+    animation: `${notifAnim} 0.5s ease-in-out infinite both`,
+  }
 
     const [openLogin, setOpenLogin] = useState(false);
     const [openCart, setOpenCart] = useState(false);
@@ -73,9 +91,10 @@ export default function NavBar() {
                             edge="start"
                             sx={cartStyle}
                             onClick={() => setOpenCart(true)}
+                            
                         >
-                            <Box sx={cartNotification}>
-                                <Typography variant="subtitle1">1</Typography>
+                            <Box sx={[cartNotification, anim]}>
+                                <Typography variant="subtitle1" sx={cartNotificationText}>1</Typography>
                             </Box>
                             <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
                         </IconButton>

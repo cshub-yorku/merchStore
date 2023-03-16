@@ -1,8 +1,12 @@
 
+
+//animation is in page file
+
+
 export const logo = (offset) => {
-    let rate = 120 - offset/2;
-    let picSize =  rate > 80 ? rate : 80 ;
-    
+    let rate = 120 - offset / 2;
+    let picSize = rate > 80 ? rate : 80;
+
     return {
         width: picSize,
         m: 'auto',
@@ -66,8 +70,17 @@ export const cartNotification = {
     height: '30%',
     bgcolor: 'red',
     borderRadius: '50%',
+
+    // animation: `${notifAnim} 0.5s ease-in-out infinite both`,
 }
 
 export const title = {
     mb: '3%',
 }
+
+export const cartNotificationText = {
+    position: 'absolute',
+    top: '-20%',
+    right: '30%'
+}
+

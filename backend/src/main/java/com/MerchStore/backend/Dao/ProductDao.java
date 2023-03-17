@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Product;
 
 import java.sql.Connection;
@@ -17,8 +17,8 @@ public class ProductDao implements Dao<Product> {
     public Optional<Product> get(long id) {
         String statement = "SELECT * FROM product where product_id = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,6 +28,8 @@ public class ProductDao implements Dao<Product> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
@@ -36,8 +38,8 @@ public class ProductDao implements Dao<Product> {
     public List<Product> getAll() {
         String statement = "SELECT * FROM product";
         LinkedList<Product> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while (resultSet.next()) {
                 Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"));
@@ -45,6 +47,8 @@ public class ProductDao implements Dao<Product> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -52,8 +56,8 @@ public class ProductDao implements Dao<Product> {
     @Override
     public boolean save(Product product) {
         String statement = "INSERT INTO product values (?, ?, ?, ?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, product.getProductId());
             preparedStatement.setString(2, product.getDescription());
@@ -65,6 +69,8 @@ public class ProductDao implements Dao<Product> {
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -72,8 +78,8 @@ public class ProductDao implements Dao<Product> {
     @Override
     public boolean update(Product product) {
         String statement = "UPDATE product set (description, name, price, stock) = (?, ?, ?, ?) where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, product.getDescription());
             preparedStatement.setString(2, product.getName());
@@ -84,6 +90,8 @@ public class ProductDao implements Dao<Product> {
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -91,14 +99,16 @@ public class ProductDao implements Dao<Product> {
     @Override
     public boolean delete(Product product) {
         String statement = "DELETE from product where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, product.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }

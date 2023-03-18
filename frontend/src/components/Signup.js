@@ -93,7 +93,9 @@ export default function Signup({ changeToFalse }) {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Sign up was unsuccessful!");
+          return response.json().then((data) => {
+            throw new Error(data.message);
+          });
         }
         setSignUpStatusMessage("Sign up successful!");
       })

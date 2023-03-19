@@ -1,5 +1,3 @@
-
-
 export const button_white = {
     bgcolor: "#FFF",
     color: '#000',
@@ -14,16 +12,18 @@ export const button_black = {
     color: '#FFF',
     '&:hover': {
         bgcolor: '#FFF',
-        color: '#000'
+        color: '#000',
     }
 }
 
-export const button_theme = {
-    bgcolor: "#2C3555",
-    color: '#FFF',
-    '&:hover': {
-        bgcolor: '#FFF',
-        color: '#000'
+export const button_theme = (theme) => {
+    return {
+        bgcolor: "#2C3555",
+        color: '#FFF',
+        '&:hover': {
+            bgcolor: '#FFF',
+            color: '#000'
+        }
     }
 }
 
@@ -31,36 +31,36 @@ export const toggle_button_black = {
     backgroundColor: '#000',
     color: "#FFF",
     '&.Mui-selected': {
-      color: '#000',
-      backgroundColor: '#FFF',
-      '&:hover': {
-        backgroundColor: '#FFF',
         color: '#000',
-      },
+        backgroundColor: '#FFF',
+        '&:hover': {
+            backgroundColor: '#FFF',
+            color: '#000',
+        },
     },
     '&:hover': {
         backgroundColor: 'gray',
-      },
+    },
 }
 
 export const select_menu_black = {
     PaperProps: {
         sx: {
-          bgcolor: 'black',
-          '& .MuiMenuItem-root': {
-            padding: 2,
-            '&:hover':{
-                bgcolor: 'white',
-                color: 'black'
-            }
-          },
+            bgcolor: 'black',
+            '& .MuiMenuItem-root': {
+                padding: 2,
+                '&:hover': {
+                    bgcolor: 'white',
+                    color: 'black'
+                }
+            },
         },
-      },
+    },
 }
 
 export const select_black = {
-    '& .MuiInputBase-root':{
-        bgcolor: 'black',  
+    '& .MuiInputBase-root': {
+        bgcolor: 'black',
     },
     '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderColor: 'white',
@@ -89,4 +89,51 @@ export const select_black = {
 
 export const PopoverStyle = {
     pointerEvents: 'none',
+}
+
+export const field_white = {
+
+    "& .MuiInputBase-root": {
+        bgcolor: 'white',
+    },
+
+    ".MuiOutlinedInput-root": {
+        ":hover": {
+            ".MuiOutlinedInput-notchedOutline": {
+                borderColor: 'gray'
+            },
+        }
+    },
+
+    ".MuiOutlinedInput-root.Mui-focused": {
+        ".MuiOutlinedInput-notchedOutline": {
+            borderColor: 'black'
+        },
+    },
+
+    ".MuiInputLabel-root.Mui-focused": {
+        bgcolor: "white",
+        px: 0.6,
+        py: 0.1,
+        borderColor: "black",
+        border: 2,
+        borderRadius: '5px',
+    },
+
+    "& .MuiInputLabel-shrink": {
+        bgcolor: "white",
+        px: 0.6,
+        py: 0.1,
+        borderColor: "black",
+        border: 2,
+        borderRadius: '5px',
+    },
+
+    "& .MuiInputBase-input": {
+        color: "black",
+    },
+
+    ".MuiFormHelperText-root": {
+        color: 'white',
+    }
 }

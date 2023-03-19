@@ -9,7 +9,7 @@ const coreTheme = createTheme({
   },
   breakpoints: {
     values: {
-      mobile: 0,
+      mobile: 480,
       tablet: 770,
       hd: 1200,
       fhd: 1900,

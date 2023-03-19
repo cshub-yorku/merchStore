@@ -1,13 +1,14 @@
 import { React, useState, useEffect } from "react";
 import CSCard from "./CSCard";
 import ProductPopup from "./ProductPopup";
-import { Button, Grid, Snackbar, Typography } from "@mui/material";
+import { Button, Grid, Snackbar, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { bold } from "../styles/fontStyles";
 import { merchBillboardContainer, merchBillboardImage, merchTextboard } from "../styles/MerchStyle";
 import { useTheme } from "@emotion/react";
 import NavBar from "./navBar";
-import ProductNotification, { SimpleSnackbar } from "./ProductNotification";
+import ProductNotification  from "./ProductNotification";
+import { field_white} from "../styles/Styles";
 
 const sortState = Object.freeze({
   NONE: 0,

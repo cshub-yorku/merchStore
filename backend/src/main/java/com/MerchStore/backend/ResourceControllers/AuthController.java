@@ -6,6 +6,7 @@ import com.MerchStore.backend.Dao.VerifyUserDao;
 import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.Model.VerifyUser;
+import com.MerchStore.backend.Service.EmailService;
 import com.MerchStore.backend.jwt.AuthenticationPayload.JwtResponse;
 import com.MerchStore.backend.jwt.AuthenticationPayload.LoginRequest;
 import com.MerchStore.backend.jwt.AuthenticationPayload.MessageResponse;
@@ -110,34 +111,22 @@ public class AuthController extends ResponseHandler {
             VerifyUser verifyUser = new VerifyUser(userDetails.getUserId(), verifyCode);
             secondDao.save(verifyUser);
 
-                String toAddress = signUpRequest.getEmail();
-                String fromAddress = "cshubstore@gmail.com";
-                String senderName = "CSHub";
-                String subject = "Please verify your registration";
-                String content = "Dear [[name]],<br>"
-                        + "Please click the link below to verify your registration:<br>"
-                        + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                        + "Thank you,<br>"
-                        + "CSHub.";
+            String subject = "Please verify your registration";
+            String content = "Dear [[name]],<br>"
+                    + "Please click the link below to verify your registration:<br>"
+                    + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                    + "Thank you,<br>"
+                    + "CSHub.";
 
-                MimeMessage message = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message);
+            content = content.replace("[[name]]", signUpRequest.getFirstName());
 
-                helper.setFrom(fromAddress, senderName);
-                helper.setTo(toAddress);
-                helper.setSubject(subject);
+            String verifyURL = "http://localhost:9000/v1/auth" + "/verify?code=" + verifyCode;
 
-                content = content.replace("[[name]]", signUpRequest.getFirstName());
+            content = content.replace("[[URL]]", verifyURL);
 
-                String siteURL = request.getRequestURL().toString();
 
-                String verifyURL = "http://localhost:9000/v1/auth" + "/verify?code=" + verifyCode;
-
-                content = content.replace("[[URL]]", verifyURL);
-
-                helper.setText(content, true);
-
-                mailSender.send(message);
+            EmailService emailService = new EmailService(mailSender);
+            emailService.sendOrderConfirmationEmail(signUpRequest.getEmail(), subject, content);
 
 
             return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

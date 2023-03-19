@@ -59,7 +59,7 @@ public class AuthController extends ResponseHandler {
         this.mailSender = mailSender;
     }
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Optional<Users> optionalActiveStatus = activeDao.getByEmail(loginRequest.getEmail());

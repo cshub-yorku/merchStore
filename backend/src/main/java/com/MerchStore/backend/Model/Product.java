@@ -12,13 +12,16 @@ public class Product {
 
     private int stock;
 
+    private String[] images;
 
-    public Product(long productId, String description, String name, double price, int stock){
+
+    public Product(long productId, String description, String name, double price, int stock, String[] images){
         this.productId = productId;
         this.description = description;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.images = images;
     }
 
     public long getProductId() {
@@ -27,6 +30,10 @@ public class Product {
 
     public String getDescription() {
         return description;
+    }
+
+    public String[] getImages() {
+        return images;
     }
 
     public String getName() {

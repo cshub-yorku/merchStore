@@ -1,0 +1,1 @@
+ALTER TABLE Product ADD COLUMN images TEXT[] CHECK (array_length(images, 1) <= 4);

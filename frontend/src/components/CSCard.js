@@ -10,7 +10,6 @@ import { cardStyle, cardImage, cardTextBox, cardLabel, cardSubtitle, cardButton,
 import { bold, customFontWeight, fontInter, normal } from "../styles/fontStyles";
 
 export default function CSCard({ productState, data, src, onClick }) {
-  console.log(data)
   const { title, price, description, images } = data;
   return (
     <>

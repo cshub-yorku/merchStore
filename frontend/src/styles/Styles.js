@@ -91,7 +91,7 @@ export const PopoverStyle = {
     pointerEvents: 'none',
 }
 
-export const field_white = {
+export const field__white = {
 
     "& .MuiInputBase-root": {
         bgcolor: 'white',
@@ -136,4 +136,45 @@ export const field_white = {
     ".MuiFormHelperText-root": {
         color: 'white',
     }
+};
+
+export const field_white = {
+    '& .MuiOutlinedInput-root': {
+        background: 'white',
+        border: '0.3px solid #BBB',
+        transition: 'border-color 0.1s ease-in-out',
+
+        color: "black",
+        
+        '&:hover': {
+            boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+            borderColor: '#000',
+        },
+        '&.Mui-focused': {
+            boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+            border: '0.3px solid #red',
+        },
+    },
+    '& .MuiInputLabel-root': {
+
+    },
+    '& .MuiInputLabel-shrink': {
+        bgcolor: "white",
+        px: 0.6,
+        py: 0.1,
+        borderColor: "black",
+        border: 2,
+        borderRadius: '5px',
+    },
+
+    '& .MuiOutlinedInput-notchedOutline': {
+        // border: '0.3px solid #BBB',
+        // transition: 'border-color 0.1s ease-in-out',
+        boder: 'none'
+    },
+
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: "#000",
+        boder: 'none'
+    },
 }

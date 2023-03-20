@@ -82,6 +82,8 @@ export default function Merch() {
           <Button onClick={() => { setProductNotification(true) }}>Hi</Button>
           <ProductNotification open={productNotification} setOpen={setProductNotification} product={testProduct}></ProductNotification>
 
+          <TextField sx={field_white} label="example"></TextField>
+
           {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
             <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>

@@ -12,7 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import {
@@ -37,14 +37,12 @@ import {
 } from "../styles/ProductPopupStyles";
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
-import { cart } from "../controllers/cart";
+import { useStoreContext } from "../controllers/StoreContext";
 
 export default function ProductPopup({
   trigger,
   onClick,
   product,
-  // cart,
-  // setCart,
 }) {
   const theme = useTheme();
   const mainPic = 0;
@@ -60,6 +58,9 @@ export default function ProductPopup({
   const handleSize = (event, newSize) => {
     setSize(newSize);
   };
+
+  const cart = useStoreContext();
+
 
   // const cartHandler = () => {
   //   if (cart.length < 1) {
@@ -216,7 +217,7 @@ export default function ProductPopup({
               </Box>
               <ButtonGroup sx={productBuyButton}>
                 <Button
-                  onClick={() => { cart.add(product) }}
+                  onClick={() => { cart.addItem(product) }}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
                 >

@@ -10,6 +10,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Box, CssBaseline, responsiveFontSizes } from "@mui/material";
 import CartDrawer from "./CartDrawer";
 import { main } from "../styles/mainStyle";
+import { StoreContextProvider } from "../controllers/StoreContext";
 
 function App() {
 
@@ -17,21 +18,23 @@ function App() {
     <>
       <ThemeProvider theme={dark_Theme}>
         <CssBaseline />
-        <Box sx={main(dark_Theme)}>
-          <Routes>
-            <Route path="/" element={<Merch />} />
-            <Route path="/csshop" element={<Merch />} />
-            <Route path="/product" element={<Checkout />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<CartDrawer />} />
-          </Routes>
+        <StoreContextProvider>
+          <Box sx={main(dark_Theme)}>
+            <Routes>
+              <Route path="/" element={<Merch />} />
+              <Route path="/csshop" element={<Merch />} />
+              <Route path="/product" element={<Checkout />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/" element={<CartDrawer />} />
+            </Routes>
 
-          <div className='footer-section'>
-            <Footer />
-          </div>
+            <div className='footer-section'>
+              <Footer />
+            </div>
 
-        </Box>
+          </Box>
+        </StoreContextProvider>
       </ThemeProvider>
     </>
   );

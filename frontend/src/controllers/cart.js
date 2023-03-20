@@ -1,22 +1,26 @@
-export var cart = {
-    cart: new Map(),
+import { useState } from "react";
 
-    add: function (product) {
-        let amount = cart.cart.get(product.id)
-        cart.cart.set(product.id, amount ? amount + 1 : 1);
-    },
+// export var cart = {
+//     // cart: new Map(),
 
-    remove: (product) => {
-        let amount = cart.cart.get(product.id)
-        if (amount != 1)
-            cart.cart.set(product.id, amount - 1);
-        else
-            cart.cart.delete(product.id)
+//     cart: useState(Map()),
+
+//     add: function (product) {
+//         let amount = cart.cart.get(product.id)
+//         cart.cart.set(product.id, amount ? amount + 1 : 1);
+//     },
+
+//     remove: (product) => {
+//         let amount = cart.cart.get(product.id)
+//         if (amount != 1)
+//             cart.cart.set(product.id, amount - 1);
+//         else
+//             cart.cart.delete(product.id)
             
 
-    },
+//     },
 
-    getAll: () => {
-        return cart.cart;
-    },
-};
+//     getAll: () => {
+//         return cart.cart;
+//     },
+// };

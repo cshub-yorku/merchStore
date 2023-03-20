@@ -7,27 +7,33 @@ import { bold, fontIBM } from "../styles/fontStyles"
 import { cartStyle, dehazeStyle, logo, MerchAppBar, StackStyle, centerItem, merchColor, varColor, cartNotification, title, accountStyle, cartNotificationText, notificationAnima } from "../styles/navBarStyles"
 import { AccountCircle, Dehaze, ShoppingBag } from "@mui/icons-material"
 import { keyframes, useTheme } from "@emotion/react"
+import { useStoreContext } from "../controllers/StoreContext"
 
 export default function NavBar() {
 
     const theme = useTheme();
+    const cartContext = useStoreContext();
 
 
     //for some reason if i put this animation in styles file whole app breaks :(
     //hopelfully will fix it later
     const notifAnim = keyframes`
-0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    `;
   const anim = {
-    animation: `${notifAnim} 0.5s ease-in-out infinite both`,
+    animation: cartContext.cart.size != 0? `${notifAnim} 0.5s ease-in-out infinite both` : ``,
+  }
+
+  const animationEnd = () => {
+    animation: ``,
   }
 
     const [openLogin, setOpenLogin] = useState(false);
@@ -93,8 +99,8 @@ export default function NavBar() {
                             onClick={() => setOpenCart(true)}
                             
                         >
-                            <Box sx={[cartNotification, anim]}>
-                                <Typography variant="subtitle1" sx={cartNotificationText}>1</Typography>
+                            <Box sx={[cartNotification, anim]} onAnimationEnd>
+                                <Typography variant="subtitle1" sx={cartNotificationText}>{cartContext.cart.size}</Typography>
                             </Box>
                             <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
                         </IconButton>

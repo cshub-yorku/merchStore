@@ -65,7 +65,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
               <CloseIcon 
               sx={{ 
                 fontSize: 40,
-                marginLeft: "14vw",
+                marginLeft: "10.5vw",
                 marginTop: "-5vh"
                 
               }}>

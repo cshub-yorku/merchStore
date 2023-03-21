@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<CartDrawer />} />
         </Routes>
 
-        <div className='footer-section'>
+        <div className='footer-section' sx={{marginBottom: "0"}}>
           <Footer />
         </div>
 

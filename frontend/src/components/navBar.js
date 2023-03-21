@@ -28,12 +28,22 @@ export default function NavBar() {
             transform: scale(1);
         }
     `;
-  const anim = {
-    animation: cartContext.cart.size != 0? `${notifAnim} 0.5s ease-in-out infinite both` : ``,
+  const animation = {
+    animation: `${notifAnim} 0.5s ease-in-out both`,
   }
 
-  const animationEnd = () => {
+  const noAnimation = {
     animation: ``,
+  }
+
+  const [anim, setAnim] = useState(noAnimation);
+  
+  useEffect(()=>{
+    setAnim(animation);
+  }, [cartContext.cart.size])
+
+  const animationEnd = () => {
+    setAnim(noAnimation)
   }
 
     const [openLogin, setOpenLogin] = useState(false);
@@ -99,7 +109,7 @@ export default function NavBar() {
                             onClick={() => setOpenCart(true)}
                             
                         >
-                            <Box sx={[cartNotification, anim]} onAnimationEnd>
+                            <Box sx={[cartNotification, anim]} onAnimationEnd={animationEnd}>
                                 <Typography variant="subtitle1" sx={cartNotificationText}>{cartContext.cart.size}</Typography>
                             </Box>
                             <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>

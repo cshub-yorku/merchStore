@@ -48,7 +48,15 @@ export default function Login({ trigger, onClick }) {
             throw new Error(data.message);
           });
         }
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.accessToken);
         setLoginStatusMessage("Login successful");
+        setEmail("");
+        setPassword("");
+        onClick();
+        setLoginStatusMessage("");
       })
       .catch((error) => {
         if (error.message === "Unexpected end of JSON input") {

@@ -251,7 +251,7 @@ export default function Signup({ changeToFalse }) {
             onClick={() => changeToFalse()}
             style={{
               marginTop: 5,
-              marginBottom: -1,
+              marginBottom: 0,
               color: "white",
               fontSize: "1.2rem",
               fontWeight: "700",

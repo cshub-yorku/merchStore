@@ -30,7 +30,7 @@ export default function CartDrawer({ cart, setCart }) {
         anchor="right"
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        sx={{position: 'relative'}}
+        sx={{position: 'relative',}}
       >
         <Box
           p={3}

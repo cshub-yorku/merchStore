@@ -1,5 +1,6 @@
 
 
+
 export const button_white = {
     bgcolor: "#FFF",
     color: '#000',
@@ -90,3 +91,20 @@ export const select_black = {
 export const PopoverStyle = {
     pointerEvents: 'none',
 }
+
+export const AdminSwitch = (theme) => ({
+    
+    [theme.breakpoints.up('tablet')]: {
+        flexDirection: "column",
+    },
+    
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    width: '71vw',
+    height: "13rem",
+    marginLeft: "4vw",
+    marginTop: '1vw',
+    marginRight: "auto",
+  });

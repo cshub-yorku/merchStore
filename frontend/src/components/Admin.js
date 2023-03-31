@@ -13,6 +13,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
 
+import { useTheme } from "@emotion/react";
+import {
+
+  AdminSwitch,
+} from "../styles/Styles";
+
+
+
 function createData(order, date, ship, total, status) {
   return {order, date, ship, total, status };
 }
@@ -30,6 +38,10 @@ const rows = [
 
 export default function Admin() {
   const navigate = useNavigate();
+  const theme = useTheme();
+
+
+
   return (
     <>
 
@@ -58,21 +70,7 @@ export default function Admin() {
        
        }}>
 
-            <Box className="container-info" sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              
-              flexDirection: "row",
-              alignItems: "center",
-              
-              width: '71vw',
-              height: "13rem",
-              marginLeft: "4vw",
-              marginTop: '1vw',
-              marginRight: "auto",
-             
-
-            }}>
+            <Box className="container-info" sx={AdminSwitch}>
                   <Box className="account-info" sx={{
                     fontSize: "1.5rem",
                     fontWeight: "700",

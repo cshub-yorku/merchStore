@@ -41,11 +41,18 @@ export default function Profile() {
                             display: "flex",
                             justifyContent:"center",
                             alignItems:"flex-start",
-                            flexDirection:"column"
+                            flexDirection:"column",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis"
                       }}>
 
 
-                      {editName ? (<>  <Box sx={{marginLeft: "4rem"}}>
+                      {editName ? (<>  <Box sx={{marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)"}}>
                                                 <Typography sx={{color: "black"}} onClick = {() => setEditName(false)}><IconButton
                                                         className="navMenu"
                                                         size="large"
@@ -57,12 +64,16 @@ export default function Profile() {
                                               </IconButton>GO BACK</Typography>
                                               <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "First Name"/>
                                               <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Last Name"/>
-                                              <Button onClick = {() => setEditName(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                              <Button onClick = {() => setEditName(false)} sx={{backgroundColor: "#121212", color: "white", marginTop: "0.5rem"}}>EDIT</Button>
                                         </Box>
                                   
 
                                   </>) : editEmail ? (<>
-                                    <Box sx={{marginLeft: "4rem"}}>
+                                    <Box sx={{marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)"}}>
                                                 <Typography sx={{color: "black"}} onClick = {() => setEditEmail(false)}><IconButton
                                                         className="navMenu"
                                                         size="large"
@@ -73,11 +84,15 @@ export default function Profile() {
                                                 <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
                                               </IconButton>GO BACK</Typography>
                                               <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Email"/>
-                                              <Button onClick = {() => setEditEmail(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                              <Button onClick = {() => setEditEmail(false)} sx={{backgroundColor: "#121212", color: "white",marginTop: "0.5rem"}}>EDIT</Button>
                                         </Box>
 
                                   </>) : editNumber ? (<>
-                                    <Box sx={{marginLeft: "4rem"}}>
+                                    <Box sx={{marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)"}}>
                                                 <Typography sx={{color: "black"}} onClick = {() => setEditNumber(false)}><IconButton
                                                         className="navMenu"
                                                         size="large"
@@ -88,7 +103,7 @@ export default function Profile() {
                                                 <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
                                               </IconButton>GO BACK</Typography>
                                               <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Number"/>
-                                              <Button onClick = {() => setEditNumber(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                              <Button onClick = {() => setEditNumber(false)} sx={{backgroundColor: "#121212", color: "white", marginTop: "0.5rem"}}>EDIT</Button>
                                         </Box>
                                         
                                   </>) : (<><Typography sx={{

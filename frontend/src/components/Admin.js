@@ -30,6 +30,7 @@ export default function Admin() {
   const navigate = useNavigate();
 
   const [userDetails, setUserDetails] = useState("");
+  const [hasError, setHasError] = useState(false);
   const fetchUserDetails = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:9000/v1/users/user", {
@@ -49,10 +50,17 @@ export default function Admin() {
       .then((userDetails) => {
         console.log(userDetails);
         setUserDetails(userDetails);
+        setHasError(false);
       })
       .catch((error) => {
         console.error(error.message);
+        setHasError(true);
       });
+  };
+
+  const updateUserDetailsFromServer = async () => {
+    const updatedUserDetails = await fetchUserDetails();
+    setUserDetails(updatedUserDetails);
   };
 
   useEffect(() => {
@@ -112,7 +120,17 @@ export default function Admin() {
           >
             {" "}
             Account Details
-            <Profile userDetails={userDetails} />
+            {!hasError && userDetails && (
+              <Profile
+                userDetails={userDetails}
+                onUpdate={updateUserDetailsFromServer}
+              />
+            )}
+            {hasError && (
+              <Typography variant="body1" color="white">
+                Please login again. Error fetching user details.
+              </Typography>
+            )}
           </Box>
 
           <Box

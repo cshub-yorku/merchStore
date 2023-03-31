@@ -80,7 +80,7 @@ public class UsersDao implements Dao<Users> {
 
     @Override
     public boolean update(Users user) {
-        String statement = "UPDATE users set (first_name, last_name, email, phone_number, active) = (?, ?, ?, ?, ?) where user_id = ?";
+        String statement = "UPDATE users set (first_name, last_name, email, phone_number) = (?, ?, ?, ?) where user_id = ?";
         Connection connection = ConnectionManager.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -88,8 +88,7 @@ public class UsersDao implements Dao<Users> {
             preparedStatement.setString(2, user.getLastName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPhoneNumber());
-            preparedStatement.setBoolean(5, user.isActive());
-            preparedStatement.setLong(6, user.getUserId());
+            preparedStatement.setLong(5, user.getUserId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {

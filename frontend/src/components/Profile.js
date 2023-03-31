@@ -1,5 +1,5 @@
 import { Box, Typography, Button, IconButton, Input } from "@mui/material";
-import React, { useState } from "react";
+import { React, useState, useEffect } from "react";
 import "../styles/Admin.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,19 +12,64 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ userDetails }) {
+export default function Profile({ userDetails, onUpdate }) {
   const navigate = useNavigate();
 
   let userID = userDetails.userId;
   let active = userDetails.active;
-  const [firstName, setFirstName] = useState(userDetails.firstName);
-  const [lastName, setLastName] = useState(userDetails.lastName);
-  const [email, setEmail] = useState(userDetails.email);
-  const [phoneNumber, setPhoneNumber] = useState(userDetails.phoneNumber);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const [editName, setEditName] = useState(false);
   const [editEmail, setEditEmail] = useState(false);
   const [editNumber, setEditNumber] = useState(false);
+
+  useEffect(() => {
+    if (userDetails) {
+      setFirstName(userDetails.firstName);
+      setLastName(userDetails.lastName);
+      setEmail(userDetails.email);
+      setPhoneNumber(userDetails.phoneNumber);
+    }
+  }, [userDetails]);
+
+  const updateUserDetails = () => {
+    const token = localStorage.getItem("token");
+
+    const updatedUser = {
+      active: active,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      userId: userID,
+    };
+
+    console.log(updatedUser);
+
+    fetch("http://localhost:9000/v1/users/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedUser),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("User details updated successfully");
+          onUpdate();
+        } else {
+          throw new Error("Error updating user details");
+        }
+      })
+      .catch((error) => {
+        console.error(error.message);
+        alert(error.message);
+      });
+  };
 
   return (
     <>
@@ -49,7 +94,6 @@ export default function Profile({ userDetails }) {
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => {
-                  updateUserDetails();
                   setEditName(false);
                 }}
               >
@@ -72,7 +116,7 @@ export default function Profile({ userDetails }) {
                   borderRadius: "8px",
                   color: "black",
                 }}
-                value={firstName || ""}
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <Input
@@ -81,11 +125,14 @@ export default function Profile({ userDetails }) {
                   borderRadius: "8px",
                   color: "black",
                 }}
-                value={lastName || ""}
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
               <Button
-                onClick={() => setEditName(false)}
+                onClick={() => {
+                  updateUserDetails();
+                  setEditName(false);
+                }}
                 sx={{
                   backgroundColor: "#121212",
                   color: "white",
@@ -122,11 +169,14 @@ export default function Profile({ userDetails }) {
                   borderRadius: "8px",
                   color: "black",
                 }}
-                value={email || ""}
-                onChane={(e) => setEmail(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Button
-                onClick={() => setEditEmail(false)}
+                onClick={() => {
+                  updateUserDetails();
+                  setEditEmail(false);
+                }}
                 sx={{
                   backgroundColor: "#121212",
                   color: "white",
@@ -167,7 +217,10 @@ export default function Profile({ userDetails }) {
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <Button
-                onClick={() => setEditNumber(false)}
+                onClick={() => {
+                  updateUserDetails();
+                  setEditEmail(false);
+                }}
                 sx={{
                   backgroundColor: "#121212",
                   color: "white",

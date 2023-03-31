@@ -56,7 +56,9 @@ export default function Login({ trigger, onClick }) {
         setEmail("");
         setPassword("");
         onClick();
-        setLoginStatusMessage("");
+        setTimeout(() => {
+          setLoginStatusMessage("");
+        }, 3000);
       })
       .catch((error) => {
         if (error.message === "Unexpected end of JSON input") {

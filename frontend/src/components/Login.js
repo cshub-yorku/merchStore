@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import "../styles/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup";
+import ForgotPassword from "./ForgotPassword";
 
 export default function Login({ trigger, onClick }) {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login({ trigger, onClick }) {
   const [password, setPassword] = useState("");
   const [loginStatusMessage, setLoginStatusMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const changeToFalse = () => {
     setSwtichSignup(false);
@@ -90,6 +92,10 @@ export default function Login({ trigger, onClick }) {
             <div>
               <Signup changeToFalse={changeToFalse} />
             </div>
+          ) : showForgotPassword ? (
+            <div>
+              <ForgotPassword onClose={() => setShowForgotPassword(false)} />
+            </div>
           ) : (
             <DialogContent
               classes={{ root: { m: 0, p: 0 } }}
@@ -143,6 +149,17 @@ export default function Login({ trigger, onClick }) {
                     Login
                   </Button>
                 </div>
+                <Typography
+                  className="forgot-password-link"
+                  sx={{ margin: 3, fontSize: "1.2rem" }}
+                >
+                  <Link
+                    onClick={() => setShowForgotPassword(true)}
+                    sx={{ color: "white", fontSize: "1rem", fontWeight: "500" }}
+                  >
+                    Forgot Password?
+                  </Link>
+                </Typography>
 
                 <Typography
                   className="register-link"

@@ -92,17 +92,12 @@ export const PopoverStyle = {
     pointerEvents: 'none',
 }
 
-export const AdminSwitch = (theme) => ({
-    
-    [theme.breakpoints.up('tablet')]: {
-        flexDirection: "column",
-    },
-    
+export const AdminSwitch = ({
     display: "flex",
     justifyContent: "space-between",
-    flexDirection: "row",
+    flexDirection:  'row',
     alignItems: "center",
-    width: '71vw',
+    width: {hd: "55vw", fhd: "71vw"},
     height: "13rem",
     marginLeft: "4vw",
     marginTop: '1vw',

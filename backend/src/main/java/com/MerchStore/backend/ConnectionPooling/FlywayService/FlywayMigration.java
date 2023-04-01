@@ -9,10 +9,8 @@ public class FlywayMigration {
     private FlywayMigration(){}
 
     public static void migrate() {
-        System.out.print(DATASOURCE_URL);
-
         Flyway flyway = Flyway.configure().
-                dataSource("jdbc:postgresql://0.0.0.0:5432/postgres","postgres","1234")
+                dataSource(DATASOURCE_URL,DATASOURCE_USERNAME,DATASOURCE_PASSWORD)
                 .schemas("merchstore").load();
         flyway.migrate();
     }

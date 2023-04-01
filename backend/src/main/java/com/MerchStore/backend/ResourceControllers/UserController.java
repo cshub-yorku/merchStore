@@ -1,18 +1,30 @@
 package com.MerchStore.backend.ResourceControllers;
 
 
+import com.MerchStore.backend.Dao.UserAuthenticatorDao;
+import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("v1/users")
-public class UserController {
+public class UserController extends ResponseHandler{
+
+    @Autowired
+    UserAuthenticatorDao dao;
+    @GetMapping("/user")
+    public ResponseEntity<?> getUserDetails(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(this.getEmailFromToken(token));
+        return ResponseEntity.ok(user.getUserDetails());
+    }
 
     @GetMapping("/")
     public List<Users> getUsers() {
@@ -20,9 +32,8 @@ public class UserController {
         return UserService.getAllUsers();
     }
 
-
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody Users user) {
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody Users user) {
         boolean updated = UserService.updateUser(user);
         if (updated) {
             return new ResponseEntity<>("User updated", HttpStatus.OK);

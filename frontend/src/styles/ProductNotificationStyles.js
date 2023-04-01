@@ -2,7 +2,7 @@ export const snackbar = {
 
 
     "&.MuiSnackbar-anchorOriginBottomRight": {
-        width: '15%',
+        width: '18%',
         m: 'auto',
         mr: '1%',
         mb: '0.3%',
@@ -25,10 +25,23 @@ export const snackbar = {
 }
 
 export const notificationImage = {
-    width: '15%',
+    width: '20%',
 }
 
 export const notificationContents = {
     bgcolor: 'white'
 }
 
+export const notificationMessage = {
+    display: 'flex',
+    justifyContent: 'space-between',
+}
+
+export const closeButton = {
+    alignSelf: 'flex-start',
+    mr: '0%',
+}
+
+export const title = {
+
+}

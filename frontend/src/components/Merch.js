@@ -9,6 +9,7 @@ import { useTheme } from "@emotion/react";
 import NavBar from "./navBar";
 import ProductNotification  from "./ProductNotification";
 import { field_white} from "../styles/Styles";
+import { useStoreContext } from "../controllers/StoreContext";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -30,6 +31,7 @@ const testProduct = {
 
 export default function Merch() {
   const theme = useTheme();
+  const merch = useStoreContext();
 
   const [openPopup, setOpenPopup] = useState(false);
   const [shopJSON, setShopJSON] = useState(false);
@@ -42,6 +44,10 @@ export default function Merch() {
     setOpenPopup(!openPopup);
     setUserActive(shopJSON[index]);
   }
+
+  // useEffect(() => {
+  //   merch.loadProducts();
+  // }, [])
 
   useEffect(() => {
     fetch('https://api.escuelajs.co/api/v1/products')

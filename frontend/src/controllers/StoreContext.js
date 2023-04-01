@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import React from "react";
+import ProductNotification from "../components/ProductNotification";
 
 const StoreContext = createContext();
 const StoreUpdateContext = createContext();
@@ -11,7 +12,12 @@ export function useStoreContext() {
 
 export function StoreContextProvider(props){
 
+    updateProudcts();
+
     const [cart, setCart] = useState(new Map());
+    const [products, setProducts] = useState([]);
+    const [notificationPopup, setnotificationPopup] = useState([]);
+
     const updateCart = (k,v) => {
         setCart(cart.set(k,v))
     }
@@ -26,6 +32,18 @@ export function StoreContextProvider(props){
 
     }
 
+    function updateProudcts(){
+        console.log('loaded!');
+    }
+
+    function getAllProducts() {
+
+    }
+
+    function getProduct(id){
+        return products.find(x => x.id === id);
+    }
+
 
 
     return(
@@ -33,6 +51,11 @@ export function StoreContextProvider(props){
             cart,
             addItem,
             removeItem,
+            notificationPopup,
+            setnotificationPopup,
+            updateProudcts,
+            getAllProducts,
+            getProduct
         }}>
             {props.children}
         </StoreContext.Provider>

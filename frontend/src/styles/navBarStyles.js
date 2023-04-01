@@ -71,6 +71,11 @@ export const cartNotification = {
     bgcolor: 'red',
     borderRadius: '50%',
 
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
+
     // animation: `${notifAnim} 0.5s ease-in-out infinite both`,
 }
 
@@ -79,8 +84,5 @@ export const title = {
 }
 
 export const cartNotificationText = {
-    position: 'absolute',
-    top: '-20%',
-    right: '30%'
 }
 

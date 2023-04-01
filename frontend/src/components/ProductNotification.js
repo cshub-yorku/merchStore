@@ -4,13 +4,15 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
-import { notificationContents, notificationImage, snackbar } from '../styles/ProductNotificationStyles';
+import { SnackbarContent, Typography } from '@mui/material';
+import { closeButton, notificationContents, notificationImage, notificationMessage, snackbar, title } from '../styles/ProductNotificationStyles';
 import Slide from '@mui/material/Slide';
+import { bold } from '../styles/fontStyles';
+import { useStoreContext } from '../controllers/StoreContext';
 
 export default function ProductNotification({ open, setOpen, product }) {
 
-    // const [open, setOpen] = React.useState();
+    const storeContext = useStoreContext();
 
     function SlideTransition(props) {
         return <Slide {...props} direction="up" />;
@@ -24,31 +26,37 @@ export default function ProductNotification({ open, setOpen, product }) {
         setOpen(false)
     };
 
-    const action = (
-        <React.Fragment>
-            <Box component="img" src={product.images[0]} sx={notificationImage}></Box>
-                <Box>
-                    <Typography>{product.title}</Typography>
-                    <Box>
-                        <Typography>x1 Added to cart</Typography>
-                    </Box>
-                </Box>
-        </React.Fragment>
-    );
-
     return (
         <Snackbar
             key={"key"}
             open={open}
             autoHideDuration={6000}
             onClose={() => setOpen(false)}
-            action={action}
             anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'right',
             }}
+
             TransitionProps={SlideTransition}
             sx={snackbar}
-        />
+        >
+            <SnackbarContent
+                message={
+                    <Box sx={notificationMessage}>
+                        
+                        <Box component="img" src={product.images[0]} sx={notificationImage}></Box>
+                        <Box>
+                            <Typography variant="body1" sx={[title, bold]}>{product.title}</Typography>
+                            <Box>
+                                <Typography>x1 Added to cart</Typography>
+                            </Box>
+                        </Box>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={() => { setOpen(false) }} sx={closeButton}>
+                            <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </Box>
+                }
+            />
+        </Snackbar >
     );
 }

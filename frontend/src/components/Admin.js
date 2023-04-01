@@ -70,7 +70,16 @@ export default function Admin() {
        
        }}>
 
-            <Box className="container-info" sx={AdminSwitch}>
+            <Box className="container-info" 
+            sx={{ display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "71vw",
+                  height: "13rem",
+                  marginLeft: "4vw",
+                  marginTop: '1vw',
+                  marginRight: "auto",                              
+                  flexDirection:  'row'}}>
                   <Box className="account-info" sx={{
                     fontSize: "1.5rem",
                     fontWeight: "700",
@@ -81,7 +90,7 @@ export default function Admin() {
                       
                     </Box>
                       
-                    <Box className="address-info" sx={{
+                    {/* <Box className="address-info" sx={{
                     fontSize: "1.5rem",
                     fontWeight: "700",
                     margin: "5px",
@@ -89,7 +98,7 @@ export default function Admin() {
 
                       <Address/>
                       
-                      </Box>
+                      </Box> */}
 
             
 

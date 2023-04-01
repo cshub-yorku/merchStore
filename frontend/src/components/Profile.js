@@ -1,5 +1,6 @@
 import { Box, Typography, Button, IconButton, Input } from "@mui/material";
 import { React, useState, useEffect } from "react";
+import TextField from "@mui/material/TextField";
 import "../styles/Admin.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -25,6 +26,54 @@ export default function Profile({ userDetails, onUpdate }) {
   const [editName, setEditName] = useState(false);
   const [editEmail, setEditEmail] = useState(false);
   const [editNumber, setEditNumber] = useState(false);
+
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+
+  const validateFirstName = (firstNameValue) => {
+    if (
+      firstNameValue.length < 2 ||
+      firstNameValue.length > 20 ||
+      !/^[a-zA-Z]*$/.test(firstNameValue) //Alphabet only
+    ) {
+      setFirstNameError(true);
+    } else {
+      setFirstNameError(false);
+    }
+  };
+
+  const validateLastName = (lastNameValue) => {
+    if (
+      lastNameValue.length > 20 ||
+      !/^[a-zA-Z]*$/.test(lastNameValue) //Alphabet only
+    ) {
+      setLastNameError(true);
+    } else if (lastNameValue == "") {
+      setLastNameError(false);
+    } else {
+      setLastNameError(false);
+    }
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const phoneNumberRegex = /^\d{10}$/;
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      setPhoneNumberError(true);
+    } else {
+      setPhoneNumberError(false);
+    }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
+  };
 
   useEffect(() => {
     if (userDetails) {
@@ -110,28 +159,56 @@ export default function Profile({ userDetails, onUpdate }) {
                 </IconButton>
                 GO BACK
               </Typography>
-              <Input
-                sx={{
-                  border: "1px solid black",
-                  borderRadius: "8px",
-                  color: "black",
+              <TextField
+                error={firstNameError}
+                helperText={
+                  firstNameError ? "Please enter a valid first name." : ""
+                }
+                inputProps={{
+                  style: { color: "black" },
+                  required: true,
                 }}
+                margin="normal"
+                className="register-text signup-text"
+                label="First Name"
+                variant="outlined"
+                required
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <Input
-                sx={{
-                  border: "1px solid black",
-                  borderRadius: "8px",
-                  color: "black",
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                  validateFirstName(e.target.value);
                 }}
+              />
+              <TextField
+                error={lastNameError}
+                helperText={
+                  lastNameError ? "Please enter a valid last name." : ""
+                }
+                inputProps={{ style: { color: "black" } }}
+                color="secondary"
+                margin="normal"
+                className="register-text signup-text"
+                label="Last Name"
+                variant="outlined"
                 value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                  validateLastName(e.target.value);
+                }}
               />
               <Button
                 onClick={() => {
-                  updateUserDetails();
-                  setEditName(false);
+                  if (
+                    firstNameError ||
+                    lastNameError ||
+                    phoneNumberError ||
+                    emailError
+                  ) {
+                    alert("please check the input fields");
+                  } else {
+                    updateUserDetails();
+                    setEditName(false);
+                  }
                 }}
                 sx={{
                   backgroundColor: "#121212",
@@ -163,19 +240,35 @@ export default function Profile({ userDetails, onUpdate }) {
                 </IconButton>
                 GO BACK
               </Typography>
-              <Input
-                sx={{
-                  border: "1px solid black",
-                  borderRadius: "8px",
-                  color: "black",
-                }}
+              <TextField
+                error={emailError}
+                helperText={emailError ? "Please enter a valid email." : ""}
+                inputProps={{ style: { color: "black" } }}
+                color="secondary"
+                margin="normal"
+                className="register-text signup-text"
+                label="Email Address"
+                variant="outlined"
+                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  validateEmail(e.target.value);
+                }}
               />
               <Button
                 onClick={() => {
-                  updateUserDetails();
-                  setEditEmail(false);
+                  if (
+                    firstNameError ||
+                    lastNameError ||
+                    phoneNumberError ||
+                    emailError
+                  ) {
+                    alert("please check the input fields");
+                  } else {
+                    updateUserDetails();
+                    setEditEmail(false);
+                  }
                 }}
                 sx={{
                   backgroundColor: "#121212",
@@ -207,19 +300,37 @@ export default function Profile({ userDetails, onUpdate }) {
                 </IconButton>
                 GO BACK
               </Typography>
-              <Input
-                sx={{
-                  border: "1px solid black",
-                  borderRadius: "8px",
-                  color: "black",
-                }}
+              <TextField
+                error={phoneNumberError}
+                helperText={
+                  phoneNumberError ? "Please enter a valid phone number." : ""
+                }
+                inputProps={{ style: { color: "black" } }}
+                color="secondary"
+                margin="normal"
+                className="register-text signup-text"
+                label="Phone Number"
+                variant="outlined"
+                required
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  validatePhoneNumber(e.target.value);
+                }}
               />
               <Button
                 onClick={() => {
-                  updateUserDetails();
-                  setEditEmail(false);
+                  if (
+                    firstNameError ||
+                    lastNameError ||
+                    phoneNumberError ||
+                    emailError
+                  ) {
+                    alert("please check the input fields");
+                  } else {
+                    updateUserDetails();
+                    setEditNumber(false);
+                  }
                 }}
                 sx={{
                   backgroundColor: "#121212",

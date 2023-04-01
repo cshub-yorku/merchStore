@@ -67,6 +67,19 @@ export default function Admin() {
     fetchUserDetails();
   }, []);
 
+  const logoutAndRedirect = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (hasError) {
+      setTimeout(() => {
+        logoutAndRedirect();
+      }, 3000);
+    }
+  }, [hasError, navigate]);
+
   return (
     <>
       <Typography sx={{ fontSize: "1.5rem", fontWeight: "700", margin: "5vw" }}>
@@ -127,8 +140,9 @@ export default function Admin() {
               />
             )}
             {hasError && (
-              <Typography variant="body1" color="white">
-                Please login again. Error fetching user details.
+              <Typography variant="body1" color="error">
+                Please log in again, you are being redirected to the main
+                page...
               </Typography>
             )}
           </Box>

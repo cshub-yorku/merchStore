@@ -12,7 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import {
@@ -37,13 +37,12 @@ import {
 } from "../styles/ProductPopupStyles";
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
+import { useStoreContext } from "../controllers/StoreContext";
 
 export default function ProductPopup({
   trigger,
   onClick,
   product,
-  cart,
-  setCart,
 }) {
   const theme = useTheme();
   const mainPic = 0;
@@ -60,20 +59,23 @@ export default function ProductPopup({
     setSize(newSize);
   };
 
-  const cartHandler = () => {
-    if (cart.length < 1) {
-      setCart([product]);
-    } else {
-      setCart((outdatedCart) => {
-        for (let i = 0; i < outdatedCart.length; i++) {
-          if (outdatedCart[i].id === product.id) {
-            return outdatedCart;
-          }
-        }
-        return [...outdatedCart, product];
-      });
-    }
-  };
+  const cart = useStoreContext();
+
+
+  // const cartHandler = () => {
+  //   if (cart.length < 1) {
+  //     setCart([product]);
+  //   } else {
+  //     setCart((outdatedCart) => {
+  //       for (let i = 0; i < outdatedCart.length; i++) {
+  //         if (outdatedCart[i].id === product.id) {
+  //           return outdatedCart;
+  //         }
+  //       }
+  //       return [...outdatedCart, product];
+  //     });
+  //   }
+  // };
 
   return product ? (
     <Dialog
@@ -164,13 +166,13 @@ export default function ProductPopup({
 
             <List>
               <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
-                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
-                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
-                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
-                    Washing Instructions: Wash 30C. Wash inside out like with
-                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                  </ListItem>
-                </List>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                  Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                </ListItem>
+              </List>
             </List>
 
             <ToggleButtonGroup
@@ -215,7 +217,7 @@ export default function ProductPopup({
               </Box>
               <ButtonGroup sx={productBuyButton}>
                 <Button
-                  onClick={() => cartHandler()}
+                  onClick={() => { cart.addItem(product) }}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
                 >

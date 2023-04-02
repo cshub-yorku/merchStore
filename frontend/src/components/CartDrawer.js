@@ -4,8 +4,7 @@ import { IconButton, Button, Typography, Drawer, Box, Stack, Grid } from "@mui/m
 import { ShoppingBag, VapingRooms } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function CartDrawer({ cart, setCart }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
   const navigate = useNavigate();
 
   const removeItem = (i) => {
@@ -14,22 +13,13 @@ export default function CartDrawer({ cart, setCart }) {
   }
   return (
     <>
-      <IconButton
-        className="cartButton"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
-      </IconButton>
 
       {/* SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
         sx={{position: 'relative'}}
       >
         <Box
@@ -46,7 +36,7 @@ export default function CartDrawer({ cart, setCart }) {
           <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem'}}>
           {( () => {
               let drawer = [];
-              if (isDrawerOpen) {
+              if (trigger) {
               for(let i = 0; i < cart.length; i++){
                 drawer.push(
                   <Stack direction="row" justifyContent="space-around" alignItems="center">

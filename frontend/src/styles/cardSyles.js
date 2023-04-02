@@ -39,6 +39,8 @@ export const cardImage = {
 
     objectFit: 'cover',
     filter: 'drop-shadow(0px 0px 23px rgba(0, 0, 0, 0.3))',
+
+    cursor: 'pointer',
 }
 
 export const cardButton = {

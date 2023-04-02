@@ -70,7 +70,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
               fontWeight: "700",
               fontSize: "1.5rem",
             }}
-          >
+          ></Typography>
             <IconButton
               size="large"
               sx={{ color: "text.primary" }}
@@ -107,7 +107,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
 
                 </ListItemButton>
               </ListItem>
-
+              </List>        
             <List>
               {isLoggedIn() ? (
                 <ListItem disablePadding onClick={handleProfileClick}>
@@ -223,7 +223,6 @@ export default function NavSidebar( {trigger, passFunction} ) {
                 </ListItem>
               )}
             </List>
-          </Typography>
         </Box>
       </Drawer>
     </>

@@ -3,10 +3,7 @@ package com.MerchStore.backend.Dao;
 import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +20,9 @@ public class ProductDao implements Dao<Product> {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"));
+                Array imagesArray = resultSet.getArray("images");
+                String[] images = (String[])imagesArray.getArray();
+                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"), images);
                 return Optional.of(product);
             }
         } catch (SQLException e) {
@@ -42,7 +41,9 @@ public class ProductDao implements Dao<Product> {
         try {
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while (resultSet.next()) {
-                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"));
+                Array imagesArray = resultSet.getArray("images");
+                String[] images = (String[])imagesArray.getArray();
+                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"), images);
                 resultList.add(product);
             }
         } catch (SQLException e) {
@@ -55,7 +56,7 @@ public class ProductDao implements Dao<Product> {
 
     @Override
     public boolean save(Product product) {
-        String statement = "INSERT INTO product values (?, ?, ?, ?, ?)";
+        String statement = "INSERT INTO product values (?, ?, ?, ?, ?, ?)";
         Connection connection = ConnectionManager.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -64,7 +65,9 @@ public class ProductDao implements Dao<Product> {
             preparedStatement.setString(3, product.getName());
             preparedStatement.setDouble(4, product.getPrice());
             preparedStatement.setInt(5, product.getStock());
-
+            String[] images = product.getImages();
+            Array imagesArray = connection.createArrayOf("text", images);
+            preparedStatement.setArray(6, imagesArray);
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
@@ -77,7 +80,7 @@ public class ProductDao implements Dao<Product> {
 
     @Override
     public boolean update(Product product) {
-        String statement = "UPDATE product set (description, name, price, stock) = (?, ?, ?, ?) where product_id = ?";
+        String statement = "UPDATE product set (description, name, price, stock, images) = (?, ?, ?, ?, ?) where product_id = ?";
         Connection connection = ConnectionManager.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
@@ -85,7 +88,10 @@ public class ProductDao implements Dao<Product> {
             preparedStatement.setString(2, product.getName());
             preparedStatement.setDouble(3, product.getPrice());
             preparedStatement.setInt(4, product.getStock());
-            preparedStatement.setLong(5, product.getProductId());
+            String[] images = product.getImages();
+            Array imagesArray = connection.createArrayOf("text", images);
+            preparedStatement.setArray(5, imagesArray);
+            preparedStatement.setLong(6, product.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {

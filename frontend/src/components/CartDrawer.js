@@ -6,8 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total} from '../styles/CartDrawer.js'
 import { button_white, button_black, button_theme } from '../styles/Styles.js'
 
-export default function CartDrawer({ cart, setCart }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
   const navigate = useNavigate();
 
   const removeItem = (i) => {
@@ -16,22 +15,13 @@ export default function CartDrawer({ cart, setCart }) {
   }
   return (
     <>
-      <IconButton
-        className="cartButton"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
-      </IconButton>
 
       {/* SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
         sx={{position: 'relative'}}
       >
         <Box
@@ -48,7 +38,7 @@ export default function CartDrawer({ cart, setCart }) {
           <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%'}}>
           {( () => {
               let drawer = [];
-              if (isDrawerOpen) {
+              if (trigger) {
               for(let i = 0; i < cart.length; i++){
                 drawer.push(
                   <>

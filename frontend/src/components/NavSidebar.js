@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function NavSidebar( {trigger, passFunction} ) {
   
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const navigate = useNavigate();
 

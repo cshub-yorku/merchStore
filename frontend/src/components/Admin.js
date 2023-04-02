@@ -2,7 +2,6 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import Profile from "./Profile";
 import Address from "./Address";
-import "../styles/Admin.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -129,8 +128,13 @@ export default function Admin() {
             marginLeft: "4vw",
             marginTop: "1vw",
             marginRight: "auto",
+            
           }}
         >
+
+
+
+
           <Box
             className="account-info"
             sx={{
@@ -155,7 +159,7 @@ export default function Admin() {
             )}
           </Box>
 
-          <Box
+          {/* <Box
             className="address-info"
             sx={{
               fontSize: "1.5rem",
@@ -166,7 +170,7 @@ export default function Admin() {
             {" "}
             Address
             <Address />
-          </Box>
+          </Box> */}
         </Box>
 
         <Box

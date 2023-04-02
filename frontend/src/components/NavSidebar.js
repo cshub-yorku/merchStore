@@ -16,7 +16,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 
-export default function NavSidebar( {trigger, passFunction} ) {
+export default function NavSidebar( {trigger, passFunction, login} ) {
   
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
@@ -34,6 +34,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
   const handleLoginClick = () => {
     setIsDrawerOpen(false);
     passFunction(!trigger);
+    login(true);
   };
 
   const handleLogout = () => {
@@ -108,7 +109,7 @@ export default function NavSidebar( {trigger, passFunction} ) {
 
                 </ListItemButton>
               </ListItem>
-              </List>        
+            </List>        
             <List>
               {isLoggedIn() ? (
                 <ListItem disablePadding onClick={handleProfileClick}>

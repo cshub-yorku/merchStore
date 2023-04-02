@@ -180,11 +180,6 @@ export default function Merch() {
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
           ></ProductPopup>
-
-          <Login
-            // trigger={openLogin}
-            // onClick={() => setOpenLogin(!openLogin)}
-          ></Login>
         </>
       )}
     </Box>

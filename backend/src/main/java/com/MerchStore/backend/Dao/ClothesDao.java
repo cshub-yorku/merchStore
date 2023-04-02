@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Clothes;
 
 import java.sql.Connection;
@@ -16,8 +16,8 @@ public class ClothesDao implements Dao<Clothes>{
     public Optional<Clothes> get(long id) {
         String statement = "SELECT * FROM clothes where product_id = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -27,6 +27,8 @@ public class ClothesDao implements Dao<Clothes>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
@@ -35,8 +37,8 @@ public class ClothesDao implements Dao<Clothes>{
     public List<Clothes> getAll() {
         String statement = "SELECT * FROM clothes";
         LinkedList<Clothes> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while(resultSet.next()){
                 Clothes clothes = new Clothes(resultSet.getLong("product_id"), resultSet.getString("colour"), resultSet.getString("sex"), resultSet.getString("size"));
@@ -44,6 +46,8 @@ public class ClothesDao implements Dao<Clothes>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -51,8 +55,8 @@ public class ClothesDao implements Dao<Clothes>{
     @Override
     public boolean save(Clothes clothes){
         String statement = "INSERT INTO clothes values (?, ?, ?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, clothes.getProductId());
             preparedStatement.setString(2, clothes.getColour());
@@ -63,6 +67,8 @@ public class ClothesDao implements Dao<Clothes>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -70,8 +76,8 @@ public class ClothesDao implements Dao<Clothes>{
     @Override
     public boolean update(Clothes clothes) {
         String statement = "UPDATE clothes set (colour, size, sex) = (?, ?, ?) where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, clothes.getColour());
             preparedStatement.setString(2, clothes.getSize());
@@ -81,6 +87,8 @@ public class ClothesDao implements Dao<Clothes>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -88,14 +96,16 @@ public class ClothesDao implements Dao<Clothes>{
     @Override
     public boolean delete(Clothes clothes) {
         String statement = "DELETE from clothes where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, clothes.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }

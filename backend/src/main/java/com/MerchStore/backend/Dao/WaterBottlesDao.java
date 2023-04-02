@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.WaterBottles;
 
 import java.sql.Connection;
@@ -16,8 +16,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
     public Optional<WaterBottles> get(long id) {
         String statement = "SELECT * FROM water_bottles where product_id = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -27,6 +27,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
@@ -35,8 +37,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
     public List<WaterBottles> getAll() {
         String statement = "SELECT * FROM water_bottles";
         LinkedList<WaterBottles> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while (resultSet.next()) {
                 WaterBottles waterBottles = new WaterBottles(resultSet.getLong("product_id"), resultSet.getString("colour"));
@@ -44,6 +46,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -51,8 +55,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
     @Override
     public boolean save(WaterBottles waterBottles) {
         String statement = "INSERT INTO water_bottles values (?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, waterBottles.getProductId());
             preparedStatement.setString(2, waterBottles.getColour());
@@ -61,6 +65,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -68,8 +74,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
     @Override
     public boolean update(WaterBottles waterBottles) {
         String statement = "UPDATE water_bottles set colour = ? where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, waterBottles.getColour());
             preparedStatement.setLong(2, waterBottles.getProductId());
@@ -77,6 +83,8 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -84,14 +92,16 @@ public class WaterBottlesDao implements Dao<WaterBottles> {
     @Override
     public boolean delete(WaterBottles waterBottles) {
         String statement = "DELETE from water_bottles where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, waterBottles.getProductId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }

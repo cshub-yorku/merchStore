@@ -184,5 +184,7 @@ if exist "%USERPROFILE%\mavenrc_post.cmd" call "%USERPROFILE%\mavenrc_post.cmd"
 if "%MAVEN_BATCH_PAUSE%"=="on" pause
 
 if "%MAVEN_TERMINATE_CMD%"=="on" exit %ERROR_CODE%
-
+set datasource_username=${DATABASE_USERNAME}
+set datasource_password=${DATABASE_PASSWORD}
+set datasource_url=${DATABASE_URL}
 cmd /C exit /B %ERROR_CODE%

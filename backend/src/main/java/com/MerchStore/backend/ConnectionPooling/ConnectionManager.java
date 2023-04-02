@@ -1,4 +1,4 @@
-package com.MerchStore.backend.ConnectionPooling.FlywayService;
+package com.MerchStore.backend.ConnectionPooling;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +32,13 @@ public class ConnectionManager {
             System.out.println(e.getMessage());
             e.printStackTrace();
             throw new IllegalStateException("Can not connect to Database");
+        }
+    }
+
+    public static void releaseConnection(Connection connection){
+        try{
+            connection.close();
+        }catch (SQLException ignored){
         }
     }
 }

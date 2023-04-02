@@ -1,6 +1,5 @@
 import { Box, Typography,Button,IconButton, Input } from '@mui/material';
 import React, { useState } from 'react'
-import "../styles/Admin.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,12 +11,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
-
-
 export default function Profile() {
   const navigate = useNavigate();
 
@@ -25,10 +18,6 @@ export default function Profile() {
   const [editName, setEditName] = useState(false);
   const [editEmail, setEditEmail] = useState(false);
   const [editNumber, setEditNumber] = useState(false);
-
-
- 
-
 
   return (
     <>

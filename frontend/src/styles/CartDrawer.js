@@ -1,3 +1,22 @@
+export const cardStyle = (theme) => ({
+    [theme.breakpoints.down("tablet")]: {
+        width: '90vw',
+        height: '90vw',
+    },
+    [theme.breakpoints.up("tablet")]: {
+        width: '33vw',
+        height: '33vw',
+    },
+    [theme.breakpoints.up("hd")]: {
+        width: '33vw',
+        height: '33vw',
+    },
+    [theme.breakpoints.up("fhd")]: {
+        width: '25vw',
+        height: '25vw',
+    },
+});
+
 export const itemStackStyle = {
     maxWidth: '100%',
 }

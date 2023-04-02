@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 node_modules
 
+frontend\package.json
+frontend\package-lock.json

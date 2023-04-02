@@ -2,7 +2,6 @@ import { Box, Typography,Button,IconButton } from '@mui/material';
 import React, { useState } from 'react'
 import Profile from "./Profile";
 import Address from "./Address";
-import "../styles/Admin.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -25,9 +24,6 @@ const rows = [
   createData('4', 1/1/1, "User Name", 67, "Complete"),
   createData('5', 1/1/1, "User Name", 49, "Complete"),
 ];
-
-
-
 
 export default function Admin() {
   const navigate = useNavigate();

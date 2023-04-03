@@ -1,7 +1,6 @@
 import { Box, Typography,Button,IconButton, Input } from '@mui/material';
 import React, { useState } from 'react'
 import Profile from "./Profile";
-import "../styles/Admin.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

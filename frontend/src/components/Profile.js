@@ -1,19 +1,17 @@
-import { Box, Typography, Button, IconButton, Input } from "@mui/material";
-import { React, useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import "../styles/Admin.css";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import EditIcon from "@mui/icons-material/Edit";
+import { Box, Typography,Button,IconButton, Input } from '@mui/material';
+import React, { useState } from 'react'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ userDetails, onUpdate }) {
+export default function Profile() {
   const navigate = useNavigate();
 
   let userID = userDetails.userId;

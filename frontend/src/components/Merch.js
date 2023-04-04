@@ -179,14 +179,7 @@ export default function Merch() {
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
-            cart={cart}
-            setCart={setCart}
           ></ProductPopup>
-
-          <Login
-            trigger={openLogin}
-            onClick={() => setOpenLogin(!openLogin)}
-          ></Login>
         </>
       )}
     </Box>

@@ -41,7 +41,7 @@ public class Product {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public int setStock(int stock){
         this.stock = stock;
     }
 }

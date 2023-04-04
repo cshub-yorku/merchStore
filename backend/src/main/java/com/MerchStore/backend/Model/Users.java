@@ -12,8 +12,6 @@ public class Users {
 
     private String phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
 
-    private boolean active;
-
     public Users(long userId, String firstName, String lastName, String email, String phoneNumber){
         this.userId = userId;
         this.firstName = firstName;
@@ -29,45 +27,12 @@ public class Users {
         this.phoneNumber = phoneNumber;
     }
 
-    public Users(long userId, String firstName, String lastName, String email, String phoneNumber, boolean active) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.active = active;
-    }
-
     public long getUserId() {
         return userId;
     }
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isActive() {
-        return this.active;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getLastName() {

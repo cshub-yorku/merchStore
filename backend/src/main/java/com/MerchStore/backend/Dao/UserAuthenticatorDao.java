@@ -2,7 +2,6 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
 import com.MerchStore.backend.Model.UserAuthenticator;
-import com.MerchStore.backend.Model.UserRoles;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +20,7 @@ import java.time.Instant;
 public class UserAuthenticatorDao implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        String statement = "SELECT password,user_id,first_name,last_name,email,phone_number,role FROM users where email = ?";
+        String statement = "SELECT password,user_id,first_name,last_name,email,phone_number FROM users where email = ?";
 
         try {
             Connection connection = ConnectionManager.getConnection();
@@ -36,7 +35,7 @@ public class UserAuthenticatorDao implements UserDetailsService {
                         resultSet.getString("email"),
                         resultSet.getString("phone_number")
                 );
-                return new UserAuthenticator(userDetails,resultSet.getString("password"), resultSet.getString("role"));
+                return new UserAuthenticator(userDetails,resultSet.getString("password"));
             }
             throw new UsernameNotFoundException("Username not found: " + email);
         } catch (SQLException e) {
@@ -63,7 +62,7 @@ public class UserAuthenticatorDao implements UserDetailsService {
     }
 
     public void save(SignupRequest user) {
-        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password,role,active) VALUES (?,?,?,?,?,?,?,?)";
+        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password) VALUES (?,?,?,?,?,?)";
 
         Connection connection = ConnectionManager.getConnection();
         try {
@@ -74,9 +73,6 @@ public class UserAuthenticatorDao implements UserDetailsService {
             preparedStatement.setLong(4, Instant.now().toEpochMilli());
             preparedStatement.setString(5,user.getEmail());
             preparedStatement.setString(6,user.getPassword());
-            preparedStatement.setString(7, UserRoles.Customer.toString());
-            preparedStatement.setBoolean(8, false);
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());

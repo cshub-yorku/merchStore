@@ -11,15 +11,12 @@ public class UserAuthenticator implements UserDetails {
     private final long userId;
     private Users userDetails;
 
-    private final UserRoles role;
-
     // Constructor used when retrieving user info from database
-    public UserAuthenticator(Users userDetails, String password, String role){
+    public UserAuthenticator(Users userDetails, String password){
         this.password = password;
         this.userEmail = userDetails.getEmail();
         this.userId = userDetails.getUserId();
         this.userDetails = userDetails;
-        this.role = UserRoles.of(role);
     }
 
 
@@ -58,7 +55,6 @@ public class UserAuthenticator implements UserDetails {
         return true;
     }
 
-
     public String getEmail() {
         return userEmail;
     }
@@ -70,9 +66,4 @@ public class UserAuthenticator implements UserDetails {
     public Users getUserDetails() {
         return userDetails;
     }
-
-    public UserRoles getRole(){
-        return this.role;
-    }
-
 }

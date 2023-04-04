@@ -93,6 +93,4 @@ public class OrderedItemsDao implements Dao<OrderedItems>{
     public boolean delete(OrderedItems orderedItems) {
         throw new UnsupportedOperationException("Unable to delete orderedItems");
     }
-
-
 }

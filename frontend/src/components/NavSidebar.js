@@ -16,9 +16,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 
-export default function NavSidebar({ trigger, passFunction }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+export default function NavSidebar( {trigger, passFunction} ) {
+  
+  const [openLogin, setOpenLogin] = useState(false);
   const navigate = useNavigate();
 
   const isLoggedIn = () => {
@@ -43,22 +43,13 @@ export default function NavSidebar({ trigger, passFunction }) {
 
   return (
     <>
-      <IconButton
-        className="navMenu"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-      </IconButton>
 
       {/* LEFT-SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="left"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
       >
         <Box
           p={5}
@@ -83,7 +74,7 @@ export default function NavSidebar({ trigger, passFunction }) {
             <IconButton
               size="large"
               sx={{ color: "text.primary" }}
-              onClick={() => setIsDrawerOpen(false)}
+              onClick={() => passFunction(false)}
             >
               <CloseIcon 
               sx={{ 
@@ -96,6 +87,27 @@ export default function NavSidebar({ trigger, passFunction }) {
               </CloseIcon>
           </IconButton>
 
+
+
+           <List>
+              
+                <ListItem disablePadding onClick={() => {
+                    passFunction(false);
+                    passFunction(!trigger);
+                  }}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PersonIcon 
+                      sx={{
+                      color: "white",
+                      fontSize: "2rem"
+                    }}
+                  />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+
+                </ListItemButton>
+              </ListItem>
 
             <List>
               {isLoggedIn() ? (

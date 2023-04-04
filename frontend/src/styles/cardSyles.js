@@ -1,4 +1,3 @@
-
 export const cardStyle = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -20,7 +19,7 @@ export const cardStyle = (theme) => ({
     [theme.breakpoints.up("fhd")]: {
         width: '25vw',
         height: '25vw',
-      },
+    },
 
     boxShadow: 4,
     backgroundColor: "#624F82",
@@ -39,6 +38,8 @@ export const cardImage = {
 
     objectFit: 'cover',
     filter: 'drop-shadow(0px 0px 23px rgba(0, 0, 0, 0.3))',
+
+    cursor: 'pointer',
 }
 
 export const cardButton = {

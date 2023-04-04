@@ -10,12 +10,11 @@ import { cardStyle, cardImage, cardTextBox, cardLabel, cardSubtitle, cardButton,
 import { bold, customFontWeight, fontInter, normal } from "../styles/fontStyles";
 
 export default function CSCard({ productState, data, src, onClick }) {
-  console.log(data)
   const { title, price, description, images } = data;
   return (
     <>
       <Card sx={cardStyle}>
-        <Box component='img' src={images[0]} sx={cardImage}></Box>
+        <Box component='img' onClick={() => { onClick(); productState(data) }} src={images[0]} sx={cardImage}></Box>
         <Box display='flex' alignItems='center' sx={cardNav}>
           <Box sx={cardTextBox}>
             <Typography variant='h5' sx={[cardLabel, bold, fontInter]}>{title}</Typography>

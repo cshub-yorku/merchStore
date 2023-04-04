@@ -1,7 +1,6 @@
 import { Box, Typography,Button,IconButton, Input } from '@mui/material';
 import React, { useState } from 'react'
 import Profile from "./Profile";
-import "../styles/Admin.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -24,6 +23,9 @@ export default function Address() {
   
   const [editAddress, setEditAddress] = useState(false);
 
+
+  
+
   return (
     <>
 
@@ -38,12 +40,19 @@ export default function Address() {
                             display: "flex",
                             justifyContent:"center",
                             alignItems:"flex-start",
-                            flexDirection:"column"
+                            flexDirection:"column",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis"
                             
                       }}>
 
 
-                      { editAddress ? (<Box sx={{marginLeft: "4rem"}}>
+                      { editAddress ? (<Box sx={{marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)"}}>
                                                 <Typography sx={{color: "black"}} onClick = {() => setEditAddress(false)}><IconButton
                                                         className="navMenu"
                                                         size="large"
@@ -54,7 +63,7 @@ export default function Address() {
                                                 <ArrowBackIcon sx={{ fontSize: 25 ,color: "black"}}></ArrowBackIcon>
                                               </IconButton>GO BACK</Typography>
                                               <Input sx={{border: "1px solid black", borderRadius: "8px", color: "black"}} value = "Address"/>
-                                              <Button onClick = {() => setEditAddress(false)} sx={{backgroundColor: "#121212", color: "white", margin: "1rem"}}>EDIT</Button>
+                                              <Button onClick = {() => setEditAddress(false)} sx={{backgroundColor: "#121212", color: "white", marginTop: "0.5rem"}}>EDIT</Button>
                                         </Box>) : (<><Typography sx={{
                                                       fontSize: "1.5rem",
                                                       fontWeight: "500",

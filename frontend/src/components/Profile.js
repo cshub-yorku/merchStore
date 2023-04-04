@@ -1,7 +1,6 @@
 import { Box, Typography, Button, IconButton, Input } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import "../styles/Admin.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,7 +12,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ userDetails, onUpdate }) {
+export default function Profile() {
   const navigate = useNavigate();
 
   let userID = userDetails.userId;
@@ -124,8 +123,8 @@ export default function Profile({ userDetails, onUpdate }) {
     <>
       <Box
         sx={{
-          width: "20vw",
-          height: "10rem",
+          width: "23vw",
+          height: "14rem",
           backgroundColor: "white",
           border: "none",
           borderRadius: "8px",
@@ -134,12 +133,21 @@ export default function Profile({ userDetails, onUpdate }) {
           justifyContent: "center",
           alignItems: "flex-start",
           flexDirection: "column",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis"
         }}
       >
+
+
         {editName ? (
           <>
             {" "}
-            <Box sx={{ marginLeft: "4rem" }}>
+            <Box sx={{ marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)" }}>
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => {
@@ -222,7 +230,11 @@ export default function Profile({ userDetails, onUpdate }) {
           </>
         ) : editEmail ? (
           <>
-            <Box sx={{ marginLeft: "4rem" }}>
+            <Box sx={{ marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)" }}>
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => setEditEmail(false)}
@@ -282,7 +294,11 @@ export default function Profile({ userDetails, onUpdate }) {
           </>
         ) : editNumber ? (
           <>
-            <Box sx={{ marginLeft: "4rem" }}>
+            <Box sx={{ marginLeft: "1.5rem",display: "flex",
+                                                justifyContent:"center",
+                                                alignItems:"flex-start",
+                                                flexDirection:"column",
+                                                transform:"scale(90%)" }}>
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => setEditNumber(false)}

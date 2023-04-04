@@ -88,7 +88,6 @@ export default function NavSidebar({ trigger, passFunction, login }) {
 
             </CloseIcon>
           </IconButton>
-          
           <List>
             {isLoggedIn() ? (
               <ListItem disablePadding onClick={handleProfileClick}>

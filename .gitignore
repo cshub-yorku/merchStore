@@ -24,3 +24,6 @@ yarn-error.log*
 node_modules
 package-lock.json
 
+frontend\package.json
+frontend\package-lock.json
+frontend/package-lock.json

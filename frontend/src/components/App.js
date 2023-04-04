@@ -29,9 +29,9 @@ function App() {
               <Route path="/" element={<CartDrawer />} />
             </Routes>
 
-            <div className='footer-section'>
-              <Footer />
-            </div>
+        <div className='footer-section' sx={{marginBottom: "0"}}>
+          <Footer />
+        </div>
 
           </Box>
         </StoreContextProvider>

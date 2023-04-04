@@ -2,16 +2,24 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import Profile from "./Profile";
 import Address from "./Address";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EditIcon from '@mui/icons-material/Edit';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+
+import { useTheme } from "@emotion/react";
+import {
+
+  AdminSwitch,
+} from "../styles/Styles";
+
+
 
 function createData(order, date, ship, total, status) {
   return { order, date, ship, total, status };
@@ -120,8 +128,13 @@ export default function Admin() {
             marginLeft: "4vw",
             marginTop: "1vw",
             marginRight: "auto",
+            
           }}
         >
+
+
+
+
           <Box
             className="account-info"
             sx={{
@@ -146,7 +159,7 @@ export default function Admin() {
             )}
           </Box>
 
-          <Box
+          {/* <Box
             className="address-info"
             sx={{
               fontSize: "1.5rem",
@@ -157,7 +170,7 @@ export default function Admin() {
             {" "}
             Address
             <Address />
-          </Box>
+          </Box> */}
         </Box>
 
         <Box

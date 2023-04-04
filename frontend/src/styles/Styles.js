@@ -1,3 +1,6 @@
+
+
+
 export const button_white = {
     bgcolor: "#FFF",
     color: '#000',
@@ -90,6 +93,18 @@ export const select_black = {
 export const PopoverStyle = {
     pointerEvents: 'none',
 }
+
+export const AdminSwitch = ({
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection:  'row',
+    alignItems: "center",
+    width: {hd: "55vw", fhd: "71vw"},
+    height: "13rem",
+    marginLeft: "4vw",
+    marginTop: '1vw',
+    marginRight: "auto",
+  });
 
 export const field__white = {
 

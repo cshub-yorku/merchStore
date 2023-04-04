@@ -1,142 +1,25 @@
-/* .contacts {
-    position: fixed;
-    bottom: 10px;
-}
-
-.contacts img {
-  padding-top: 0.5rem;
-  width: 2.5em;
-}
-
-.contacts a {
-    text-align: center;
-    padding: 1em;
-} */
-:root{
-    --footer-color-dark-theme : #1f1e3a;
-}
-
-.a{
-    text-decoration: none;
-}
-
-.a:visited{
-    text-decoration: none;
-}
-
-.footer{
-    width: 100%;
-    height: 22vh;
-    background-color: var(--footer-color-dark-theme);
-    position: relative;
-}
-
-.content{
-    padding-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-}
-
 @media (max-width: 650px) {
-    .content{
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
+  
 
-    .footer{
-        height: 35vh;
-    }
+   
 
     .socials{
         margin-left: 5vw;
     }
     
     
-    .contact{
-        margin-left: 3vw;
-        margin-top: 1vh;
-    } 
-}
-
-
-/*social links*/
-
-.socials{
-    margin-left: 3vw;
-}
-
-
-.contact{
-    margin-right: 10vw;
-} 
-
-.social-links{
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-}
-
-.social-links li{
-    padding: 0.8rem;
-}
-
-.social-links li img{
-    width: 30px;
-}
-
-.footer-head{
-    font-size: 1.5rem;
-    padding-left: 0.8rem;
-}
-
-/* contact */
-
-.textbox{
-    padding: 0.8rem;
-}
-
-
-.form input {
-    padding: 20px;
-    background-color: #f1f1f1;
-}
-    
-    
-.mail input[type=text]{
-    width: 100%;
-    padding: 12px;
-    padding-right: 120px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-    
-.mail label:after {
-    content: "";
-    position: absolute;
-    right: 10px;
-    top: 0;
-    bottom: 0;
-    width: 28px;
-    background: url('../assets/arrow.svg');
-    cursor: pointer;
-  }
-
-  .mail label {
-    position: relative;
-  }
   
-  /*copyright*/
 
-  .bottom-text{
-    margin-left: 3vw;
-    padding-left: 0.8rem;
-    position: absolute;
-    bottom: 5px;
-    color: #c1c4c7;
-  }
+    .footer-head{
+        margin-top: 2vh;
+    }
+}
+
+
+    
+
+ 
+  
+  
+
+

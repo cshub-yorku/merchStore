@@ -12,7 +12,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile() {
+export default function Profile( {userDetails, onUpdate}) {
   const navigate = useNavigate();
 
   let userID = userDetails.userId;

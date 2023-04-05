@@ -52,7 +52,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests((requests) -> requests.requestMatchers("/v1/auth/*").permitAll()/*.hasAnyRole(/*Plugin roles here as String)*/
+                .authorizeHttpRequests((requests) -> requests.requestMatchers("/v1/auth/*", "/v1/products/*").permitAll()/*.hasAnyRole(/*Plugin roles here as String)*/
                         .anyRequest().authenticated());
 
         http.authenticationProvider(authenticationProvider());

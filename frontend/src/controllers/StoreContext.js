@@ -12,10 +12,8 @@ export function useStoreContext() {
 
 export function StoreContextProvider(props){
 
-    updateProudcts();
-
     const [cart, setCart] = useState(new Map());
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(null);
     const [notificationPopup, setnotificationPopup] = useState([]);
 
     const updateCart = (k,v) => {
@@ -33,11 +31,22 @@ export function StoreContextProvider(props){
     }
 
     function updateProudcts(){
-        console.log('loaded!');
+        const token = localStorage.getItem("token");
+
+        fetch("http://localhost:9000/v1/products/", {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => res.json())
+                .then((json) => {
+                  setProducts(json);
+                });
     }
 
     function getAllProducts() {
-
+        return products;
     }
 
     function getProduct(id){

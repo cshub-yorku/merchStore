@@ -16,18 +16,15 @@ export function StoreContextProvider(props){
     const [products, setProducts] = useState(null);
     const [notificationPopup, setnotificationPopup] = useState([]);
 
-    const updateCart = (k,v) => {
-        setCart(cart.set(k,v))
-    }
-
     function addItem(product){
-        let amount = cart.get(product.id);
-        updateCart(product.id, amount ? amount + 1 : 1);
+        let amount = cart.get(product.productId);
+        // setCart(cart.set(product.id, amount ? amount + 1 : 1))
+        cart.set(product.productId, amount ? amount + 1 : 1)
         console.log(cart);
     }
 
     function removeItem(product){
-
+        cart.delete(product.productId);
     }
 
     function updateProudcts(){

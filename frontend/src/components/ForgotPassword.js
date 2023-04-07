@@ -11,7 +11,21 @@ export default function ForgotPassword({ onClose }) {
     if (emailError) {
       alert("please check the input fields");
     } else {
-      setMessage("Password reset instructions have been sent to your email.");
+      fetch(`http://localhost:9000/v1/users/reset/request?email=${email}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("An error occurred while sending the reset email.");
+          }
+          setMessage(
+            "Password reset instructions have been sent to your email."
+          );
+        })
+        .catch((error) => {
+          setMessage(error);
+        });
     }
   };
 

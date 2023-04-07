@@ -64,35 +64,36 @@ public class AuthController extends ResponseHandler {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Optional<Users> optionalActiveStatus = activeDao.getByEmail(loginRequest.getEmail());
-
-        if (optionalActiveStatus.isEmpty()) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Please Signup first!"));
-        }else {
-            Users user = optionalActiveStatus.get();
-
-            if (user.isActive()) {
-
-                Authentication authentication = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                String jwt = jwtTokenProvider.createToken(authentication);
-
-                UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
-                List<String> roles = new ArrayList<>();
-                roles.add(userDetails.getRole().toString());
-
-                return ResponseEntity.ok(new JwtResponse(jwt,
-                        userDetails.getUserId(),
-                        userDetails.getEmail(),
-                        roles));
-            }else{
+        try{
+            if (optionalActiveStatus.isEmpty()) {
                 return ResponseEntity
                         .badRequest()
-                        .body(new MessageResponse("Error: Please verify your email!"));
+                        .body(new MessageResponse("Error: Please Signup first!"));
+            }else {
+                Users user = optionalActiveStatus.get();
+                if (user.isActive()) {
+                    Authentication authentication = authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    String jwt = jwtTokenProvider.createToken(authentication);
+
+                    UserAuthenticator userDetails = (UserAuthenticator) authentication.getPrincipal();
+                    List<String> roles = new ArrayList<>();
+                    roles.add(userDetails.getRole().toString());
+
+                    return ResponseEntity.ok(new JwtResponse(jwt,
+                            userDetails.getUserId(),
+                            userDetails.getEmail(),
+                            roles));
+                }else{
+                    return ResponseEntity
+                            .badRequest()
+                            .body(new MessageResponse("Error: Please verify your email!"));
+                }
             }
+        }catch (Exception e){
+            e.getMessage();
+            return ResponseEntity.internalServerError().body("Unknown error");
         }
     }
 

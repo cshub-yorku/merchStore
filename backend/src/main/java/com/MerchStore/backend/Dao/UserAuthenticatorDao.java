@@ -40,7 +40,7 @@ public class UserAuthenticatorDao implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found: " + email);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
+            return null;
         }finally {
             ConnectionManager.releaseConnection(connection);
         }

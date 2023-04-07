@@ -100,7 +100,7 @@ public class UserController extends ResponseHandler{
 
                 EmailService emailService = new EmailService(mailSender);
                 emailService.sendOrderConfirmationEmail(email, subject, content);
-                return new ResponseEntity<>("Link to reset password has been to sent to : " + email,HttpStatus.OK);
+                return new ResponseEntity<>("If you have an account, a link to reset password has been to sent to : " + email,HttpStatus.OK);
             }else{
                 return new ResponseEntity<>("Verify your account first.", HttpStatus.BAD_REQUEST);
             }

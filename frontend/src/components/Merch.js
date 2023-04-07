@@ -1,6 +1,11 @@
 import { React, useState, useEffect } from "react";
 import CSCard from "./CSCard";
 import ProductPopup from "./ProductPopup";
+import { useTheme } from "@emotion/react";
+import NavBar from "./navBar";
+import ProductNotification  from "./ProductNotification";
+import { field_white} from "../styles/Styles";
+import { useStoreContext } from "../controllers/StoreContext";
 import CartDrawer from "./CartDrawer";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -11,6 +16,7 @@ import {
   Grid,
   IconButton,
   Toolbar,
+  TextField,
   Typography,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
@@ -54,17 +60,24 @@ const testProduct = {
 };
 
 export default function Merch() {
-  const [cart, setCart] = useState([]);
+  const theme = useTheme();
+  const merch = useStoreContext();
+
   const [openPopup, setOpenPopup] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
   const [shopJSON, setShopJSON] = useState(false);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
+
+  const [productNotification, setProductNotification] = useState(false);
 
   const setStates = (index) => {
     setOpenPopup(!openPopup);
     setUserActive(shopJSON[index]);
   };
+
+  // useEffect(() => {
+  //   merch.loadProducts();
+  // }, [])
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -92,74 +105,8 @@ export default function Merch() {
 
       {shopJSON && (
         <>
-          <AppBar position="relative" color="background" sx={MerchAppBar}>
-            <Toolbar sx={MerchToolbar}>
-              <Stack
-                direction="row"
-                spacing={2}
-                justifyContent="flex-start"
-                alignItems="center"
-              >
-                <>
-                  {/* COMPONENT FOR LEFT DRAWER */}
-                  <NavSidebar trigger={openLogin} passFunction={setOpenLogin} />
-                  {/* COMPONENT FOR RIGHT DRAWER */}
-                  <CartDrawer cart={cart} setCart={setCart} />
-                </>
-              </Stack>
-            </Toolbar>
-
-            <Box sx={[centerItem, { width: "50%", margin: "0 auto" }]}>
-              <Box
-                component="img"
-                src="./global/CSHub_Dark.png"
-                sx={{ height: 200 }}
-              ></Box>
-            </Box>
-
-            {/* <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
-                <>
-                  <IconButton
-                    className="navMenu"
-                    size="large"
-                    edge="start"
-                    sx={{ color: "text.primary" }}
-                    >
-                    <PersonIcon fontSize="large"></PersonIcon>
-                  </IconButton>
-
-                  <IconButton
-                    className="navMenu"
-                    size="large"
-                    edge="start"
-                    sx={{ color: "text.primary" }}
-                    >
-                    <PersonAddAlt1Icon fontSize="large"></PersonAddAlt1Icon>
-                  </IconButton>
-                </>
-              </Stack> */}
-          </AppBar>
-          <Box sx={centerItem}>
-            <Typography variant="h4" display="inline" sx={[bold, fontIBM]}>
-              <Typography
-                variant="h4"
-                display="inline"
-                sx={[bold, fontIBM, varColor]}
-              >
-                var{" "}
-              </Typography>{" "}
-              store = "
-              <Typography
-                variant="h4"
-                display="inline"
-                sx={[bold, fontIBM, merchColor]}
-              >
-                MerchStore
-              </Typography>
-              ";
-            </Typography>
-          </Box>
-
+          <NavBar></NavBar>
+          
           <Box sx={merchBillboardContainer}>
             <Box
               component="img"
@@ -174,7 +121,7 @@ export default function Merch() {
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>
             </Box>
           </Box>
-
+          
           {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
             <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
@@ -232,14 +179,7 @@ export default function Merch() {
             trigger={openPopup}
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
-            cart={cart}
-            setCart={setCart}
           ></ProductPopup>
-
-          <Login
-            trigger={openLogin}
-            onClick={() => setOpenLogin(!openLogin)}
-          ></Login>
         </>
       )}
     </Box>

@@ -16,9 +16,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 
-export default function NavSidebar({ trigger, passFunction }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+export default function NavSidebar({ trigger, passFunction, login }) {
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const navigate = useNavigate();
 
   const isLoggedIn = () => {
@@ -33,6 +34,7 @@ export default function NavSidebar({ trigger, passFunction }) {
   const handleLoginClick = () => {
     setIsDrawerOpen(false);
     passFunction(!trigger);
+    login(true);
   };
 
   const handleLogout = () => {
@@ -43,22 +45,13 @@ export default function NavSidebar({ trigger, passFunction }) {
 
   return (
     <>
-      <IconButton
-        className="navMenu"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-      </IconButton>
 
       {/* LEFT-SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="left"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
       >
         <Box
           p={5}
@@ -79,137 +72,137 @@ export default function NavSidebar({ trigger, passFunction }) {
               fontWeight: "700",
               fontSize: "1.5rem",
             }}
+          ></Typography>
+          <IconButton
+            size="large"
+            sx={{ color: "text.primary" }}
+            onClick={() => passFunction(false)}
           >
-            <IconButton
-              size="large"
-              sx={{ color: "text.primary" }}
-              onClick={() => setIsDrawerOpen(false)}
-            >
-              <CloseIcon
-                sx={{
-                  fontSize: 40,
-                  marginLeft: "14vw",
-                  marginTop: "-5vh",
-                }}
-              ></CloseIcon>
-            </IconButton>
+            <CloseIcon
+              sx={{
+                fontSize: 40,
+                marginLeft: "14vw",
+                marginTop: "-5vh"
 
-            <List>
-              {isLoggedIn() ? (
-                <ListItem disablePadding onClick={handleProfileClick}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PersonIcon
-                        sx={{
-                          color: "white",
-                          fontSize: "2rem",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                  </ListItemButton>
-                </ListItem>
-              ) : (
-                <ListItem disablePadding onClick={handleLoginClick}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PersonIcon
-                        sx={{
-                          color: "white",
-                          fontSize: "2rem",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Login/Signup" />
-                  </ListItemButton>
-                </ListItem>
-              )}
-              <ListItem disablePadding>
+              }}>
+
+            </CloseIcon>
+          </IconButton>
+          <List>
+            {isLoggedIn() ? (
+              <ListItem disablePadding onClick={handleProfileClick}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <HomeIcon
+                    <PersonIcon
                       sx={{
                         color: "white",
                         fontSize: "2rem",
                       }}
                     />
                   </ListItemIcon>
-                  <ListItemText primary="Home" />
+                  <ListItemText primary="Profile" />
                 </ListItemButton>
               </ListItem>
-
-              <ListItem disablePadding>
+            ) : (
+              <ListItem disablePadding onClick={handleLoginClick}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <InfoIcon
+                    <PersonIcon
                       sx={{
                         color: "white",
                         fontSize: "2rem",
                       }}
                     />
                   </ListItemIcon>
-                  <ListItemText primary="About" />
+                  <ListItemText primary="Login/Signup" />
                 </ListItemButton>
               </ListItem>
+            )}
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <HomeIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
 
-              <ListItem disablePadding>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InfoIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="About" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <GroupsIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Executives" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <EventIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Events" />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AutoStoriesIcon
+                    sx={{
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Resources" />
+              </ListItemButton>
+            </ListItem>
+            {isLoggedIn() && (
+              <ListItem disablePadding onClick={handleLogout}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <GroupsIcon
+                    <ExitToAppIcon
                       sx={{
                         color: "white",
                         fontSize: "2rem",
                       }}
                     />
                   </ListItemIcon>
-                  <ListItemText primary="Executives" />
+                  <ListItemText primary="Logout" />
                 </ListItemButton>
               </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <EventIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "2rem",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary="Events" />
-                </ListItemButton>
-              </ListItem>
-
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AutoStoriesIcon
-                      sx={{
-                        color: "white",
-                        fontSize: "2rem",
-                      }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary="Resources" />
-                </ListItemButton>
-              </ListItem>
-              {isLoggedIn() && (
-                <ListItem disablePadding onClick={handleLogout}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <ExitToAppIcon
-                        sx={{
-                          color: "white",
-                          fontSize: "2rem",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                  </ListItemButton>
-                </ListItem>
-              )}
-            </List>
-          </Typography>
+            )}
+          </List>
         </Box>
       </Drawer>
     </>

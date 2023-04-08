@@ -12,32 +12,38 @@ export function useStoreContext() {
 
 export function StoreContextProvider(props){
 
-    updateProudcts();
-
     const [cart, setCart] = useState(new Map());
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(null);
     const [notificationPopup, setnotificationPopup] = useState([]);
 
-    const updateCart = (k,v) => {
-        setCart(cart.set(k,v))
-    }
-
     function addItem(product){
-        let amount = cart.get(product.id);
-        updateCart(product.id, amount ? amount + 1 : 1);
+        let amount = cart.get(product.productId);
+        // setCart(cart.set(product.id, amount ? amount + 1 : 1))
+        cart.set(product.productId, amount ? amount + 1 : 1)
         console.log(cart);
     }
 
     function removeItem(product){
-
+        cart.delete(product.productId);
     }
 
     function updateProudcts(){
-        console.log('loaded!');
+        const token = localStorage.getItem("token");
+
+        fetch("http://localhost:9000/v1/products/", {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => res.json())
+                .then((json) => {
+                  setProducts(json);
+                });
     }
 
     function getAllProducts() {
-
+        return products;
     }
 
     function getProduct(id){

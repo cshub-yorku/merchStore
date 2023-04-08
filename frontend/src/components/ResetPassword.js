@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button, TextField, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const token = new URLSearchParams(useLocation().search).get("token");
+  const navigate = useNavigate();
 
   const handleResetPassword = (e) => {
     e.preventDefault();
@@ -19,7 +20,11 @@ export default function ResetPassword() {
         if (!response.ok) {
           throw new Error("An error occurred while resetting the password.");
         }
-        setMessage("Password has been reset successfully.");
+        setMessage("Password has been reset successfully. Please Login again!");
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/");
+        }, 2000);
       })
       .catch((error) => {
         setMessage("Failed to reset the password.");

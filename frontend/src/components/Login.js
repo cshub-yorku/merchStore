@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import "../styles/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 import ForgotPassword from "./ForgotPassword";
+import { signUpSwitch, dialogPaperStyle, forgotPasswordStyle, forgotPasswordLink, haveAccount, signupSwitch, marginPaddingZero, registerText, signupText, register, registerFields, registerButton, registerLink, registerSignFields, registerSign, signupStyle } from '../styles/LoginSignupStyles';
 
 export default function Login({ trigger, onClick }) {
   const navigate = useNavigate();
@@ -79,31 +80,26 @@ export default function Login({ trigger, onClick }) {
         fullWidth
         onClose={onClick}
         PaperProps={{
-          sx: {
-            bgcolor: "#1F1E3A",
-            width: "40%",
-            height: "80%",
-            borderRadius: "8px",
-          },
+          sx: dialogPaperStyle,
         }}
       >
-        <div className="outerContainer">
+        <Box>
           {switchSignup ? (
-            <div>
+            <Box>
               <Signup changeToFalse={changeToFalse} />
-            </div>
+            </Box>
           ) : showForgotPassword ? (
-            <div>
+            <Box>
               <ForgotPassword onClose={() => setShowForgotPassword(false)} />
-            </div>
+            </Box>
           ) : (
             <DialogContent
-              classes={{ root: { m: 0, p: 0 } }}
-              sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
+              classes={{ root: marginPaddingZero }}
+              sx={{ "&.MuiDialogContent-root": marginPaddingZero}}
             >
-              <div align="center" className="register-sign">
-                <h1>Login or Sign up</h1>
-                <div className="register-fields">
+              <Box align="center" sx={registerSign} >
+                <Typography variant="h1">Login or Sign up</Typography>
+                <Box sx={registerFields}>
                   <TextField
                     error={emailError}
                     helperText={
@@ -136,54 +132,48 @@ export default function Login({ trigger, onClick }) {
                       setPassword(e.target.value);
                     }}
                   />
-                </div>
+                </Box>
 
-                <div className="register-button">
-                  <p>{loginStatusMessage}</p>
+                <Box>
+                  <Box>{loginStatusMessage}</Box>
                   <Button
                     onClick={handleClick}
                     type="submit"
                     color="primary"
                     variant="contained"
+                    sx={registerButton}
                   >
                     Login
                   </Button>
-                </div>
+                </Box>
                 <Typography
                   className="forgot-password-link"
-                  sx={{ margin: 3, fontSize: "1.2rem" }}
+                  sx={forgotPasswordLink}
                 >
                   <Link
                     onClick={() => setShowForgotPassword(true)}
-                    sx={{ color: "white", fontSize: "1rem", fontWeight: "500" }}
+                    sx={forgotPasswordStyle}
                   >
                     Forgot Password?
                   </Link>
                 </Typography>
 
                 <Typography
-                  className="register-link"
-                  sx={{ margin: 3, fontSize: "1.2rem" }}
+                  sx={haveAccount}
                 >
                   {" "}
                   Do you have an account ?
                   <Link
                     onClick={() => setSwtichSignup(true)}
-                    sx={{
-                      margin: 1,
-                      color: "white",
-                      fontSize: "1.4rem",
-                      fontWeight: "700",
-                    }}
-                    className="signup-style"
+                    sx={signUpSwitch}
                   >
                     Sign up
                   </Link>
                 </Typography>
-              </div>
+              </Box>
             </DialogContent>
           )}
-        </div>
+        </Box>
       </Dialog>
     </>
   );

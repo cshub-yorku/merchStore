@@ -87,3 +87,53 @@ export const signUpSwitch = {
     fontWeight: "700",
     textDecoration: 'none',
 }
+
+/*
+---------------------------
+SIGN UP POPUP STYLES BELOW
+---------------------------
+*/
+
+export const createAccountContainer = {
+    mt: "2%",
+}
+
+export const fieldsContainer = {
+    mt: '4%', 
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems: 'center'
+}
+
+export const inputFieldsStyle = {
+    backgroundColor: 'white', 
+    borderRadius: '8px', 
+    width: '80%'
+}
+
+export const signUpDialogStyle = {
+    bgcolor: "#1F1E3A",
+    width: "30%",
+    height: "60%",
+    borderRadius: "8px",
+    alignItems: "center",
+}
+
+export const inputFieldsTextColor = {
+    color: "black"
+}
+
+export const signInButton = {
+    marginTop: 5,
+    marginBottom: 0,
+    color: "white",
+    fontSize: "1.2rem",
+    fontWeight: "700",
+}
+
+export const signUpButton = {
+    margin: 1,
+    color: "white",
+    fontSize: "1.2rem",
+    fontWeight: "700",
+}

@@ -18,6 +18,7 @@ function App() {
 
   return (
     <ThemeProvider theme={dark_Theme}>
+      <StoreContextProvider>
       <CssBaseline />
       <div className="App">
         {/* <Nav /> */}
@@ -36,6 +37,7 @@ function App() {
           <Footer />
         </div>
       </div>
+      </StoreContextProvider>
     </ThemeProvider>
   );
 }

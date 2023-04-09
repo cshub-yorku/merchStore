@@ -128,7 +128,7 @@ export default function Signup({ changeToFalse }) {
           sx: signUpDialogStyle,
         }}
       >
-        <Box align="center" style={createAccountContainer}>
+        <Box align="center" sx={createAccountContainer}>
           <h1>Create Account</h1>
 
           <Box sx={fieldsContainer}>
@@ -226,7 +226,7 @@ export default function Signup({ changeToFalse }) {
             />
           </Box>
 
-          <div className="register-button">
+          <Box className="register-button">
             <p>{signUpStatusMessage}</p>
             <Button
               type="submit"
@@ -236,14 +236,14 @@ export default function Signup({ changeToFalse }) {
             >
               Sign up
             </Button>
-          </div>
-          <div
+          </Box>
+          <Box
             onClick={() => changeToFalse()}
-            style={signInButton}
+            sx={signInButton}
           >
             {" "}
             Sign in{" "}
-          </div>
+          </Box>
         </Box>
       </DialogContent>
       {/* </Dialog> */}

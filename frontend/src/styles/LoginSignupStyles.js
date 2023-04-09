@@ -3,6 +3,12 @@ export const marginPaddingZero = {
     p: 0 
 }
 
+/*
+---------------------------
+LOGIN/SIGNUP/REGISTER POPUP STYLES BELOW
+---------------------------
+*/
+
 export const registerText = {
     backgroundColor: 'white',
     borderRadius: '8px'
@@ -65,6 +71,12 @@ export const dialogPaperStyle = {
     borderRadius: "8px",
 }
 
+/*
+---------------------------
+FORGOT PASSWORD POPUP STYLES BELOW
+---------------------------
+*/
+
 export const forgotPasswordStyle = {
     color: "white", 
     fontSize: "1rem", 
@@ -95,7 +107,7 @@ SIGN UP POPUP STYLES BELOW
 */
 
 export const createAccountContainer = {
-    mt: "2%",
+    mt: "4%",
 }
 
 export const fieldsContainer = {

@@ -26,7 +26,7 @@ export const register = {
 export const registerFields = {
     mt: '20%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
 }
 
 export const registerButton = {
@@ -50,7 +50,7 @@ export const registerSignFields = {
     mt: '4%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
 }
 
 export const registerSign = {
@@ -136,16 +136,18 @@ export const inputFieldsTextColor = {
 }
 
 export const signInButton = {
-    marginTop: 5,
-    marginBottom: 0,
+    mt: 5,
+    mb: 0,
     color: "white",
     fontSize: "1.2rem",
     fontWeight: "700",
+    
 }
 
 export const signUpButton = {
-    margin: 1,
+    m: 1,
     color: "white",
     fontSize: "1.2rem",
     fontWeight: "700",
+    px: "15%",
 }

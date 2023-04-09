@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { signUpButton, signInButton, inputFieldsTextColor, signUpDialogStyle, marginPaddingZero, createAccountContainer, fieldsContainer, inputFieldsStyle} from '../styles/LoginSignupStyles';
-import "../styles/LoginSignup.css";
 
 export default function Signup({ changeToFalse }) {
   const [firstName, setFirstName] = useState("");
@@ -226,7 +225,7 @@ export default function Signup({ changeToFalse }) {
             />
           </Box>
 
-          <Box className="register-button">
+          <Box>
             <p>{signUpStatusMessage}</p>
             <Button
               type="submit"

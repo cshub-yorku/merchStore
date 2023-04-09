@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import "../styles/LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 import ForgotPassword from "./ForgotPassword";
-import { signUpSwitch, dialogPaperStyle, forgotPasswordStyle, forgotPasswordLink, haveAccount, signupSwitch, marginPaddingZero, registerText, signupText, register, registerFields, registerButton, registerLink, registerSignFields, registerSign, signupStyle } from '../styles/LoginSignupStyles';
+import { signUpSwitch, dialogPaperStyle, forgotPasswordStyle, forgotPasswordLink, haveAccount, signupSwitch, marginPaddingZero, registerText, signupText, inputFieldsTextColor, registerFields, registerButton, registerLink, registerSignFields, registerSign, signupStyle } from '../styles/LoginSignupStyles';
 
 export default function Login({ trigger, onClick }) {
   const navigate = useNavigate();
@@ -105,10 +104,10 @@ export default function Login({ trigger, onClick }) {
                     helperText={
                       emailError ? "Please enter a valid email adress" : ""
                     }
-                    inputProps={{ style: { color: "black" } }}
+                    inputProps={{ style: inputFieldsTextColor }}
                     color="secondary"
                     margin="normal"
-                    className="register-text"
+                    sx={registerText}
                     label="Email Address"
                     variant="outlined"
                     required
@@ -119,10 +118,10 @@ export default function Login({ trigger, onClick }) {
                     }}
                   />
                   <TextField
-                    inputProps={{ style: { color: "black" } }}
+                    inputProps={{ style: inputFieldsTextColor }}
                     color="secondary"
                     margin="normal"
-                    className="register-text"
+                    sx={registerText}
                     label="Password"
                     variant="outlined"
                     type="password"
@@ -147,7 +146,6 @@ export default function Login({ trigger, onClick }) {
                   </Button>
                 </Box>
                 <Typography
-                  className="forgot-password-link"
                   sx={forgotPasswordLink}
                 >
                   <Link

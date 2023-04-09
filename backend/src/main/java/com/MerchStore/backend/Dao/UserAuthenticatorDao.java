@@ -1,10 +1,10 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.UserAuthenticator;
+import com.MerchStore.backend.Model.UserRoles;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,10 +20,10 @@ import java.time.Instant;
 public class UserAuthenticatorDao implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        String statement = "SELECT password,user_id,first_name,last_name,email,phone_number FROM users where email = ?";
+        String statement = "SELECT password,user_id,first_name,last_name,email,phone_number,role FROM users where email = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -35,20 +35,22 @@ public class UserAuthenticatorDao implements UserDetailsService {
                         resultSet.getString("email"),
                         resultSet.getString("phone_number")
                 );
-                return new UserAuthenticator(userDetails,resultSet.getString("password"));
+                return new UserAuthenticator(userDetails,resultSet.getString("password"), resultSet.getString("role"));
             }
             throw new UsernameNotFoundException("Username not found: " + email);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException(e.getMessage());
+            return null;
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
     }
 
     public boolean existsByEmail(String email) {
         String statement = "SELECT email FROM users where email = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try {
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -57,12 +59,14 @@ public class UserAuthenticatorDao implements UserDetailsService {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
 
     public void save(SignupRequest user) {
-        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password) VALUES (?,?,?,?,?,?)";
+        String statement = "INSERT INTO users (first_name,last_name,phone_number,user_id,email,password,role,active) VALUES (?,?,?,?,?,?,?,?)";
 
         Connection connection = ConnectionManager.getConnection();
         try {
@@ -73,9 +77,14 @@ public class UserAuthenticatorDao implements UserDetailsService {
             preparedStatement.setLong(4, Instant.now().toEpochMilli());
             preparedStatement.setString(5,user.getEmail());
             preparedStatement.setString(6,user.getPassword());
+            preparedStatement.setString(7, UserRoles.Customer.toString());
+            preparedStatement.setBoolean(8, false);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
     }
 }

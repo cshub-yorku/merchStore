@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Cart;
 
 import java.sql.Connection;
@@ -15,9 +15,8 @@ public class CartDao implements Dao<Cart>{
     @Override
     public Optional<Cart> get(long id) {
         String statement = "SELECT * FROM cart where cart_id = ?";
-
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -27,6 +26,8 @@ public class CartDao implements Dao<Cart>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
@@ -35,8 +36,8 @@ public class CartDao implements Dao<Cart>{
     public List<Cart> getAll() {
         String statement = "SELECT * FROM cart";
         LinkedList<Cart> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
             while(resultSet.next()){
                 Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
@@ -44,6 +45,8 @@ public class CartDao implements Dao<Cart>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -51,8 +54,8 @@ public class CartDao implements Dao<Cart>{
     @Override
     public boolean save(Cart cart){
         String statement = "INSERT INTO cart values (?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, cart.getCartId());
             preparedStatement.setLong(2, cart.getUserId());
@@ -60,6 +63,8 @@ public class CartDao implements Dao<Cart>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -72,15 +77,37 @@ public class CartDao implements Dao<Cart>{
     @Override
     public boolean delete(Cart cart) {
         String statement = "DELETE from cart where cart_id = ?";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, cart.getCartId());
 
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
+    }
+
+    public Optional<Cart> getCartByUserId(long id) {
+        String statement = "SELECT * FROM cart where user_id = ?";
+
+        Connection connection = ConnectionManager.getConnection();
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
+                return Optional.of(cart);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
+        }
+        return Optional.empty();
     }
 }

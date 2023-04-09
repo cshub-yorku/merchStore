@@ -1,174 +1,127 @@
 import { BorderColor, Label } from "@mui/icons-material";
 import { createTheme } from "@mui/material";
+import { create } from "@mui/material/styles/createTransitions";
 
-// export const light_Theme = createTheme(deepmerge(coreTheme, createTheme({
-//     palette: {
-//         primary: {
-//             light: '',
-//             main: '',
-//             dark: '',
-//             contrastText: ''
-//         }
-//     }
-// })))
-let coreTheme = {
+const coreTheme = createTheme({
   typography: {
-    fontFamily: ["IBM Plex Mono"],
-    h2: {
-      fontSize: "3rem",
-    },
+    fontFamily: ["Inter"],
+    // fontFamily: ["IBM Plex Mono"],
   },
+  breakpoints: {
+    values: {
+      mobile: 480,
+      tablet: 770,
+      hd: 1200,
+      fhd: 1900,
+      uhd: 2100
+    }
+  },
+})
+
+coreTheme.typography.h1 = {
+  [coreTheme.breakpoints.up("tablet")]: {
+    fontSize: "3.338rem",
+  },
+  [coreTheme.breakpoints.up("hd")]: {
+    fontSize: "3.338rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "5.283rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "7.013rem",
+  },
+  
+};
+coreTheme.typography.h2 = {
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "2.67rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "4.042rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "5.261rem",
+  },
+  
+};
+coreTheme.typography.h3 = {
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "2.136rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "3.095rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "3.947rem",
+  },
+  
+};
+coreTheme.typography.h4 = {
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "1.709rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "2.372rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "2.961rem",
+  },
+};
+coreTheme.typography.h5 = {
+  [coreTheme.breakpoints.down("hd")]: {
+    fontSize: "1.368rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "1.819rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "2.221rem",
+  },
+  
+};
+coreTheme.typography.h6 = {
+  [coreTheme.breakpoints.down("tablet")]: {
+    fontSize: "1.094rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "1.397rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "1.666rem",
+  },
+  
+};
+coreTheme.typography.body1 = {
+  [coreTheme.breakpoints.down("tablet")]: {
+    fontSize: "0.875rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "1.074rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "1.25rem",
+  },
+  
 };
 
 export const dark_Theme = createTheme(coreTheme, {
 
   palette: {
     primary: {
-      light: "#FFFFFF",
       main: "#624F82",
-      dark: "#000000",
-      contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#000000",
+      main: "#2C3555",
+      light: "#2C3555",
+      dark: "#2C3555",
     },
-    background: "#2D2C42",
+    background: {
+      default: "#2D2C42",
+    },
     text: {
       primary: "#FFFFFF",
 
     },
   },
-
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#000000",
-          color: '#FFF',
-          "&:hover": {
-            backgroundColor: "#FFF",
-            color: "#000"
-          },
-        }
-      }
-    },
-    MuiSelect: {
-      styleOverrides: {
-        select: {
-          backgroundColor: "#000",
-          color: '#FFF',
-        },
-        icon: {
-          color: "#FFF",
-        }
-      }
-    },
-    MuiMenu: {
-      styleOverrides: {
-        list: {
-          backgroundColor: "#000",
-          color: '#FFF',
-        }
-      }
-    },
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#000000",
-          color: '#FFF',
-          "&:hover": {
-            backgroundColor: "#FFF",
-            color: "#000"
-          },
-        }
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#000',
-          "&&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: '#FFF'
-          }
-        }
-      }
-    },
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
-          color: '#FFF',
-          '&.Mui-focused': {
-            color: '#FFF'
-          }
-        },
-      }
-    },
-  }
-});
-
-export const light_Theme = createTheme(coreTheme, {
-  palette: {
-    primary: {
-      light: "#FFFFFF",
-      main: "#624F82",
-      dark: "#000000",
-      contrastText: "#FFFFFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    background: "#FFF",
-    text: {
-      primary: "#000",
-      secondary: '#B0B0B0'
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#000000",
-          color: '#FFF',
-          "&:hover": {
-            backgroundColor: "#FFF",
-            color: "#000"
-          },
-        }
-      },
-      label: {
-        color: '#000'
-      },
-    },
-    MuiSelect: {
-      styleOverrides: {
-        select: {
-          backgroundColor: "#000",
-          color: '#FFF',
-        },
-        icon: {
-          color: "#FFF",
-        }
-      }
-    },
-    MuiMenu: {
-      styleOverrides: {
-        list: {
-          backgroundColor: "#000",
-          color: '#FFF',
-        }
-      }
-    },
-    MuiMenuItem: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#000000",
-          color: '#FFF',
-          "&:hover": {
-            backgroundColor: "#FFF",
-            color: "#000"
-          },
-        }
-      },
-    }
-  }
 });

@@ -1,6 +1,6 @@
 package com.MerchStore.backend.Dao;
 
-import com.MerchStore.backend.ConnectionPooling.FlywayService.ConnectionManager;
+import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.CartList;
 
 import java.sql.Connection;
@@ -12,13 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class CartListDao implements Dao<CartList>{
+    private final long cart_id;
+
+    public CartListDao(long userId) {
+        this.cart_id = userId;
+    }
 
     @Override
     public Optional<CartList> get(long id) {
         String statement = "SELECT * FROM cart_list where cart_id = ?";
 
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,23 +33,31 @@ public class CartListDao implements Dao<CartList>{
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return Optional.empty();
     }
 
     @Override
     public List<CartList> getAll() {
-        String statement = "SELECT * FROM cart_list";
+        String statement = "SELECT * FROM cart_list where cart_id = ? ";
         LinkedList<CartList> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
-            ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1,this.cart_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 CartList cart_list = new CartList(resultSet.getLong("cart_id"), resultSet.getLong("product_id"), resultSet.getInt("product_quantity"));
                 resultList.add(cart_list);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return resultList;
     }
@@ -52,8 +65,8 @@ public class CartListDao implements Dao<CartList>{
     @Override
     public boolean save(CartList cart_list){
         String statement = "INSERT INTO cart_list values (?, ?, ?)";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, cart_list.getCartId());
             preparedStatement.setLong(2, cart_list.getProductId());
@@ -62,6 +75,9 @@ public class CartListDao implements Dao<CartList>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -69,8 +85,8 @@ public class CartListDao implements Dao<CartList>{
     @Override
     public boolean update(CartList cart_list) {
         String statement = "UPDATE cart_list set product_quantity = ? where cart_id = ? AND product_id= ? ";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setInt(1, cart_list.getQuantity());
             preparedStatement.setLong(2, cart_list.getCartId());
@@ -78,6 +94,9 @@ public class CartListDao implements Dao<CartList>{
             return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }
@@ -85,14 +104,17 @@ public class CartListDao implements Dao<CartList>{
     @Override
     public boolean delete(CartList cart_list) {
         String statement = "DELETE from cart_list where cart_id = ? AND product_id= ? ";
+        Connection connection = ConnectionManager.getConnection();
         try{
-            Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, cart_list.getCartId());
             preparedStatement.setLong(2, cart_list.getProductId());
             return preparedStatement.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
+        }finally {
+            ConnectionManager.releaseConnection(connection);
         }
         return false;
     }

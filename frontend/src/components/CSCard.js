@@ -1,102 +1,32 @@
-import "../styles/CSCard.css";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Card,
-  CardMedia,
-  CardContent,
   Typography,
   Button,
   Box,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import ProductPopup from "./ProductPopup";
+import { button_theme } from "../styles/Styles";
+import { cardStyle, cardImage, cardTextBox, cardLabel, cardSubtitle, cardButton, cardNav } from "../styles/cardSyles"
+import { bold, customFontWeight, fontInter, normal } from "../styles/fontStyles";
 
-const cardStyle = {
-  display: "flex",
-  flexDirection: "row",
-
-  width: "33vw",
-  height: "44vh",
-
-  boxShadow: 0,
-  backgroundColor: "#624F82",
-  borderRadius: 4,
-};
-
-const center = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-export default function CSCard({ data, src, onClick }) {
-  // console.log(data)
+export default function CSCard({ productState, data, src, onClick }) {
   const { title, price, description, images } = data;
   return (
     <>
       <Card sx={cardStyle}>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            minWidth: 0,
-            minHeight: 0,
-          }}
-        >
-          <Box sx={center}>
-            <Box
-              sx={{
-                paddingLeft: "6px",
-                width: "98%",
-                height: "98%",
-                borderRadius: 4,
-              }}
-              component="img"
-              src={images[0]}
-            ></Box>
+        <Box component='img' onClick={() => { onClick(); productState(data) }} src={images[0]} sx={cardImage}></Box>
+        <Box display='flex' alignItems='center' sx={cardNav}>
+          <Box sx={cardTextBox}>
+            <Typography variant='h5' sx={[cardLabel, bold, fontInter]}>{title}</Typography>
+            <Typography variant='h6' sx={[cardSubtitle, normal, fontInter]}>Type</Typography>
           </Box>
-          <CardContent
-            sx={{ display: "grid", gridAutoRows: "auto", padding: "1.5rem" }}
+          <Button
+            onClick={() => { onClick(); productState(data) }}
+            sx={[button_theme, cardButton]}
+            variant="contained"
           >
-            <Box>
-              <Typography
-                variant="h4"
-                sx={{
-                  color: "text.primary",
-                  fontWeight: "bold",
-                  fontSize: "2rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                {title}
-              </Typography>
-              <Typography
-                variant="body"
-                sx={{ color: "#B0B0B0", fontSize: "1.25rem" }}
-              >
-                {description}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Button
-                onClick={()=>{onClick(); productState(data)}}
-                sx={{
-                  padding: "1rem",
-                  fontSize: "1.15rem",
-                  backgroundColor: "#2C3555",
-                  minWidth: "128px",
-                }}
-                variant="contained"
-              >
-                $C {price}
-              </Button>
-            </Box>
-          </CardContent>
+            <Typography variant="h6" fontWeight={600} sx={[fontInter, customFontWeight(600)]}>C$ {price}</Typography>
+          </Button>
         </Box>
       </Card>
     </>

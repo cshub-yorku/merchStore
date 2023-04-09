@@ -1,12 +1,12 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import "../styles/CartDrawer.css";
-import { IconButton, Button, Typography, Drawer, Box, Stack, Grid } from "@mui/material";
+import { Divider, IconButton, ButtonGroup, ToggleButton, Button, Typography, Drawer, Box, Stack, Grid, Avatar } from "@mui/material";
 import { ShoppingBag, VapingRooms } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
+import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total} from '../styles/CartDrawer.js'
+import { button_white, button_black, button_theme } from '../styles/Styles.js'
 
-export default function CartDrawer({ cart, setCart }) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
   const navigate = useNavigate();
 
   const removeItem = (i) => {
@@ -15,67 +15,89 @@ export default function CartDrawer({ cart, setCart }) {
   }
   return (
     <>
-      <IconButton
-        className="cartButton"
-        size="large"
-        edge="start"
-        sx={{ color: "text.primary" }}
-        onClick={() => setIsDrawerOpen(true)}
-      >
-        <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
-      </IconButton>
 
       {/* SIDEBAR COMPONENT ADDED HERE FOR NOW */}
 
       <Drawer
         anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={trigger}
+        onClose={() => passFunction(false)}
         sx={{position: 'relative'}}
       >
         <Box
           p={3}
-          width="20vw"
+          width="22.5vw"
           height="100vh"
           sx={{
             backgroundColor: "#1f1e3a",
-            borderRadius: "20px 0px 0px 20px",
+            borderRadius: "4px 0px 0px 4px",
           }}
           textAlign="center"
           role="presentation"
         >
-          <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem'}}>
+          <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%'}}>
           {( () => {
               let drawer = [];
-              if (isDrawerOpen) {
+              if (trigger) {
               for(let i = 0; i < cart.length; i++){
                 drawer.push(
-                  <Stack direction="row" justifyContent="space-around" alignItems="center">
-                    <Box component="img" src={cart[i].images[0]} sx={{width: '82px'}}></Box>
-                    <Box>
-                      <Typography sx={{fontWeight: '800', fontFamily: 'Montserrat'}}>{cart[i].title}</Typography>
-                      <Grid sx={{display: 'flex', gridTemplateColumns: '1fr 1fr 1fr', justifyContent: 'space-between', textAlign: 'center' }}>
-                        <Typography sx={{textAlign: 'center'}}>1</Typography>
-                        <Typography>{cart[i].price}</Typography>
-                        <Typography>XL</Typography>
-                      </Grid>
+                  <>
+                  <Stack sx={itemStackStyle} direction="row" alignItems="center">
+                    {/* Item Image */}
+                    <Avatar sx={[itemImage]} variant="rounded" src={cart[i].images[0]}></Avatar>
+                    {/* Item Details */}
+                    <Box sx={[itemContainer]}>
+                      <Box sx={[headers]}>
+                        <Typography sx={[mainHeader]}>
+                          Hacker's Black Shirt
+                        </Typography>
+                        <Typography sx={[subHeader]}>
+                          Details: Small, Black
+                        </Typography>
+                      </Box>
+
+                      <Stack sx={itemStackStyle} direction="row" alignItems="center">
+                        <Box>
+                        <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                          <Button sx={[btnStyle]}>-</Button>
+                          <Box sx={[quantity_black]}>3</Box>
+                          <Button sx={[btnStyle]}>+</Button>
+                        </ButtonGroup>
+                        </Box>
+                        
+                        <Stack sx={itemStackStyle} direction="row" alignItems="center">
+                          <Typography sx={[prices]}>
+                            $69 x 3 = $207
+                          </Typography>
+
+                          <IconButton>
+                            <CloseIcon sx={{color: "#fff"}}/>
+                          </IconButton>
+                        </Stack>
+                        
+                      </Stack>
                     </Box>
-                      <IconButton sx={{color: "text.primary"}} onClick={()=> removeItem(i)}>
-                        <CloseIcon />
-                      </IconButton>
+                    
                   </Stack>
+                  </>
                   )
                 }
               }
               return drawer;
           })()}
+          <Box>
+            <Divider sx={[white_divider]}/>
+            <Typography sx={[cart_item_total]}>Total: </Typography>
+          </Box>
+
           </Grid>
-          <Box sx={{position: 'absolute', bottom: 0, width: '20vw'}}>
-            <Button onClick={ ()=> navigate('./product', {state: {cart: cart}})}
-                    sx={{width: '100%', padding: '1.25rem', marginBottom: '1rem'}}>
-              <Typography>
-                Checkout
-              </Typography>
+          <Box sx={bottomBtnBox}>
+            <Button sx={[checkoutBtn, button_theme]}
+                    onClick={ ()=> navigate('./checkout', {state: {cart: cart}})}>
+              Checkout
+            </Button>
+            <Button sx={[checkoutBtn, button_gray]}>
+              Checkout As Guest
             </Button>
           </Box>
 

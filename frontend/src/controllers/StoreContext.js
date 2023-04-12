@@ -29,6 +29,7 @@ export function StoreContextProvider(props){
 
     function updateProudcts(){
         const token = localStorage.getItem("token");
+// API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"  
 
         fetch("http://localhost:9000/v1/products/", {
                 headers: {

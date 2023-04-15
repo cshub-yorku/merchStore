@@ -95,7 +95,7 @@ public class UserController extends ResponseHandler{
                         + "Thank you,<br>"
                         + "CSHub.";
                 content = content.replace("[[name]]", user.getUserDetails().getFirstName());
-                String verifyURL = baseURL + "/v1/auth" + "/reset_password?token=" + token.getToken();
+                String verifyURL = "http://localhost:3000/reset-password?token=" + token.getToken();
                 content = content.replace("[[URL]]", verifyURL);
 
                 EmailService emailService = new EmailService(mailSender);

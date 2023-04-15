@@ -1,36 +1,131 @@
-import { height, width } from "@mui/system"
+export const gridContainer = (theme) => ({
+
+
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'repeat(16, 1fr)',
+
+    [theme.breakpoints.up('mobile')]: {
+        width: 'auto',
+        height: '98%',
+        bgcolor: 'white',
+        m: '2%',
+        borderRadius: '4px'
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        width: '100%', height: '100%',
+        overflow: 'hidden',
+        m: 0,
+        bgcolor: 'transparent',
+    },
+})
+
+export const imageGridContainer = (theme) => ({
+
+    position: 'relative',
+
+    [theme.breakpoints.up('mobile')]: {
+        gridColumn: '1/3',
+        gridRow: '2/8',
+    },
+
+    [theme.breakpoints.up('tablet')]: {
+
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        gridColumn: '1/1',
+        gridRow: '1/17',
+    },
+})
+
+export const headerGridContainer = (theme) => ({
+
+
+    [theme.breakpoints.up('mobile')]: {
+        gridColumn: '1/3',
+        gridRow: '1/1',
+        ml: ' 3%',
+    },
+
+    [theme.breakpoints.up('tablet')]: {
+
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        gridColumn: '2/2',
+        gridRow: '1/1',
+        mx: '4%',
+    },
+})
+
+export const bodyGridContainer = (theme) => ({
+    mx: '5%',
+
+    [theme.breakpoints.up('mobile')]: {
+        gridColumn: '1/3',
+        gridRow: '8/17',
+        color: 'black'
+    },
+
+    [theme.breakpoints.up('tablet')]: {
+
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        gridColumn: '2/2',
+        gridRow: '2/17',
+    },
+})
+
+export const productStyle = (theme) => ({
+    bgcolor: "#000",
+
+    [theme.breakpoints.up('fhd')]: {
+        width: "62%",
+        height: "72%",
+        borderRadius: "2px",
+    },
+
+    [theme.breakpoints.down('mobile')]: {
+        borderRadius: "0px",
+    }
+})
 
 export const productSubImage = {
-    width: "25%",
-    borderRadius: 4,
 
-    '&:hover': {
-        border: '1px solid',
-        borderColor: '#FFF',
-    }
+    width: "5%",
+
+
+    // '&:hover': {
+    //     border: '1px solid',
+    //     borderColor: '#FFF',
+    // }
 }
 
 export const productMainImage = {
-    width: "60%",
-    height: '65%',
-    mb: 5,
-    borderRadius: 7
+    aspectRatio: '1 / 1',
+    width: "100%",
+    height: '100%',
+    objectFit: 'cover',
 }
 
-export const closeButton = {
+export const subImages = {
+    left: '-25%',
+    bottom: 0,
     position: 'absolute',
-    right: 2,
-    top: 2,
+    width: "150%",
+    borderRadius: 2
 }
 
 export const productMain = (theme) => (
     {
         bgcolor: theme.palette.primary.main,
-        // bgcolor: "#624F82",
-        width: "50%",
-        height: "100%",
-        border: "#FFFFFF",
-        px: '1%'
+        // width: "50%",
+        // height: "100%",
+        // border: "#FFFFFF",
+        // px: '1%'
     }
 )
 
@@ -51,12 +146,21 @@ export const productPriceBox = {
 export const productPriceText = {
 }
 
-export const productBuy = {
+export const productBuy = (theme) => ({
     position: "relative",
     display: "flex",
-    width: "18vw",
-    height: "7%"
-}
+
+
+    [theme.breakpoints.up('mobile')]: {
+        width: '68%',
+        height: "10%",
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        width: "18vw",
+        height: "10%",
+    }
+})
 
 export const productBuyButton = {
     height: "100%",
@@ -74,13 +178,23 @@ export const ToggleButtonSeparations = {
     borderLeft: 10,
 }
 
-export const SizeButtonGroup = {
-    width: '30%',
-    height: '6%',
+export const SizeButtonGroup = (theme) => ({
+
+
     "& .MuiToggleButtonGroup-grouped": {
         width: '33%',
+    },
+
+    [theme.breakpoints.up('mobile')]: {
+        width: '100%',
+        height: '8%',
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        width: '30%',
+        height: '6%',
     }
-}
+})
 
 export const helperNotation = {
     mt: '1%',

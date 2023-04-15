@@ -5,6 +5,7 @@ import { ShoppingBag, VapingRooms } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
 import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total} from '../styles/CartDrawer.js'
 import { button_white, button_black, button_theme } from '../styles/Styles.js'
+import { useTheme } from "@emotion/react";
 
 export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
     let cartCopy = cart.filter(item => item.id !== cart[i].id)
     setCart(cartCopy);
   }
+
+  const theme = useTheme();
   return (
     <>
 
@@ -23,14 +26,42 @@ export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
         open={trigger}
         onClose={() => passFunction(false)}
         sx={{position: 'relative'}}
+        PaperProps={{
+          sx: {
+            backgroundColor: "transparent"
+          }
+        }}
       >
         <Box
           p={3}
-          width="22.5vw"
-          height="100vh"
           sx={{
             backgroundColor: "#1f1e3a",
             borderRadius: "4px 0px 0px 4px",
+            height: "100vh",
+            
+            [theme.breakpoints.down('mobile')]: {
+              width: "80vw"
+            },
+  
+            [theme.breakpoints.between('mobile', 'tablet')]: {
+              width: "55vw"
+            },
+
+            [theme.breakpoints.between('tablet', 'hd')]: {
+              width: "40vw"
+            },
+
+            [theme.breakpoints.between('hd', 'fhd')]: {
+              width: "28vw"
+            },
+
+            [theme.breakpoints.between('fhd', 'uhd')]: {
+              width: "23vw"
+            },
+            
+            [theme.breakpoints.up('uhd')]: {
+              width: "23vw"
+            },
           }}
           textAlign="center"
           role="presentation"

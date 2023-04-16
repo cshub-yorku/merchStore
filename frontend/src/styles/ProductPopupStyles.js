@@ -1,13 +1,26 @@
-export const gridContainer = (theme) => ({
+export const productStyle = (theme) => ({
+    bgcolor: "#000",
 
+    [theme.breakpoints.up('fhd')]: {
+        width: "62%",
+        height: "72%",
+        borderRadius: "2px",
+    },
+
+    [theme.breakpoints.down('mobile')]: {
+        borderRadius: "0px",
+    }
+})
+
+export const gridContainer = (theme) => ({
 
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: 'repeat(16, 1fr)',
+    gridTemplateRows: 'repeat(16, auto)',
 
     [theme.breakpoints.up('mobile')]: {
         width: 'auto',
-        height: '98%',
+        height: 'auto',
         bgcolor: 'white',
         m: '2%',
         borderRadius: '4px'
@@ -27,7 +40,7 @@ export const imageGridContainer = (theme) => ({
 
     [theme.breakpoints.up('mobile')]: {
         gridColumn: '1/3',
-        gridRow: '2/8',
+        gridRow: '2/9',
     },
 
     [theme.breakpoints.up('tablet')]: {
@@ -41,12 +54,12 @@ export const imageGridContainer = (theme) => ({
 })
 
 export const headerGridContainer = (theme) => ({
-
+    color: 'black',
 
     [theme.breakpoints.up('mobile')]: {
         gridColumn: '1/3',
         gridRow: '1/1',
-        ml: ' 3%',
+        ml: '3%',
     },
 
     [theme.breakpoints.up('tablet')]: {
@@ -56,7 +69,8 @@ export const headerGridContainer = (theme) => ({
     [theme.breakpoints.up('hd')]: {
         gridColumn: '2/2',
         gridRow: '1/1',
-        mx: '4%',
+        ml: '4%',
+        mr: '0%',
     },
 })
 
@@ -65,7 +79,7 @@ export const bodyGridContainer = (theme) => ({
 
     [theme.breakpoints.up('mobile')]: {
         gridColumn: '1/3',
-        gridRow: '8/17',
+        gridRow: '9/17',
         color: 'black'
     },
 
@@ -79,20 +93,6 @@ export const bodyGridContainer = (theme) => ({
     },
 })
 
-export const productStyle = (theme) => ({
-    bgcolor: "#000",
-
-    [theme.breakpoints.up('fhd')]: {
-        width: "62%",
-        height: "72%",
-        borderRadius: "2px",
-    },
-
-    [theme.breakpoints.down('mobile')]: {
-        borderRadius: "0px",
-    }
-})
-
 export const productSubImage = {
 
     width: "5%",
@@ -104,18 +104,26 @@ export const productSubImage = {
     // }
 }
 
-export const productMainImage = {
+export const productMainImage = (theme) => ({
     aspectRatio: '1 / 1',
     width: "100%",
     height: '100%',
     objectFit: 'cover',
-}
+
+    // [theme.breakpoints.up('mobile')]: {
+    //     // height: '96vw'
+    // },
+
+    [theme.breakpoints.up('hd')]: {
+        height: '100%',
+    },
+})
 
 export const subImages = {
-    left: '-25%',
+    // left: '-25%',
     bottom: 0,
     position: 'absolute',
-    width: "150%",
+    width: "100%",
     borderRadius: 2
 }
 
@@ -128,6 +136,27 @@ export const productMain = (theme) => (
         // px: '1%'
     }
 )
+
+export const header = (theme) => ({
+    display: 'flex',
+    flexDirection: "row",
+    alignItems:'center',
+    
+
+    [theme.breakpoints.up('mobile')]: {
+        my: '2%',
+    },
+    
+    [theme.breakpoints.up('hd')]: {
+        my: '0%',
+    },
+})
+
+export const closeButton = {
+    ml: 'auto',
+    mr: '3%',
+    color: 'black',
+}
 
 export const productPriceBox = {
     position: "absolute",

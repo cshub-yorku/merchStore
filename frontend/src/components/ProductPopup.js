@@ -37,7 +37,9 @@ import {
   gridContainer,
   imageGridContainer,
   headerGridContainer,
-  bodyGridContainer
+  bodyGridContainer,
+  header,
+  closeButton
 } from "../styles/ProductPopupStyles";
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
@@ -83,7 +85,7 @@ export default function ProductPopup({
             <Box
               component="img"
               src={product.images[pic]}
-              sx={productMainImage}
+              sx={productMainImage(theme)}
             ></Box>
             <Stack
               sx={subImages}
@@ -126,9 +128,10 @@ export default function ProductPopup({
             </Stack>
           </Box>
           <Box sx={ headerGridContainer(theme) }>
-            <Box sx={{ display: 'flex', flexDirection: "row" }}>
-              <Typography variant="h3" sx={[medium, fontJura]}>{product.name}</Typography>
-              <IconButton sx={[themeColor, {ml: 'auto', mr: '3%'}]} onClick={onClick}>
+            <Box sx={header(theme)}>
+              {/* <Typography variant="h3" sx={[medium, fontJura]}>{product.name}</Typography> */}
+              <Typography variant="h3" sx={[medium, fontJura]}>Example</Typography>
+              <IconButton sx={[themeColor, closeButton]} onClick={onClick}>
                 <CloseIcon></CloseIcon>
               </IconButton>
             </Box>

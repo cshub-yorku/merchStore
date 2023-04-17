@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, TextField, Typography, Link } from "@mui/material";
+import {forgotPasswordStyle, haveAccount, registerFields, registerSign } from '../styles/LoginSignupStyles';
+import { Box, Button, TextField, Typography, Link } from "@mui/material";
 
 export default function ForgotPassword({ onClose }) {
   const [email, setEmail] = useState("");
@@ -39,16 +40,16 @@ export default function ForgotPassword({ onClose }) {
   };
 
   return (
-    <div align="center" className="register-sign">
-      <h1>Forgot Password</h1>
-      <div className="register-fields">
+    <Box align="center" sx={registerSign}>
+      <Typography variant="h1">Forgot Password</Typography>
+      <Box sx={registerFields}>
         <TextField
           error={emailError}
           helperText={emailError ? "Please enter a valid email." : ""}
           inputProps={{ style: { color: "black" } }}
           color="secondary"
           margin="normal"
-          className="register-text"
+          sx={{borderRadius: '8px', backgroundColor: 'white'}}
           label="Email Address"
           variant="outlined"
           required
@@ -58,10 +59,10 @@ export default function ForgotPassword({ onClose }) {
             validateEmail(e.target.value);
           }}
         />
-      </div>
+      </Box>
 
-      <div className="forgot-password-button">
-        <p>{message}</p>
+      <Box>
+        <Box>{message}</Box>
         <Button
           onClick={handleForgotPassword}
           type="submit"
@@ -70,19 +71,18 @@ export default function ForgotPassword({ onClose }) {
         >
           Reset Password
         </Button>
-      </div>
+      </Box>
 
       <Typography
-        className="back-to-login-link"
-        sx={{ margin: 3, fontSize: "1.2rem" }}
+        sx={haveAccount}
       >
         <Link
           onClick={onClose}
-          sx={{ color: "white", fontSize: "1rem", fontWeight: "500" }}
+          sx={forgotPasswordStyle}
         >
           Back to Login
         </Link>
       </Typography>
-    </div>
+    </Box>
   );
 }

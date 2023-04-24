@@ -38,6 +38,7 @@ import {
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
 import { useStoreContext } from "../controllers/StoreContext";
+import CartQuantityButton from "./CartQuantityButton";
 
 export default function ProductPopup({
   trigger,
@@ -60,6 +61,19 @@ export default function ProductPopup({
   };
 
   const cart = useStoreContext();
+
+  const [quantity, setQuantity] = useState(1);
+  
+  const setDecrease = () => {
+    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
+  };
+
+  //can be set to the stock limit from the backend. temp value for now.
+  const stocklimit = 10;
+
+  const setIncrease = () => {
+    quantity < stocklimit ? setQuantity(quantity + 1) : setQuantity(stocklimit);
+  };
 
 
   // const cartHandler = () => {
@@ -208,6 +222,14 @@ export default function ProductPopup({
             <Typography variant="body1" sx={helperNotation}>
               ⓘ Size Guide
             </Typography>
+            
+
+            <CartQuantityButton
+            quantity = {quantity}
+            setDecrease = {setDecrease}
+            setIncrease = {setIncrease}
+            />
+
 
             <Box sx={productBuy}>
               <Box sx={productPriceBox}>

@@ -84,7 +84,7 @@ export default function ProductPopup({
             <Box
               component="img"
               src={product.images[pic]}
-              sx={productMainImage}
+              sx={productMainImage(theme)}
             ></Box>
             <Stack
               sx={subImages}

@@ -3,11 +3,11 @@ export const gridContainer = (theme) => ({
 
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: 'repeat(16, 1fr)',
+    gridTemplateRows: 'repeat(auto-fit, 1fr)',
 
     [theme.breakpoints.up('mobile')]: {
         width: 'auto',
-        height: '98%',
+        height: 'auto',
         bgcolor: 'white',
         m: '2%',
         borderRadius: '4px'
@@ -47,6 +47,7 @@ export const headerGridContainer = (theme) => ({
         gridColumn: '1/3',
         gridRow: '1/1',
         ml: ' 3%',
+        color: 'black',
     },
 
     [theme.breakpoints.up('tablet')]: {
@@ -57,6 +58,7 @@ export const headerGridContainer = (theme) => ({
         gridColumn: '2/2',
         gridRow: '1/1',
         mx: '4%',
+        color: 'white',
     },
 })
 
@@ -76,6 +78,7 @@ export const bodyGridContainer = (theme) => ({
     [theme.breakpoints.up('hd')]: {
         gridColumn: '2/2',
         gridRow: '2/17',
+        color: 'white',
     },
 })
 
@@ -144,6 +147,7 @@ export const productPriceBox = {
 }
 
 export const productPriceText = {
+    color: 'white',
 }
 
 export const productBuy = (theme) => ({
@@ -212,3 +216,16 @@ export const PopoverText = {
     m: 1
 }
 
+export const closeButton = (theme) => ({
+    ml: 'auto', 
+    mr: '3%', 
+    my: 'auto',
+
+    [theme.breakpoints.up('mobile')]: {
+        color: 'black',
+    },
+
+    [theme.breakpoints.up('hd')]: {
+        color: 'white',
+    }
+})

@@ -21,19 +21,24 @@ import {
   PopoverStyle,
 } from "../styles/Styles";
 import {
-  closeButton,
   helperNotation,
   PopoverText,
   productBuy,
   productBuyButton,
-  productMain,
   productMainImage,
   ProductPopover,
   productPriceBox,
   productPriceText,
   productSubImage,
   SizeButtonGroup,
+  subImages,
   ToggleButtonSeparations,
+  productStyle,
+  gridContainer,
+  imageGridContainer,
+  headerGridContainer,
+  bodyGridContainer,
+  closeButton
 } from "../styles/ProductPopupStyles";
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
@@ -61,60 +66,30 @@ export default function ProductPopup({
 
   const cart = useStoreContext();
 
-
-  // const cartHandler = () => {
-  //   if (cart.length < 1) {
-  //     setCart([product]);
-  //   } else {
-  //     setCart((outdatedCart) => {
-  //       for (let i = 0; i < outdatedCart.length; i++) {
-  //         if (outdatedCart[i].id === product.id) {
-  //           return outdatedCart;
-  //         }
-  //       }
-  //       return [...outdatedCart, product];
-  //     });
-  //   }
-  // };
-
   return product ? (
     <Dialog
       open={trigger}
-      maxWidth="xl"
-      fullWidth
       onClose={onClick}
+      fullScreen={true}
       PaperProps={{
-        sx: {
-          bgcolor: "background",
-          width: "62%",
-          height: "72%",
-          borderRadius: "2px",
-        },
+        sx: productStyle(theme)
       }}
     >
       <DialogContent
         classes={{ root: { m: 0, p: 0 } }}
-        sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
+        sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 }, bgcolor: theme.palette.primary.main }}
       >
-        <Stack direction="row" sx={{ height: "100%", hight: "100%" }}>
-          {/* LEFT HALF */}
-          <Stack
-            sx={{
-              width: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+        <Box sx={ gridContainer(theme) }>
+          <Box sx={ imageGridContainer(theme) }>
             <Box
               component="img"
               src={product.images[pic]}
-              sx={productMainImage}
+              sx={productMainImage(theme)}
             ></Box>
             <Stack
-              sx={{ width: "65%", borderRadius: 2 }}
+              sx={subImages}
               direction="row"
-              justifyContent="space-evenly"
+              justifyContent="center"
             >
               <Box
                 onMouseEnter={() => {
@@ -150,15 +125,16 @@ export default function ProductPopup({
                 sx={productSubImage}
               ></Box>
             </Stack>
-          </Stack>
-          <Box sx={productMain(theme)}>
-            <Box sx={closeButton}>
-              <IconButton sx={themeColor} onClick={onClick}>
+          </Box>
+          <Box sx={ headerGridContainer(theme) }>
+            <Box sx={{ display: 'flex', flexDirection: "row", alignContent: 'center', height: '100%' }}>
+              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name}</Typography>
+              <IconButton sx={[themeColor, closeButton]} onClick={onClick}>
                 <CloseIcon></CloseIcon>
               </IconButton>
             </Box>
-            <Typography variant="h3" sx={[medium, fontJura]}>{product.title}</Typography>
-            <hr />
+          </Box>
+          <Box sx={ bodyGridContainer(theme) }>
             <Typography variant="body1">{product.description}</Typography>
             <Typography variant="body1" sx={bold}>
               Product Details:
@@ -180,7 +156,7 @@ export default function ProductPopup({
               exclusive
               onChange={handleSize}
               aria-label="size"
-              sx={SizeButtonGroup}
+              sx={SizeButtonGroup(theme)}
             >
               <ToggleButton
                 value="S"
@@ -209,7 +185,7 @@ export default function ProductPopup({
               ⓘ Size Guide
             </Typography>
 
-            <Box sx={productBuy}>
+            <Box sx={productBuy(theme)}>
               <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
                   {product.price}$
@@ -271,9 +247,9 @@ export default function ProductPopup({
               </Typography>
             </Popover>
           </Box>
-        </Stack>
+        </Box>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   ) : (
     ""
   );

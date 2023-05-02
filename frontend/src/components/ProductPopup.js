@@ -43,6 +43,7 @@ import {
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
 import { useStoreContext } from "../controllers/StoreContext";
+import CartQuantityButton from "./CartQuantityButton";
 
 export default function ProductPopup({
   trigger,
@@ -65,6 +66,7 @@ export default function ProductPopup({
   };
 
   const cart = useStoreContext();
+
 
   return product ? (
     <Dialog
@@ -184,6 +186,14 @@ export default function ProductPopup({
             <Typography variant="body1" sx={helperNotation}>
               ⓘ Size Guide
             </Typography>
+            
+
+            <CartQuantityButton
+            // quantity = {quantity}
+            // setDecrease = {setDecrease}
+            // setIncrease = {setIncrease}
+            />
+
 
             <Box sx={productBuy(theme)}>
               <Box sx={productPriceBox}>

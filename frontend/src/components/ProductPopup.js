@@ -62,18 +62,18 @@ export default function ProductPopup({
 
   const cart = useStoreContext();
 
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
   
-  const setDecrease = () => {
-    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
-  };
+  // const setDecrease = () => {
+  //   quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
+  // };
 
-  //can be set to the stock limit from the backend. temp value for now.
-  const stocklimit = 10;
+  // //can be set to the stock limit from the backend. temp value for now.
+  // const stocklimit = 10;
 
-  const setIncrease = () => {
-    quantity < stocklimit ? setQuantity(quantity + 1) : setQuantity(stocklimit);
-  };
+  // const setIncrease = () => {
+  //   quantity < stocklimit ? setQuantity(quantity + 1) : setQuantity(stocklimit);
+  // };
 
 
   // const cartHandler = () => {
@@ -225,9 +225,9 @@ export default function ProductPopup({
             
 
             <CartQuantityButton
-            quantity = {quantity}
-            setDecrease = {setDecrease}
-            setIncrease = {setIncrease}
+            // quantity = {quantity}
+            // setDecrease = {setDecrease}
+            // setIncrease = {setIncrease}
             />
 
 

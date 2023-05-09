@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 export default function Profile( {userDetails, onUpdate}) {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function Profile( {userDetails, onUpdate}) {
   const [lastNameError, setLastNameError] = useState(false);
   const [phoneNumberError, setPhoneNumberError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const theme = useTheme();
 
   const validateFirstName = (firstNameValue) => {
     if (
@@ -123,8 +125,8 @@ export default function Profile( {userDetails, onUpdate}) {
     <>
       <Box
         sx={{
-          width: "23vw",
-          height: "14rem",
+          width: "24vw",
+          height: "16rem",
           backgroundColor: "white",
           border: "none",
           borderRadius: "8px",
@@ -135,7 +137,36 @@ export default function Profile( {userDetails, onUpdate}) {
           flexDirection: "column",
           whiteSpace: "nowrap",
           overflow: "hidden",
-          textOverflow: "ellipsis"
+          textOverflow: "ellipsis",
+
+          [theme.breakpoints.down('mobile')]: {
+            width: "69vw",
+            height: "15rem",
+          },
+
+          [theme.breakpoints.between('mobile', 'tablet')]: {
+            width: "50vw",
+            height: "14.5rem",
+          },
+
+          [theme.breakpoints.between('tablet', 'hd')]: {
+            width: "41vw",
+            height: "15rem",
+          },
+
+          [theme.breakpoints.between('hd', 'fhd')]: {
+            width: "22vw",
+            height: "15.5rem",
+          },
+
+          [theme.breakpoints.between('fhd', 'uhd')]: {
+            width: "20vw",
+            height: "15.5rem",
+          },
+          
+          [theme.breakpoints.up('uhd')]: {
+            width: "20vw"
+          },
         }}
       >
 

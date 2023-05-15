@@ -23,7 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Merch />} />
               <Route path="/csshop" element={<Merch />} />
-              <Route path="/product" element={<Checkout />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/reset-password" element={<ResetPassword />} />

@@ -6,6 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CloseIcon from "@mui/icons-material/Close";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from '@mui/icons-material/Login';
 import GroupsIcon from "@mui/icons-material/Groups";
 import EventIcon from "@mui/icons-material/Event";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
@@ -119,7 +120,7 @@ export default function NavSidebar({ trigger, passFunction, login }) {
               <ListItem disablePadding onClick={handleLoginClick}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <PersonIcon
+                    <LoginIcon
                       sx={{
                         color: "white",
                         fontSize: "2rem",
@@ -220,3 +221,4 @@ export default function NavSidebar({ trigger, passFunction, login }) {
     </>
   );
 }
+

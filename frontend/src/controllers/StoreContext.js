@@ -16,6 +16,7 @@ export function StoreContextProvider(props){
     const [products, setProducts] = useState(null);
     const [notificationPopup, setnotificationPopup] = useState([]);
 
+
     function addItem(product){
         let amount = cart.get(product.productId);
         // setCart(cart.set(product.id, amount ? amount + 1 : 1))
@@ -26,6 +27,11 @@ export function StoreContextProvider(props){
     function removeItem(product){
         cart.delete(product.productId);
     }
+
+    function getAllItems(){
+        return new Map(cart);
+    }
+
 
     function updateProudcts(){
         const token = localStorage.getItem("token");
@@ -58,6 +64,7 @@ export function StoreContextProvider(props){
             cart,
             addItem,
             removeItem,
+            getAllItems,
             notificationPopup,
             setnotificationPopup,
             updateProudcts,

@@ -20,12 +20,13 @@ export function StoreContextProvider(props){
     function addItem(product){
         let amount = cart.get(product.productId);
         // setCart(cart.set(product.id, amount ? amount + 1 : 1))
-        cart.set(product.productId, amount ? amount + 1 : 1)
+        setCart(new Map(cart.set(product.productId, amount ? amount + 1 : 1)))
         console.log(cart);
     }
 
     function removeItem(product){
         cart.delete(product.productId);
+        // setCart(new Map());
     }
 
     function getAllItems(){
@@ -54,7 +55,7 @@ export function StoreContextProvider(props){
     }
 
     function getProduct(id){
-        return products.find(x => x.id === id);
+        return products.find(x => x.productId === id);
     }
 
 

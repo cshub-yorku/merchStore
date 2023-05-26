@@ -136,12 +136,12 @@ export default function NavBar() {
                 ></Box>
                 <Slide direction="down" in={!offset} mountOnEnter unmountOnExit>
                   <Typography
-                    variant="h4"
+                    variant="h6"
                     display="inline"
                     sx={[bold, fontIBM, title]}
                   >
                     <Typography
-                      variant="h4"
+                      variant="h6"
                       display="inline"
                       sx={[bold, fontIBM, varColor]}
                     >
@@ -149,7 +149,7 @@ export default function NavBar() {
                     </Typography>{" "}
                     store = "
                     <Typography
-                      variant="h4"
+                      variant="h6"
                       display="inline"
                       sx={[bold, fontIBM, merchColor]}
                     >

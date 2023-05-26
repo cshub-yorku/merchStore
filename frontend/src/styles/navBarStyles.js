@@ -49,10 +49,12 @@ export const StackStyle = {
 }
 
 export const varColor = {
-    color: "#ed6d11"
+    color: "#ed6d11",
+    fontSize: "2rem"
 }
 export const merchColor = {
-    color: "#624f82"
+    color: "#624f82",
+    fontSize: "2rem"
 }
 
 export const centerItem = {
@@ -60,7 +62,9 @@ export const centerItem = {
     justifyContent: "center",
     flexDirection: "column",
     mx: '1',
-    marginLeft: -4,
+    marginLeft: "-25px",
+    marginTop: "5px",
+   
 }
 
 export const cartNotification = {
@@ -81,7 +85,7 @@ export const cartNotification = {
 }
 
 export const title = {
-    mb: '3%',
+    mb: '3%', fontSize: "2rem"
 }
 
 export const cartNotificationText = {

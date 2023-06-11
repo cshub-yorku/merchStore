@@ -19,13 +19,16 @@ export function StoreContextProvider(props){
 
     function changeItemAmount(product, amount){
         let amountInCart = cart.get(product.productId);
-        setCart(new Map(cart.set(product.productId, amountInCart ? amountInCart + amount : amount)))
-        console.log(cart);
+        if (amountInCart + amount >= 1 || amountInCart === undefined)
+            setCart(new Map(cart.set(product.productId, amountInCart ? amountInCart + amount : amount)))
+        else
+            removeItem(product)
+
     }
 
     function removeItem(product){
         cart.delete(product.productId);
-        setCart(new Map());
+        setCart(new Map(cart));
     }
 
     function getAllItems(){

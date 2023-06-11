@@ -17,9 +17,7 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
   }
 
   const store = useStoreContext();
-  const cart = store.getAllItems();
-  console.log(cart);
-  cart.forEach((key, value) => console.log(key, value));  
+  const cart = store.getAllItems(); 
 
   const theme = useTheme();
   return (

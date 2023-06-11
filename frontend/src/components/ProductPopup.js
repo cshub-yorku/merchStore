@@ -203,7 +203,7 @@ export default function ProductPopup({
               </Box>
               <ButtonGroup sx={productBuyButton}>
                 <Button
-                  onClick={() => { cart.addItem(product) }}
+                  onClick={() => { cart.changeItemAmount(product, 1) }}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
                 >
@@ -211,7 +211,7 @@ export default function ProductPopup({
                     Add To Cart
                   </Typography>
                 </Button>
-                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product"); console.log("Hi"); }}>
+                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product");}}>
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Buy Now
                   </Typography>

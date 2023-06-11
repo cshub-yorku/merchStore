@@ -18,7 +18,8 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
 
   const store = useStoreContext();
   const cart = store.getAllItems();
-  
+  console.log(cart);
+  cart.forEach((key, value) => console.log(key, value));  
 
   const theme = useTheme();
   return (
@@ -72,10 +73,11 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
           role="presentation"
         >
           <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%'}}>
+
             {Array.from(cart).map((item) => {
 
               let product = store.getProduct(item[0])
-              console.log(product);
+              // console.log(product);
               return (
 
                 <>
@@ -96,9 +98,9 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
                       <Stack sx={itemStackStyle} direction="row" alignItems="center">
                         <Box>
                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                          <Button sx={[btnStyle]} onClick={ () => store.removeItem(product) }>-</Button>
+                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, -1) }>-</Button>
                           <Box sx={[quantity_black]}>{item[1]}</Box>
-                          <Button sx={[btnStyle]} onClick={ () => store.addItem(product) }>+</Button>
+                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, 1) }>+</Button>
                         </ButtonGroup>
                         </Box>
                         
@@ -107,8 +109,8 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
                             ${product.price} x {item[1]} = ${product.price * item[1]}
                           </Typography>
 
-                          <IconButton>
-                            <CloseIcon sx={{color: "#fff"}}/>
+                          <IconButton onClick={ () => store.removeItem(product) }>
+                            <CloseIcon sx={{color: "#fff"}} />
                           </IconButton>
                         </Stack>
                         

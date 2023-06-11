@@ -17,26 +17,26 @@ export function StoreContextProvider(props){
     const [notificationPopup, setnotificationPopup] = useState([]);
 
 
-    function addItem(product){
-        let amount = cart.get(product.productId);
-        // setCart(cart.set(product.id, amount ? amount + 1 : 1))
-        setCart(new Map(cart.set(product.productId, amount ? amount + 1 : 1)))
+    function changeItemAmount(product, amount){
+        let amountInCart = cart.get(product.productId);
+        setCart(new Map(cart.set(product.productId, amountInCart ? amountInCart + amount : amount)))
         console.log(cart);
     }
 
     function removeItem(product){
         cart.delete(product.productId);
-        // setCart(new Map());
+        setCart(new Map());
     }
 
     function getAllItems(){
-        return new Map(cart);
+        return cart;
     }
 
 
     function updateProudcts(){
         const token = localStorage.getItem("token");
-// API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"  
+// API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"
+// localhost database http://localhost:9000/v1/products/
 
         fetch("http://localhost:9000/v1/products/", {
                 headers: {
@@ -63,7 +63,7 @@ export function StoreContextProvider(props){
     return(
         <StoreContext.Provider value={{
             cart,
-            addItem,
+            changeItemAmount,
             removeItem,
             getAllItems,
             notificationPopup,

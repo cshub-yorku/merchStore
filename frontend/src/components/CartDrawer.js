@@ -6,14 +6,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total} from '../styles/CartDrawer.js'
 import { button_white, button_black, button_theme } from '../styles/Styles.js'
 import { useTheme } from "@emotion/react";
+import { useStoreContext } from "../controllers/StoreContext.js";
 
-export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
+export default function CartDrawer({setCart, trigger, passFunction }) {
   const navigate = useNavigate();
 
   const removeItem = (i) => {
     let cartCopy = cart.filter(item => item.id !== cart[i].id)
     setCart(cartCopy);
   }
+
+  const store = useStoreContext();
+  const cart = store.getAllItems(); 
 
   const theme = useTheme();
   return (
@@ -67,20 +71,22 @@ export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
           role="presentation"
         >
           <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%'}}>
-          {( () => {
-              let drawer = [];
-              if (trigger) {
-              for(let i = 0; i < cart.length; i++){
-                drawer.push(
-                  <>
+
+            {Array.from(cart).map((item) => {
+
+              let product = store.getProduct(item[0])
+              // console.log(product);
+              return (
+
+                <>
                   <Stack sx={itemStackStyle} direction="row" alignItems="center">
                     {/* Item Image */}
-                    <Avatar sx={[itemImage]} variant="rounded" src={cart[i].images[0]}></Avatar>
+                    <Avatar sx={[itemImage]} variant="rounded" src={product.images[0]}></Avatar>
                     {/* Item Details */}
                     <Box sx={[itemContainer]}>
                       <Box sx={[headers]}>
                         <Typography sx={[mainHeader]}>
-                          Hacker's Black Shirt
+                          {product.name}
                         </Typography>
                         <Typography sx={[subHeader]}>
                           Details: Small, Black
@@ -90,19 +96,19 @@ export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
                       <Stack sx={itemStackStyle} direction="row" alignItems="center">
                         <Box>
                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                          <Button sx={[btnStyle]}>-</Button>
-                          <Box sx={[quantity_black]}>3</Box>
-                          <Button sx={[btnStyle]}>+</Button>
+                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, -1) }>-</Button>
+                          <Box sx={[quantity_black]}>{item[1]}</Box>
+                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, 1) }>+</Button>
                         </ButtonGroup>
                         </Box>
                         
                         <Stack sx={itemStackStyle} direction="row" alignItems="center">
                           <Typography sx={[prices]}>
-                            $69 x 3 = $207
+                            ${product.price} x {item[1]} = ${product.price * item[1]}
                           </Typography>
 
-                          <IconButton>
-                            <CloseIcon sx={{color: "#fff"}}/>
+                          <IconButton onClick={ () => store.removeItem(product) }>
+                            <CloseIcon sx={{color: "#fff"}} />
                           </IconButton>
                         </Stack>
                         
@@ -111,11 +117,9 @@ export default function CartDrawer({ cart, setCart, trigger, passFunction }) {
                     
                   </Stack>
                   </>
-                  )
-                }
-              }
-              return drawer;
-          })()}
+
+              );
+            })}
           <Box>
             <Divider sx={[white_divider]}/>
             <Typography sx={[cart_item_total]}>Total: </Typography>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import "../styles/LoginSignup.css";
+import { signUpButton, signInButton, inputFieldsTextColor, signUpDialogStyle, marginPaddingZero, createAccountContainer, fieldsContainer, inputFieldsStyle} from '../styles/LoginSignupStyles';
 
 export default function Signup({ changeToFalse }) {
   const [firstName, setFirstName] = useState("");
@@ -119,24 +119,18 @@ export default function Signup({ changeToFalse }) {
             }}
             > */}
       <DialogContent
-        classes={{ root: { m: 0, p: 0 } }}
-        sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 } }}
+        classes={{ root: marginPaddingZero }}
+        sx={{ "&.MuiDialogContent-root": marginPaddingZero }}
         maxWidth="xl"
         fullWidth
         PaperProps={{
-          sx: {
-            bgcolor: "#1F1E3A",
-            width: "30%",
-            height: "60%",
-            borderRadius: "8px",
-            alignItems: "center",
-          },
+          sx: signUpDialogStyle,
         }}
       >
-        <div align="center" style={{ marginTop: "2%" }}>
+        <Box align="center" sx={createAccountContainer}>
           <h1>Create Account</h1>
 
-          <div className="register-sign-fields">
+          <Box sx={fieldsContainer}>
             <TextField
               error={firstNameError}
               helperText={
@@ -147,7 +141,7 @@ export default function Signup({ changeToFalse }) {
                 required: true,
               }}
               margin="normal"
-              className="register-text signup-text"
+              sx={inputFieldsStyle}
               label="First Name"
               variant="outlined"
               required
@@ -162,13 +156,13 @@ export default function Signup({ changeToFalse }) {
               helperText={
                 lastNameError ? "Please enter a valid last name." : ""
               }
-              inputProps={{ style: { color: "black" } }}
+              inputProps={{ style: { color: "black"} }}
               color="secondary"
               margin="normal"
-              className="register-text signup-text"
               label="Last Name"
               variant="outlined"
               value={lastName}
+              sx={inputFieldsStyle}
               onChange={(e) => {
                 setLastName(e.target.value);
                 validateLastName(e.target.value);
@@ -179,10 +173,10 @@ export default function Signup({ changeToFalse }) {
               helperText={
                 phoneNumberError ? "Please enter a valid phone number." : ""
               }
-              inputProps={{ style: { color: "black" } }}
+              inputProps={{ style: inputFieldsTextColor }}
               color="secondary"
               margin="normal"
-              className="register-text signup-text"
+              sx={inputFieldsStyle}
               label="Phone Number"
               variant="outlined"
               required
@@ -195,10 +189,10 @@ export default function Signup({ changeToFalse }) {
             <TextField
               error={emailError}
               helperText={emailError ? "Please enter a valid email." : ""}
-              inputProps={{ style: { color: "black" } }}
+              inputProps={{ style: inputFieldsTextColor }}
               color="secondary"
               margin="normal"
-              className="register-text signup-text"
+              sx={inputFieldsStyle}
               label="Email Address"
               variant="outlined"
               required
@@ -215,10 +209,10 @@ export default function Signup({ changeToFalse }) {
                   ? "Password should have at least one digit, lowercase letter, uppercase letter, special character, and is at least 8 characters long"
                   : ""
               }
-              inputProps={{ style: { color: "black" } }}
+              inputProps={{ style: inputFieldsTextColor }}
               color="secondary"
               margin="normal"
-              className="register-text signup-text"
+              sx={inputFieldsStyle}
               label="Password"
               variant="outlined"
               type="password"
@@ -229,38 +223,27 @@ export default function Signup({ changeToFalse }) {
                 validatePassword(e.target.value);
               }}
             />
-          </div>
+          </Box>
 
-          <div className="register-button">
+          <Box>
             <p>{signUpStatusMessage}</p>
             <Button
               type="submit"
               variant="contained"
               onClick={handleClick}
-              sx={{
-                margin: 1,
-                color: "white",
-                fontSize: "1.2rem",
-                fontWeight: "700",
-              }}
+              sx={signUpButton}
             >
               Sign up
             </Button>
-          </div>
-          <div
+          </Box>
+          <Box
             onClick={() => changeToFalse()}
-            style={{
-              marginTop: 5,
-              marginBottom: 0,
-              color: "white",
-              fontSize: "1.2rem",
-              fontWeight: "700",
-            }}
+            sx={signInButton}
           >
             {" "}
             Sign in{" "}
-          </div>
-        </div>
+          </Box>
+        </Box>
       </DialogContent>
       {/* </Dialog> */}
     </>

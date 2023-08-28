@@ -64,7 +64,6 @@ export default function Merch() {
   const merch = useStoreContext();
 
   const [openPopup, setOpenPopup] = useState(false);
-  const [shopJSON, setShopJSON] = useState(false);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
 
@@ -72,38 +71,18 @@ export default function Merch() {
 
   const setStates = (index) => {
     setOpenPopup(!openPopup);
-    setUserActive(shopJSON[index]);
+    setUserActive(merch.getAllProducts()[index]);
   };
 
-  // useEffect(() => {
-  //   merch.loadProducts();
-  // }, [])
-
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    fetch("https://api.escuelajs.co/api/v1/products", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        setShopJSON(json);
-      });
-  }, []);
-
-  useEffect(() => {
-    setUserActive(shopJSON[0]);
-  }, [shopJSON]);
+    merch.updateProudcts();
+  }, [])
 
   return (
     <Box sx={{ marginBottom: "8%" }}>
-      {!shopJSON && <div>Loading...</div>}
+      {!merch.getAllProducts() && <div>Loading...</div>}
 
-      {shopJSON && (
+      {merch.getAllProducts() && (
         <>
           <NavBar></NavBar>
           
@@ -148,8 +127,8 @@ export default function Merch() {
             >
               {(() => {
                 let list = [];
-                if (shopJSON) {
-                  for (let i = 0; i < shopJSON.length; i++) {
+                if (merch.getAllProducts()) {
+                  for (let i = 0; i < merch.getAllProducts().length; i++) {
                     list.push(
                       <Grid
                         uhd={4}
@@ -163,7 +142,7 @@ export default function Merch() {
                           key={i}
                           productState={setProduct}
                           onClick={() => setStates(i)}
-                          data={shopJSON[i]}
+                          data={merch.getAllProducts()[i]}
                         />
                       </Grid>
                     );

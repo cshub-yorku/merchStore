@@ -1,11 +1,23 @@
 import { useState } from "react";
 import { Button, TextField, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const token = new URLSearchParams(useLocation().search).get("token");
+  const navigate = useNavigate();
+
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError(true);
+    } else {
+      setPasswordError(false);
+    }
+  };
 
   const handleResetPassword = (e) => {
     e.preventDefault();
@@ -19,7 +31,11 @@ export default function ResetPassword() {
         if (!response.ok) {
           throw new Error("An error occurred while resetting the password.");
         }
-        setMessage("Password has been reset successfully.");
+        setMessage("Password has been reset successfully. Please Login again!");
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/");
+        }, 2000);
       })
       .catch((error) => {
         setMessage("Failed to reset the password.");
@@ -31,6 +47,12 @@ export default function ResetPassword() {
       <h1>Reset Password</h1>
       <div className="register-fields">
         <TextField
+          error={passwordError}
+          helperText={
+            passwordError
+              ? "Password should have at least one digit, lowercase letter, uppercase letter, special character, and is at least 8 characters long"
+              : ""
+          }
           inputProps={{ style: { color: "black" } }}
           color="secondary"
           margin="normal"
@@ -42,6 +64,7 @@ export default function ResetPassword() {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+            validatePassword(e.target.value);
           }}
         />
       </div>

@@ -9,8 +9,8 @@ export const cardStyle = (theme) => ({
         height: '90vw',
     },
     [theme.breakpoints.up("tablet")]: {
-        width: '33vw',
-        height: '33vw',
+        width: '43vw',
+        height: '43vw',
     },
     [theme.breakpoints.up("hd")]: {
         width: '33vw',
@@ -71,7 +71,14 @@ export const center = {
     alignItems: "center",
 };
 
-export const cardNav = {
-    my: '4%',
+export const cardNav = (theme) => ({
+    my: 'auto',
     height: '20hv',
-}
+
+    [theme.breakpoints.down('tablet')]: {
+        mx: '4%',
+    },
+    [theme.breakpoints.down('hd')]: {
+        mx: '2%',
+    }
+})

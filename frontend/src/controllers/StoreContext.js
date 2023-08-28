@@ -12,36 +12,53 @@ export function useStoreContext() {
 
 export function StoreContextProvider(props){
 
-    updateProudcts();
-
     const [cart, setCart] = useState(new Map());
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(null);
     const [notificationPopup, setnotificationPopup] = useState([]);
 
-    const updateCart = (k,v) => {
-        setCart(cart.set(k,v))
-    }
 
-    function addItem(product){
-        let amount = cart.get(product.id);
-        updateCart(product.id, amount ? amount + 1 : 1);
-        console.log(cart);
+    function changeItemAmount(product, amount){
+        let amountInCart = cart.get(product.productId);
+        if (amountInCart + amount >= 1 || amountInCart === undefined)
+            setCart(new Map(cart.set(product.productId, amountInCart ? amountInCart + amount : amount)))
+        else
+            removeItem(product)
+
     }
 
     function removeItem(product){
-
+        cart.delete(product.productId);
+        setCart(new Map(cart));
     }
 
+    function getAllItems(){
+        return cart;
+    }
+
+
     function updateProudcts(){
-        console.log('loaded!');
+        const token = localStorage.getItem("token");
+// API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"
+// localhost database http://localhost:9000/v1/products/
+
+        fetch("http://localhost:9000/v1/products/", {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+                .then((res) => res.json())
+                .then((json) => {
+                  setProducts(json);
+                });
     }
 
     function getAllProducts() {
-
+        return products;
     }
 
     function getProduct(id){
-        return products.find(x => x.id === id);
+        return products.find(x => x.productId === id);
     }
 
 
@@ -49,8 +66,9 @@ export function StoreContextProvider(props){
     return(
         <StoreContext.Provider value={{
             cart,
-            addItem,
+            changeItemAmount,
             removeItem,
+            getAllItems,
             notificationPopup,
             setnotificationPopup,
             updateProudcts,

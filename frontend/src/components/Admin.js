@@ -38,6 +38,7 @@ export default function Admin() {
 
   const [userDetails, setUserDetails] = useState("");
   const [hasError, setHasError] = useState(false);
+  const theme = useTheme();
   const fetchUserDetails = () => {
     const token = localStorage.getItem("token");
     fetch("http://localhost:9000/v1/users/user", {
@@ -89,7 +90,7 @@ export default function Admin() {
 
   return (
     <>
-      <Typography sx={{ fontSize: "1.5rem", fontWeight: "700", margin: "5vw" }}>
+      <Typography sx={{ fontSize: "1.5rem", fontWeight: "700", margin: "5vw" , marginBottom: "8vh"}}>
         <IconButton
           className="navMenu"
           size="large"
@@ -141,9 +142,14 @@ export default function Admin() {
               fontSize: "1.5rem",
               fontWeight: "700",
               margin: "5px",
+              
+
+          [theme.breakpoints.down('mobile')]: {
+            textAlign: "center"
+          },
+              
             }}
           >
-            {" "}
             Account Details
             {!hasError && userDetails && (
               <Profile
@@ -184,8 +190,14 @@ export default function Admin() {
             width: "71vw",
             height: "25rem",
             marginLeft: "4vw",
-            marginTop: "3vw",
+            marginTop: "5vw",
             marginRight: "auto",
+            [theme.breakpoints.down('mobile')]: {
+              marginTop: "15vw",
+            },
+            [theme.breakpoints.between('mobile', 'tablet')]: {
+              marginTop: "10vw",
+            },
           }}
         >
           <Box>
@@ -195,6 +207,7 @@ export default function Admin() {
                 fontSize: "1.5rem",
                 fontWeight: "700",
                 margin: "5px",
+                
               }}
             >
               {" "}
@@ -203,7 +216,7 @@ export default function Admin() {
           </Box>
 
           <TableContainer
-            sx={{ color: "black", marginTop: "1rem" }}
+            sx={{ color: "black", marginTop: "1rem",}}
             component={Paper}
           >
             <Table

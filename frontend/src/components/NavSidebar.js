@@ -6,6 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CloseIcon from "@mui/icons-material/Close";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
+import LoginIcon from '@mui/icons-material/Login';
 import GroupsIcon from "@mui/icons-material/Groups";
 import EventIcon from "@mui/icons-material/Event";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
@@ -43,6 +44,8 @@ export default function NavSidebar({ trigger, passFunction, login }) {
     navigate("/");
   };
 
+  
+
   return (
     <>
 
@@ -52,14 +55,20 @@ export default function NavSidebar({ trigger, passFunction, login }) {
         anchor="left"
         open={trigger}
         onClose={() => passFunction(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: "transparent"
+          }
+        }}
       >
         <Box
           p={5}
-          width="16vw"
+          // width="16vw"
           height="100vh"
           sx={{
             backgroundColor: "#1f1e3a",
             borderRadius: "0px 20px 20px 0px",
+            
           }}
           textAlign="center"
           role="presentation"
@@ -75,14 +84,18 @@ export default function NavSidebar({ trigger, passFunction, login }) {
           ></Typography>
           <IconButton
             size="large"
-            sx={{ color: "text.primary" }}
+            sx={{ color: "text.primary" ,
+            marginLeft: "88%",
+            marginTop: "-4vh",
+            
+            
+          }}
             onClick={() => passFunction(false)}
           >
             <CloseIcon
               sx={{
-                fontSize: 40,
-                marginLeft: "14vw",
-                marginTop: "-5vh"
+                fontSize: 35,
+                
 
               }}>
 
@@ -107,7 +120,7 @@ export default function NavSidebar({ trigger, passFunction, login }) {
               <ListItem disablePadding onClick={handleLoginClick}>
                 <ListItemButton>
                   <ListItemIcon>
-                    <PersonIcon
+                    <LoginIcon
                       sx={{
                         color: "white",
                         fontSize: "2rem",
@@ -208,3 +221,4 @@ export default function NavSidebar({ trigger, passFunction, login }) {
     </>
   );
 }
+

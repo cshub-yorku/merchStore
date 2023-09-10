@@ -33,7 +33,7 @@ export default function Footer(){
         // </div>
         // </div>
     <Box sx={{aspectRatio: "100 / 12.5",
-              backgroundColor: '#1f1e3a',
+              backgroundColor: '#151515',
               [theme.breakpoints.down('tablet')]: {
                 aspectRatio: '100/25'
             }}}>

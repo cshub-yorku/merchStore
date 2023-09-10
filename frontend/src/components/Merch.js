@@ -31,15 +31,21 @@ import {
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { bold, fontIBM } from "../styles/fontStyles";
 import {
-  centerItem,
   MerchAppBar,
   merchBillboardContainer,
   merchBillboardImage,
-  merchColor,
   merchTextboard,
   MerchToolbar,
-  varColor,
 } from "../styles/MerchStyle";
+
+import {
+ 
+  centerItem,
+  merchColor,
+  varColor,
+  title
+} from "../styles/navBarStyles";
+
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -88,16 +94,51 @@ export default function Merch() {
           
           <Box sx={merchBillboardContainer}>
             <Box
-              component="img"
-              src="./global/stock.jpg"
-              sx={merchBillboardImage}
+              // component="img"
+              // src="./global/stock.jpg"
+              // sx={merchBillboardImage}
             ></Box>
 
-            <Box sx={merchTextboard}>
+            <Box sx={{position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      
+                      textAlign: "center",
+                      color: "white",
+              [theme.breakpoints.down('mobile')]: {
+                top: "65%"
+            }}}>
               <Typography variant="h3" sx={bold}>
-                50% off of select merch items
+              <Box sx={[centerItem]}>
+              
+                {/* <Slide direction="down" in={!offset} mountOnEnter unmountOnExit> */}
+                  <Typography
+                    variant="h3"
+                    display="inline"
+                    sx={[bold, fontIBM, title]}
+                  >
+                    <Typography
+                      variant="h3"
+                      display="inline"
+                      sx={[bold, fontIBM, varColor]}
+                    >
+                      var{" "}
+                    </Typography>{" "}
+                    store = "
+                    <Typography
+                      variant="h3"
+                      display="inline"
+                      sx={[bold, fontIBM, merchColor]}
+                    >
+                      MerchStore
+                    </Typography>
+                    ";
+                  </Typography>
+                {/* </Slide> */}
+              </Box>
               </Typography>
-              <Typography variant="h4">Sale ends March 30th, 2023</Typography>
+              
             </Box>
           </Box>
           

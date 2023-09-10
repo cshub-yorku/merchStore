@@ -4,11 +4,12 @@
 
 
 export const logo = (offset) => {
-    let rate = 120 - offset / 2;
-    let picSize = rate > 80 ? rate : 80;
+    // let rate = 120 - offset / 2;
+    // let picSize = rate > 80 ? rate : 80;
 
     return {
-        width: picSize,
+        // width: picSize,
+        width: 80,
         m: 'auto',
         my: "0.5vw",
     }
@@ -45,14 +46,18 @@ export const cartStyle = {
 export const StackStyle = {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%'
+    width: '100%',
+    backgroundColor: "#151515",
+    
 }
 
 export const varColor = {
-    color: "#ed6d11"
+    color: "#ed6d11",
+    letterSpacing: 3
 }
 export const merchColor = {
-    color: "#624f82"
+    color: "#181818",
+    letterSpacing: 3
 }
 
 export const centerItem = {
@@ -60,6 +65,8 @@ export const centerItem = {
     justifyContent: "center",
     flexDirection: "column",
     mx: '1',
+
+    
 }
 
 export const cartNotification = {
@@ -81,6 +88,7 @@ export const cartNotification = {
 
 export const title = {
     mb: '3%',
+    letterSpacing: 3
 }
 
 export const cartNotificationText = {

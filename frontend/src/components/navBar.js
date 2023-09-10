@@ -90,18 +90,18 @@ export default function NavBar() {
   return (
     <>
       <AppBar sx={MerchAppBar(theme)}>
-        <Toolbar>
+        <Toolbar sx={{padding: 0}}>
           <Box sx={StackStyle}>
             <>
               {/* COMPONENT FOR LEFT DRAWER */}
-              <IconButton
+              {/* <IconButton
                 size="large"
                 edge="start"
                 sx={dehazeStyle}
                 onClick={() => setOpenNav(true)}
               >
                 <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-              </IconButton>
+              </IconButton> */}
 
               {isLoggedIn() ? (
                 <IconButton
@@ -134,7 +134,7 @@ export default function NavBar() {
                   src="./global/logo.svg"
                   sx={logo(offset)}
                 ></Box>
-                <Slide direction="down" in={!offset} mountOnEnter unmountOnExit>
+                {/* <Slide direction="down" in={!offset} mountOnEnter unmountOnExit>
                   <Typography
                     variant="h4"
                     display="inline"
@@ -157,7 +157,7 @@ export default function NavBar() {
                     </Typography>
                     ";
                   </Typography>
-                </Slide>
+                </Slide> */}
               </Box>
 
               {/* COMPONENT FOR RIGHT DRAWER */}

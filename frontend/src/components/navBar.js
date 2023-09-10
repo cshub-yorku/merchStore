@@ -94,14 +94,14 @@ export default function NavBar() {
           <Box sx={StackStyle}>
             <>
               {/* COMPONENT FOR LEFT DRAWER */}
-              <IconButton
+              {/* <IconButton
                 size="large"
                 edge="start"
                 sx={dehazeStyle}
                 onClick={() => setOpenNav(true)}
               >
                 <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-              </IconButton>
+              </IconButton> */}
 
               {isLoggedIn() ? (
                 <IconButton

@@ -1,7 +1,5 @@
 package com.MerchStore.backend.Model;
 
-import java.util.Date;
-
 public class Order {
     private final long orderId;
 

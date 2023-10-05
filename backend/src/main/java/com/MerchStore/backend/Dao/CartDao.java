@@ -22,6 +22,7 @@ public class CartDao implements Dao<Cart>{
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
+                cart.setItemList(CartListDao.getAll(connection,cart.getCartId()));
                 return Optional.of(cart);
             }
         } catch (SQLException e) {
@@ -71,7 +72,7 @@ public class CartDao implements Dao<Cart>{
 
     @Override
     public boolean update(Cart cart) {
-    throw new UnsupportedOperationException("Unable to update cart");
+        throw new UnsupportedOperationException("Unable to update cart");
     }
 
     @Override
@@ -101,6 +102,7 @@ public class CartDao implements Dao<Cart>{
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
+                cart.setItemList(CartListDao.getAll(connection,cart.getCartId()));
                 return Optional.of(cart);
             }
         } catch (SQLException e) {

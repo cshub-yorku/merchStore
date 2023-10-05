@@ -6,31 +6,36 @@ import com.MerchStore.backend.Dao.Dao;
 import com.MerchStore.backend.Dao.ProductDao;
 import com.MerchStore.backend.Model.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class CartLogic {
     public static APIResponse<Cart> addItemToCart(int quantity, long productId, Users user){
         CartDao cartDao = new CartDao();
+        Dao<Product> productDao = new ProductDao();
         List<String> errorList = new ArrayList<>();
-        return cartDao.getCartByUserId(user.getUserId()).map(cartInfo -> {
-            Dao<CartList> cartListDao = new CartListDao(cartInfo.getCartId());
-            CartList cartList = new CartList(cartInfo.getCartId(),productId,quantity);
-            Dao<Product> productDao = new ProductDao();
+        Optional<Product> product = productDao.get(productId);
 
-            if(productDao.get(productId).isEmpty()){
+
+        return cartDao.getCartByUserId(user.getUserId()).map(cartInfo -> {
+            if(product.isEmpty() ){
                 errorList.add("Product with id: " + productId + " does not exist");
+            }else if(product.get().getStock() < quantity){
+                errorList.add("Unable to add item. Quantity too large.");
             }
-            if(quantity > 0){
-                if(cartListDao.getAll().stream().anyMatch(cartItem -> cartItem.getProductId() == productId)){
-                    cartListDao.update(cartList);
+
+
+            if(errorList.isEmpty()){
+                List<CartItem> cartItem = cartInfo.getItemList();
+                CartItem newItemInfo = new CartItem(cartInfo.getCartId(),productId,quantity);
+                if(quantity > 0){
+                    if(cartItem.stream().anyMatch(item -> item.getProductId() == productId)){
+                        CartListDao.update(newItemInfo);
+                    }else{
+                        CartListDao.save(newItemInfo);
+                    }
                 }else{
-                    cartListDao.save(cartList);
+                    CartListDao.delete(newItemInfo);
                 }
-            }else{
-                cartListDao.delete(cartList);
             }
             return new APIResponse<Cart>(errorList,Collections.emptyList());
         }).orElse(new APIResponse<>(Arrays.stream(new String[]{"Cart not found for email: " + user.getEmail()})

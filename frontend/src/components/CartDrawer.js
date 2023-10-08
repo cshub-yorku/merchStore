@@ -1,14 +1,15 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { Divider, IconButton, ButtonGroup, ToggleButton, Button, Typography, Drawer, Box, Stack, Grid, Avatar } from "@mui/material";
-import { ShoppingBag, VapingRooms } from "@mui/icons-material";
+import { DeleteOutlineOutlined, ShoppingBag, VapingRooms } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
-import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total} from '../styles/CartDrawer.js'
+import { subHeader, mainHeader, prices, headers, btnStyle, itemContainer, quantity_black, itemStackStyle, checkoutBtn, itemBtnGroup, bottomBtnBox, button_gray, itemImage, white_divider, cart_item_total } from '../styles/CartDrawer.js'
 import { button_white, button_black, button_theme } from '../styles/Styles.js'
 import { useTheme } from "@emotion/react";
 import { useStoreContext } from "../controllers/StoreContext.js";
+import { logo } from "../styles/navBarStyles.js";
 
-export default function CartDrawer({setCart, trigger, passFunction }) {
+export default function CartDrawer({ setCart, trigger, passFunction }) {
   const navigate = useNavigate();
 
   const removeItem = (i) => {
@@ -17,7 +18,7 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
   }
 
   const store = useStoreContext();
-  const cart = store.getAllItems(); 
+  const cart = store.getAllItems();
 
   const theme = useTheme();
   return (
@@ -29,7 +30,7 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
         anchor="right"
         open={trigger}
         onClose={() => passFunction(false)}
-        sx={{position: 'relative'}}
+        sx={{ position: 'relative' }}
         PaperProps={{
           sx: {
             backgroundColor: "transparent"
@@ -42,11 +43,11 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
             backgroundColor: "#1f1e3a",
             borderRadius: "4px 0px 0px 4px",
             height: "100vh",
-            
+
             [theme.breakpoints.down('mobile')]: {
-              width: "80vw"
+              width: "100vw"
             },
-  
+
             [theme.breakpoints.between('mobile', 'tablet')]: {
               width: "55vw"
             },
@@ -62,7 +63,7 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
             [theme.breakpoints.between('fhd', 'uhd')]: {
               width: "23vw"
             },
-            
+
             [theme.breakpoints.up('uhd')]: {
               width: "23vw"
             },
@@ -70,7 +71,10 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
           textAlign="center"
           role="presentation"
         >
-          <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%'}}>
+          <IconButton onClick={() => passFunction(false)} sx={{ color: "#fff", mb: '8%', ml: '90%' }} >
+              <CloseIcon/>
+            </IconButton>
+          <Grid sx={{ display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', maxWidth: '100%' }}>
 
             {Array.from(cart).map((item) => {
 
@@ -95,40 +99,38 @@ export default function CartDrawer({setCart, trigger, passFunction }) {
 
                       <Stack sx={itemStackStyle} direction="row" alignItems="center">
                         <Box>
-                        <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, -1) }>-</Button>
-                          <Box sx={[quantity_black]}>{item[1]}</Box>
-                          <Button sx={[btnStyle]} onClick={ () => store.changeItemAmount(product, 1) }>+</Button>
-                        </ButtonGroup>
+                          <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                            <Button sx={[btnStyle]} onClick={() => store.changeItemAmount(product, -1)}>-</Button>
+                            <Box sx={[quantity_black]}>{item[1]}</Box>
+                            <Button sx={[btnStyle]} onClick={() => store.changeItemAmount(product, 1)}>+</Button>
+                          </ButtonGroup>
                         </Box>
-                        
+
                         <Stack sx={itemStackStyle} direction="row" alignItems="center">
                           <Typography sx={[prices]}>
                             ${product.price} x {item[1]} = ${product.price * item[1]}
                           </Typography>
-
-                          <IconButton onClick={ () => store.removeItem(product) }>
-                            <CloseIcon sx={{color: "#fff"}} />
-                          </IconButton>
                         </Stack>
-                        
                       </Stack>
+
                     </Box>
-                    
+                    <IconButton onClick={() => store.removeItem(product)}>
+                      <DeleteOutlineOutlined sx={{ color: "#fff" }} />
+                    </IconButton>
                   </Stack>
-                  </>
+                </>
 
               );
             })}
-          <Box>
-            <Divider sx={[white_divider]}/>
-            <Typography sx={[cart_item_total]}>Total: </Typography>
-          </Box>
+            <Box>
+              <Divider sx={[white_divider]} />
+              <Typography sx={[cart_item_total]}>Total: {store.getProductTotal()}</Typography>
+            </Box>
 
           </Grid>
           <Box sx={bottomBtnBox}>
             <Button sx={[checkoutBtn, button_theme]}
-                    onClick={ ()=> navigate('./checkout', {state: {cart: cart}})}>
+              onClick={() => navigate('./checkout', { state: { cart: cart } })}>
               Checkout
             </Button>
             <Button sx={[checkoutBtn, button_gray]}>

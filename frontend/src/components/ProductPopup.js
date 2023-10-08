@@ -10,9 +10,10 @@ import {
   Popover,
   ButtonGroup,
   Button,
+  useMediaQuery,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@emotion/react";
 import {
@@ -44,6 +45,7 @@ import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 import { useNavigate } from "react-router";
 import { useStoreContext } from "../controllers/StoreContext";
 import CartQuantityButton from "./CartQuantityButton";
+import { cart_controls_box } from "../styles/CartDrawer";
 
 export default function ProductPopup({
   trigger,
@@ -61,12 +63,16 @@ export default function ProductPopup({
   const [sizePopover, setSizePopover] = useState(null);
   const sizeOpen = Boolean(sizePopover);
   const [size, setSize] = useState();
+  const [quantity, setQuantity] = useState(1)
   const handleSize = (event, newSize) => {
     setSize(newSize);
   };
 
+  const bSmallScreen = useMediaQuery(theme.breakpoints.down('mobile'))
+
   const cart = useStoreContext();
 
+  useEffect(() => { console.log(bSmallScreen); }, [])
 
   return product ? (
     <Dialog
@@ -81,8 +87,8 @@ export default function ProductPopup({
         classes={{ root: { m: 0, p: 0 } }}
         sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 }, bgcolor: theme.palette.primary.main }}
       >
-        <Box sx={ gridContainer(theme) }>
-          <Box sx={ imageGridContainer(theme) }>
+        <Box sx={gridContainer(theme)}>
+          <Box sx={imageGridContainer(theme)}>
             <Box
               component="img"
               src={product.images[pic]}
@@ -128,90 +134,96 @@ export default function ProductPopup({
               ></Box>
             </Stack>
           </Box>
-          <Box sx={ headerGridContainer(theme) }>
-            <Box sx={{ display: 'flex', flexDirection: "row", alignContent: 'center', height: '100%' }}>
-              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name}</Typography>
+          <Box sx={headerGridContainer(theme)}>
+            <Box sx={{ display: 'flex', flexDirection: "row", alignContent: 'center' }}>
+              <Typography variant="h3" sx={[medium, fontJura, { my: '2%' }]}>{product.name}</Typography>
               <IconButton sx={[themeColor, closeButton]} onClick={onClick}>
-                <CloseIcon></CloseIcon>
+                <CloseIcon sx={{ color: '#000' }}></CloseIcon>
               </IconButton>
             </Box>
+            {bSmallScreen && <Typography variant="h6" sx={{ color: '#000', textAlign: 'center' }}>$66</Typography>}
           </Box>
-          <Box sx={ bodyGridContainer(theme) }>
+          <Box sx={bodyGridContainer(theme)}>
             <Typography variant="body1">{product.description}</Typography>
-            <Typography variant="body1" sx={bold}>
-              Product Details:
-            </Typography>
+            <Box>
+              <Typography variant="body1" sx={bold}>
+                Product Details:
+              </Typography>
 
-            <List>
-              <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                </ListItem>
+              <List>
+                <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                  <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                    Washing Instructions: Wash 30C. Wash inside out like with
+                    colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                  </ListItem>
+                </List>
               </List>
-            </List>
+            </Box>
 
-            <ToggleButtonGroup
-              value={size}
-              exclusive
-              onChange={handleSize}
-              aria-label="size"
-              sx={SizeButtonGroup(theme)}
-            >
-              <ToggleButton
-                value="S"
-                aria-label="small"
-                sx={toggle_button_black}
-              >
-                <Typography variant="h6">S</Typography>
-              </ToggleButton>
-              <ToggleButton
-                value="M"
-                aria-label="medium"
-                sx={[toggle_button_black, ToggleButtonSeparations]}
-              >
-                <Typography variant="h6">M</Typography>
-              </ToggleButton>
-              <ToggleButton
-                value="L"
-                aria-label="large"
-                sx={toggle_button_black}
-              >
-                <Typography variant="h6">L</Typography>
-              </ToggleButton>
-            </ToggleButtonGroup>
+            <Box sx={cart_controls_box(theme)}>
+              <Box sx={{ m:'auto', ml: '1%'}}>
+                <ToggleButtonGroup
+                  value={size}
+                  exclusive
+                  onChange={handleSize}
+                  aria-label="size"
+                  sx={SizeButtonGroup(theme)}
+                >
+                  <ToggleButton
+                    value="S"
+                    aria-label="small"
+                    sx={toggle_button_black}
+                  >
+                    <Typography variant="h6">S</Typography>
+                  </ToggleButton>
+                  <ToggleButton
+                    value="M"
+                    aria-label="medium"
+                    sx={[toggle_button_black, ToggleButtonSeparations]}
+                  >
+                    <Typography variant="h6">M</Typography>
+                  </ToggleButton>
+                  <ToggleButton
+                    value="L"
+                    aria-label="large"
+                    sx={toggle_button_black}
+                  >
+                    <Typography variant="h6">L</Typography>
+                  </ToggleButton>
+                </ToggleButtonGroup>
 
-            <Typography variant="body1" sx={helperNotation}>
-              ⓘ Size Guide
-            </Typography>
-            
+                <Typography variant="body1" sx={helperNotation}>
+                  ⓘ Size Guide
+                </Typography>
+              </Box>
 
-            <CartQuantityButton
-            // quantity = {quantity}
-            // setDecrease = {setDecrease}
-            // setIncrease = {setIncrease}
-            />
+
+              <CartQuantityButton
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
+            </Box>
 
 
             <Box sx={productBuy(theme)}>
-              <Box sx={productPriceBox}>
+              {!bSmallScreen && <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
                   {product.price}$
                 </Typography>
-              </Box>
+              </Box>}
               <ButtonGroup sx={productBuyButton}>
-                <Button
-                  onClick={() => { cart.changeItemAmount(product, 1) }}
+                {!bSmallScreen && <Button
+                  onClick={() => { cart.changeItemAmount(product, quantity) }}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
                 >
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Add To Cart
                   </Typography>
-                </Button>
-                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product");}}>
+                </Button>}
+                <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product"); }}>
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Buy Now
                   </Typography>

@@ -28,7 +28,7 @@ export const itemImage = {
 }
 
 export const itemContainer = {
-    minWidth: "75%",
+    minWidth: "65%",
     m: 1,
 }
 
@@ -101,7 +101,19 @@ export const white_divider = {
 }
 
 export const cart_item_total = {
-    textAlign: 'right', 
-    m: 1, 
+    textAlign: 'right',
+    m: 1,
     fontSize: '24px'
+}
+
+export const cart_controls_box = (theme) => {
+    return (
+        {
+            display: 'flex',
+
+            [theme.breakpoints.up("mobile")]: {
+                flexDirection: 'column'
+            },
+        }
+    )
 }

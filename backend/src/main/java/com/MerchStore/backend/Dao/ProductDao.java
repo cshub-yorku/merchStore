@@ -40,10 +40,12 @@ public class ProductDao implements Dao<Product> {
         Connection connection = ConnectionManager.getConnection();
         try {
             ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
+            System.out.println(resultSet.toString());
             while (resultSet.next()) {
                 Array imagesArray = resultSet.getArray("images");
                 String[] images = (String[])imagesArray.getArray();
                 Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"), images);
+                System.out.println(product);
                 resultList.add(product);
             }
         } catch (SQLException e) {

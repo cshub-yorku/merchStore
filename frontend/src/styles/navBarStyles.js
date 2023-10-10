@@ -60,6 +60,7 @@ export const centerItem = {
     justifyContent: "center",
     flexDirection: "column",
     mx: '1',
+    marginLeft: -4,
 }
 
 export const cartNotification = {

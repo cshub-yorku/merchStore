@@ -60,12 +60,14 @@ export default function NavBar() {
     setAnim(noAnimation);
   };
 
+  const isMobile = window.innerWidth <= 768;
   const [openLogin, setOpenLogin] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [cart, setCart] = useState([]);
 
   const [offset, setOffset] = useState(0);
+  const logoStyle = isMobile ? { width: '50px', height: 'auto' } : logo(offset);
 
   const isLoggedIn = () => {
     return localStorage.getItem("token") !== null;
@@ -132,8 +134,10 @@ export default function NavBar() {
                 <Box
                   component="img"
                   src="./global/logo.svg"
-                  sx={logo(offset)}
+                  sx={[logoStyle]}
                 ></Box>
+
+                {!isMobile && (
                 <Slide direction="down" in={!offset} mountOnEnter unmountOnExit>
                   <Typography
                     variant="h4"
@@ -157,7 +161,8 @@ export default function NavBar() {
                     </Typography>
                     ";
                   </Typography>
-                </Slide>
+                </Slide>)}
+                
               </Box>
 
               {/* COMPONENT FOR RIGHT DRAWER */}

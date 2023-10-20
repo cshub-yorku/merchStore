@@ -2,6 +2,7 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Cart;
+import com.MerchStore.backend.Model.CartItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,19 +12,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class CartDao implements Dao<Cart>{
-    @Override
-    public Optional<Cart> get(long id) {
-        String statement = "SELECT * FROM cart where cart_id = ?";
+public class CartDao{
+
+    /**
+     * Get cart details using cart Id
+     * @param statement -> prepared statement, usually configured to query cart and cart list tables by cart id or user id
+     * @return current state of Cart
+     */
+    private Optional<Cart> get(PreparedStatement statement) {
         Connection connection = ConnectionManager.getConnection();
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
-                return Optional.of(cart);
+            ResultSet resultSet = statement.executeQuery();
+            List<CartItem> itemList = new LinkedList<>();
+            long userId = 0;
+            while(resultSet.next()){
+                itemList.add(
+                        new CartItem(resultSet.getLong("product_id"),resultSet.getInt("qty"))
+                );
+                if(resultSet.isFirst()) userId = resultSet.getLong("user_id");
             }
+
+            if(userId != 0){
+                return Optional.of(new Cart(userId,userId,itemList));
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {
@@ -32,26 +44,6 @@ public class CartDao implements Dao<Cart>{
         return Optional.empty();
     }
 
-    @Override
-    public List<Cart> getAll() {
-        String statement = "SELECT * FROM cart";
-        LinkedList<Cart> resultList = new LinkedList<>();
-        Connection connection = ConnectionManager.getConnection();
-        try{
-            ResultSet resultSet = connection.prepareStatement(statement).executeQuery();
-            while(resultSet.next()){
-                Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
-                resultList.add(cart);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }finally {
-            ConnectionManager.releaseConnection(connection);
-        }
-        return resultList;
-    }
-
-    @Override
     public boolean save(Cart cart){
         String statement = "INSERT INTO cart values (?, ?)";
         Connection connection = ConnectionManager.getConnection();
@@ -68,13 +60,6 @@ public class CartDao implements Dao<Cart>{
         }
         return false;
     }
-
-    @Override
-    public boolean update(Cart cart) {
-    throw new UnsupportedOperationException("Unable to update cart");
-    }
-
-    @Override
     public boolean delete(Cart cart) {
         String statement = "DELETE from cart where cart_id = ?";
         Connection connection = ConnectionManager.getConnection();
@@ -90,19 +75,25 @@ public class CartDao implements Dao<Cart>{
         }
         return false;
     }
-
     public Optional<Cart> getCartByUserId(long id) {
-        String statement = "SELECT * FROM cart where user_id = ?";
-
         Connection connection = ConnectionManager.getConnection();
         try{
+            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart, cart_list where cart.user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                Cart cart = new Cart(resultSet.getLong("cart_id"), resultSet.getLong("user_id"));
-                return Optional.of(cart);
-            }
+            return this.get(preparedStatement);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
+        }
+        return Optional.empty();
+    }
+    public Optional<Cart> getCartByCartId(long id) {
+        Connection connection = ConnectionManager.getConnection();
+        try{
+            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart, cart_list where cart.cart_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            return this.get(preparedStatement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {

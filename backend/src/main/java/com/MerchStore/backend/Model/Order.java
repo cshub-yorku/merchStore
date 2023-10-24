@@ -1,43 +1,56 @@
 package com.MerchStore.backend.Model;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class Order {
     private final long orderId;
 
-    private int quantity;
-
     private double totalAmount;
 
-    private String orderStatus;
+    private OrderStatus orderStatus;
 
-    private final long cartId;
+    private List<OrderedItems> orderedItems;
 
-    public Order(long orderId, int quantity, double totalAmount, String orderStatus, long cartId){
+    public Order(long orderId, OrderStatus orderStatus){
         this.orderId = orderId;
-        this.quantity = quantity;
-        this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
-        this.cartId = cartId;
+        this.totalAmount = calculateTotalAmount();
     }
+    public Order(OrderStatus orderStatus){
+        this.orderId = generateOrderId();
+        this.orderStatus = orderStatus;
+        this.totalAmount = calculateTotalAmount();
+    }
+
 
     public long getOrderId() {
         return orderId;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public double getTotalAmount() {
         return totalAmount;
     }
 
-    public String getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public long getCartId() {
-        return cartId;
+    public List<OrderedItems> getOrderedItems() {
+        return orderedItems;
+    }
+
+    public void setOrderedItems(List<OrderedItems> orderedItems) {
+        this.orderedItems = orderedItems;
+    }
+
+    private long generateOrderId(){
+        return new Random().nextInt(9999999);
+    }
+
+    private double calculateTotalAmount(){
+        return orderedItems.stream()
+                .mapToDouble(product -> product.getPrice() * product.getQuantity())
+                .sum();
     }
 }

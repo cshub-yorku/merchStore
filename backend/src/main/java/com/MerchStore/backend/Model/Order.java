@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Order {
+    private final long userId;
     private final long orderId;
 
     private double totalAmount;
@@ -12,12 +13,14 @@ public class Order {
 
     private List<OrderedItems> orderedItems;
 
-    public Order(long orderId, OrderStatus orderStatus){
+    public Order(long userId, long orderId, OrderStatus orderStatus){
+        this.userId = userId;
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.totalAmount = calculateTotalAmount();
     }
-    public Order(OrderStatus orderStatus){
+    public Order(long userId, OrderStatus orderStatus){
+        this.userId = userId;
         this.orderId = generateOrderId();
         this.orderStatus = orderStatus;
         this.totalAmount = calculateTotalAmount();

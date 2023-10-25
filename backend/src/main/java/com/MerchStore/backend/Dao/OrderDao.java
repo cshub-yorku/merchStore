@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class OrderDao{
     public Optional<Order> get(long id) {
-        String statement = "select o.order_id as id, oi.product_quantity as qty, oi.product_id as product_id, oi.price as price," +
+        String statement = "select o.order_id as order_id, o.user_id as user_id, oi.product_quantity as qty, oi.product_id as product_id, oi.price as price," +
                 "to.order_status as status from ordered_items oi, orders o where oi.order_id = ?";
 
         Connection connection = ConnectionManager.getConnection();
@@ -25,17 +25,19 @@ public class OrderDao{
             ResultSet resultSet = preparedStatement.executeQuery();
             List<OrderedItems> items = new LinkedList<>();
             long order_id = 0;
+            long userId = 0;
             OrderStatus status = null;
             while(resultSet.next()){
                 items.add(
                         new OrderedItems(resultSet.getLong("product_id"),resultSet.getDouble("price"),resultSet.getInt("qty"))
                 );
                 if(resultSet.isFirst()) {
-                  order_id = resultSet.getInt("id");
+                  order_id = resultSet.getInt("order_id");
+                  userId = resultSet.getLong("user_id");
                   status =  OrderStatus.valueOf(resultSet.getString("status"));
                 }
             }
-            Order order = new Order(order_id, status);
+            Order order = new Order(userId, order_id, status);
             order.setOrderedItems(items);
             return Optional.of(order);
         } catch (SQLException e) {

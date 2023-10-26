@@ -57,6 +57,11 @@ export default function ProductPopup({
   const mainPic = 0;
   const navigate = useNavigate();
 
+  const menuPaperStyles = {
+    // Change the background color for the dropdown list
+    background: '#282A4E', // Change to your desired color
+  };
+
   const [pic, setPic] = useState(mainPic);
   const [shippingPopover, setShippingPopover] = useState(null);
   const shippingOpen = Boolean(shippingPopover);
@@ -134,10 +139,8 @@ export default function ProductPopup({
           </Box>
           <Box sx={ headerGridContainer(theme) }>
             <Box sx={{ display: 'flex', flexDirection: "row", alignContent: 'center', height: '100%' }}>
-              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name}</Typography>
-              <Typography variant="h5" sx={[medium, fontJura, {my: '2%'}]}>
-                  {product.price}$
-              </Typography>
+              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name} <br /> {product.price}$</Typography>
+
               <IconButton sx={[themeColor, closeButton]} onClick={onClick}>
                 <CloseIcon></CloseIcon>
               </IconButton>
@@ -177,7 +180,7 @@ export default function ProductPopup({
             </ToggleButtonGroup> */}
 
 
-            <div>
+            <div sx={{backgroundColor: "black"}}>
               <Select
                 value={size}
                 onChange={handleSizeChange}
@@ -186,6 +189,11 @@ export default function ProductPopup({
                 variant="outlined"
                 label="Size"
                 sx={SizeButtonGroup(theme)}
+                MenuProps={{
+                  PaperProps: {
+                    style: menuPaperStyles, // Apply styles to the dropdown list
+                  },
+                }}
               >
                 <MenuItem value="">
                   <em>Choose Size</em>
@@ -216,13 +224,14 @@ export default function ProductPopup({
             // setIncrease = {setIncrease}
             />
 
-
+            
             <Box sx={productBuy(theme)}>
               {/* <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
                   {product.price}$
                 </Typography>
               </Box> */}
+              
               <ButtonGroup sx={productBuyButton}>
                 <Button
                   onClick={() => { cart.changeItemAmount(product, 1) }}

@@ -66,7 +66,7 @@ export const gridContainer = (theme) => ({
 })
 
 export const imageGridContainer = (theme) => ({
-
+    
     position: 'relative',
 
     [theme.breakpoints.down('tablet')]: {
@@ -167,8 +167,11 @@ export const productSubImage = {
 
 export const productMainImage = (theme) => ({
     aspectRatio: '1 / 1',
-    width: "100%",
-    height: '100%',
+    marginLeft: "13%",
+    marginRight: "auto",
+    marginTop: "3%",
+    width: "80%",
+    height: '90%',
     objectFit: 'cover',
 
     // [theme.breakpoints.up('mobile')]: {
@@ -176,7 +179,7 @@ export const productMainImage = (theme) => ({
     // },
 
     [theme.breakpoints.up('hd')]: {
-        height: '100%',
+        height: '90%',
     },
 })
 
@@ -267,6 +270,7 @@ export const ToggleButtonSeparations = {
 export const SizeButtonGroup = (theme) => ({
     marginTop: "1rem",  
     backgroundColor: '#282A4E',
+    backrgound: "black",
     color: "#FFF",
     '&.Mui-selected': {
         color: '#000',
@@ -277,7 +281,7 @@ export const SizeButtonGroup = (theme) => ({
         },
     },
     '&:hover': {
-        backgroundColor: 'gray',
+        backgroundColor: 'black',
     },
 
     "& .MuiToggleButtonGroup-grouped": {

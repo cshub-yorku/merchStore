@@ -10,6 +10,8 @@ import {
   Popover,
   ButtonGroup,
   Button,
+  Select,
+  MenuItem
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import React, { useContext, useState } from "react";
@@ -45,6 +47,7 @@ import { useNavigate } from "react-router";
 import { useStoreContext } from "../controllers/StoreContext";
 import CartQuantityButton from "./CartQuantityButton";
 
+
 export default function ProductPopup({
   trigger,
   onClick,
@@ -54,15 +57,21 @@ export default function ProductPopup({
   const mainPic = 0;
   const navigate = useNavigate();
 
+  const menuPaperStyles = {
+    // Change the background color for the dropdown list
+    background: '#282A4E', // Change to your desired color
+  };
+
   const [pic, setPic] = useState(mainPic);
   const [shippingPopover, setShippingPopover] = useState(null);
   const shippingOpen = Boolean(shippingPopover);
 
   const [sizePopover, setSizePopover] = useState(null);
   const sizeOpen = Boolean(sizePopover);
-  const [size, setSize] = useState();
-  const handleSize = (event, newSize) => {
-    setSize(newSize);
+  const [size, setSize] = useState('');
+
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
   };
 
   const cart = useStoreContext();
@@ -130,7 +139,8 @@ export default function ProductPopup({
           </Box>
           <Box sx={ headerGridContainer(theme) }>
             <Box sx={{ display: 'flex', flexDirection: "row", alignContent: 'center', height: '100%' }}>
-              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name}</Typography>
+              <Typography variant="h3" sx={[medium, fontJura, {my: '2%'}]}>{product.name} <br /> {product.price}$</Typography>
+
               <IconButton sx={[themeColor, closeButton]} onClick={onClick}>
                 <CloseIcon></CloseIcon>
               </IconButton>
@@ -138,25 +148,11 @@ export default function ProductPopup({
           </Box>
           <Box sx={ bodyGridContainer(theme) }>
             <Typography variant="body1">{product.description}</Typography>
-            <Typography variant="body1" sx={bold}>
-              Product Details:
-            </Typography>
+            
 
-            <List>
-              <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
-                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
-                  Washing Instructions: Wash 30C. Wash inside out like with
-                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
-                </ListItem>
-              </List>
-            </List>
-
-            <ToggleButtonGroup
+            {/* <ToggleButtonGroup
               value={size}
               exclusive
-              onChange={handleSize}
               aria-label="size"
               sx={SizeButtonGroup(theme)}
             >
@@ -181,7 +177,41 @@ export default function ProductPopup({
               >
                 <Typography variant="h6">L</Typography>
               </ToggleButton>
-            </ToggleButtonGroup>
+            </ToggleButtonGroup> */}
+
+
+            <div sx={{backgroundColor: "black"}}>
+              <Select
+                value={size}
+                onChange={handleSizeChange}
+                displayEmpty
+                fullWidth
+                variant="outlined"
+                label="Size"
+                sx={SizeButtonGroup(theme)}
+                MenuProps={{
+                  PaperProps: {
+                    style: menuPaperStyles, // Apply styles to the dropdown list
+                  },
+                }}
+              >
+                <MenuItem value="">
+                  <em>Choose Size</em>
+                </MenuItem>
+                <MenuItem value="S"
+                sx={toggle_button_black}>
+                  <Typography variant="h6">S</Typography>
+                </MenuItem>
+                <MenuItem value="M"
+                sx={toggle_button_black}>
+                  <Typography variant="h6">M</Typography>
+                </MenuItem>
+                <MenuItem value="L"
+                sx={toggle_button_black}>
+                  <Typography variant="h6">L</Typography>
+                </MenuItem>
+              </Select>
+            </div>
 
             <Typography variant="body1" sx={helperNotation}>
               ⓘ Size Guide
@@ -194,13 +224,14 @@ export default function ProductPopup({
             // setIncrease = {setIncrease}
             />
 
-
+            
             <Box sx={productBuy(theme)}>
-              <Box sx={productPriceBox}>
+              {/* <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
                   {product.price}$
                 </Typography>
-              </Box>
+              </Box> */}
+              
               <ButtonGroup sx={productBuyButton}>
                 <Button
                   onClick={() => { cart.changeItemAmount(product, 1) }}
@@ -233,6 +264,21 @@ export default function ProductPopup({
             >
               ⓘ Shipping Details
             </Typography>
+            <hr></hr>
+            <Typography variant="body1" sx={bold}>
+              Product Details:
+            </Typography>
+
+            <List>
+              <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                  Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                </ListItem>
+              </List>
+            </List>
             <Popover
               id="shippingP"
               sx={[PopoverStyle, ProductPopover]}

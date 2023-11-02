@@ -14,6 +14,7 @@ import {
   } from "../styles/ProductPopupStyles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 
 
 
@@ -34,6 +35,7 @@ export default function CartQuantityButton(){
 
     return (
         <Box sx={{ marginBottom: "1rem" , transform: "scale(80%)", marginLeft: "-11%" }}>
+            <Typography variant="h6" sx={[medium, fontJura, {my: '2%'}]}>Quantity</Typography>
             <ToggleButtonGroup>
               <ToggleButton
                 sx={toggle_button_black}onClick={() => setDecrease()}>

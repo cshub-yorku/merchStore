@@ -31,7 +31,7 @@ export const button_theme = (theme) => {
 }
 
 export const toggle_button_black = {
-    backgroundColor: '#000',
+    backgroundColor: '#282A4E',
     color: "#FFF",
     '&.Mui-selected': {
         color: '#000',

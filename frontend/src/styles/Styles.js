@@ -21,7 +21,7 @@ export const button_black = {
 
 export const button_theme = (theme) => {
     return {
-        bgcolor: "#2C3555",
+        bgcolor: "#793CEE",
         color: '#FFF',
         '&:hover': {
             bgcolor: '#FFF',
@@ -192,4 +192,51 @@ export const field_white = {
         borderColor: "#000",
         boder: 'none'
     },
+}
+
+export const field_styled = {
+    '& .MuiOutlinedInput-root': {
+        background: '#333',
+        transition: 'border-color 0.1s ease-in-out',
+
+        color: "black",
+        
+        '&:hover': {
+            // boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+            borderColor: '#793CEE',
+        },
+        // '&.Mui-focused': {
+        //     // boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.2)',
+        //     border: '0.3px solid #red',
+        // },
+    },
+    '& .MuiInputLabel-root': {
+        color: 'white'
+    },
+    '& .MuiInputLabel-shrink': {
+        bgcolor: "#333",
+        color: 'white',
+        px: 0.6,
+        py: 0.1,
+        // borderColor: "black",
+        border: 'none',
+        borderRadius: '3px',
+    },
+
+    '& .MuiOutlinedInput-notchedOutline': {
+        transition: 'border-color 0.1s ease-in-out',
+        borderColor: '#FFF',
+    },
+
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: "#793CEE",
+    },
+
+    // '&& .Mui-focused': {
+    //     borderColor: "red",
+    // },
+
+    '& .MuiOutlinedInput-input': {
+        color: '#FFF'
+    }
 }

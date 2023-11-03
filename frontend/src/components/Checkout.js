@@ -7,6 +7,7 @@ import { useStoreContext } from '../controllers/StoreContext';
 import { DeleteOutline } from '@mui/icons-material';
 import { useTheme } from '@emotion/react';
 import { bodyGrid, cartItems, contacts, container } from '../styles/checkoutStyles';
+import { button_theme, field_styled } from '../styles/Styles';
 
 const linkStyle = {
     textDecoration: 'none',
@@ -50,9 +51,9 @@ export default function Checkout() {
                             <Typography variant="h6" sx={{ fontWeight: '600' }}>
                                 Contact Information
                             </Typography>
-                            <TextField id="outlined-basic" label="Full Name" variant="outlined" />
-                            <TextField id="outlined-basic" label="Email Address" variant="outlined" />
-                            <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
+                            <TextField sx={field_styled} id="outlined-basic" label="Full Name" variant="outlined" />
+                            <TextField sx={field_styled} id="outlined-basic" label="Email Address" variant="outlined" />
+                            <TextField sx={field_styled} id="outlined-basic" label="Phone Number" variant="outlined" />
 
                             <Typography variant="h6" sx={{ fontWeight: '600' }}>
                                 Order Details
@@ -71,13 +72,13 @@ export default function Checkout() {
 
                             <Grid sx={{ display: 'flex', gridTemplateColumn: '1fr 2fr' }}>
                                 <Box sx={{ marginRight: 'auto' }}>
-                                    <Button sx={{ padding: '1rem', fontSize: '1rem' }}
+                                    <Button sx={[button_theme, { padding: '1rem', fontSize: '1rem' }]}
                                         onClick={() => navigate('/')}>
                                         Return to Cart
                                     </Button>
                                 </Box>
                                 <Box sx={{ marginLeft: 'auto' }}>
-                                    <Button variant='contained' sx={{ padding: '1rem', fontSize: '1rem' }}
+                                    <Button variant='contained' sx={[button_theme, { padding: '1rem', fontSize: '1rem' }]}
                                         onClick={handleClose}>
                                         Place Order
                                     </Button>
@@ -102,7 +103,7 @@ export default function Checkout() {
                                             <Typography sx={{ textAlign: 'center' }}>{id[1]}</Typography>
                                             <Typography>${item.price}</Typography>
 
-                                            <IconButton sx={{ color: "text.primary" }} onClick={() => store.removeItem(id[0])}>
+                                            <IconButton sx={{ color: "#793CEE", '&:hover': {color: "#282A4E", } }} onClick={() => store.removeItem(id[0])}>
                                                 <DeleteOutline />
                                             </IconButton>
                                         </Stack>
@@ -123,22 +124,22 @@ export default function Checkout() {
                         borderRadius: "12px",
                     },
                 }}>
-                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
                     <Grid container sx={{ textAlign: 'center', width: '100%' }} direction='column' justifyContent='center' alignItems='center' rowSpacing={2}>
                         <Grid item>
-                            <Typography variant='h4'>
-                                Your Order Was <br /> Successfully Placed!
+                            <Typography sx={{ textAlign: 'start' }} variant='h4'>
+                                Your Order WasSuccessfully Placed!
                             </Typography>
                         </Grid>
-                        <Grid item sx={{ width: '70%' }}>
-                            <Typography variant='h6'>
+                        <Grid item sx={{  }}>
+                            <Typography sx={{ textAlign: 'start' }} variant='h6'>
                                 You may head back to the home page or continue shopping!
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button onClick={() => navigate('/')}>
+                            <Button sx={button_theme} onClick={() => navigate('/')}>
                                 <Typography>
-                                    Home
+                                    Great!
                                 </Typography>
                             </Button>
                         </Grid>

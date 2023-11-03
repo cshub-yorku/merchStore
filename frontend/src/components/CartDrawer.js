@@ -40,7 +40,7 @@ export default function CartDrawer({ setCart, trigger, passFunction }) {
         <Box
           p={3}
           sx={{
-            backgroundColor: "#1f1e3a",
+            backgroundColor: "#000",
             borderRadius: "4px 0px 0px 4px",
             height: "100vh",
 

@@ -22,7 +22,7 @@ export const container = (theme) => {
         [theme.breakpoints.down('mobile')]: {
             m: '0px',
             width: '100%',
-            height: '100%',
+            minHeight: '100vh',
             borderRadius: '0'
         }
     })

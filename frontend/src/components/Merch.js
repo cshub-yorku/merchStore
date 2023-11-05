@@ -79,10 +79,6 @@ export default function Merch() {
 
   }, [])
 
-  useEffect(() => {
-    console.log(merch.getAllProducts());
-  }, [merch.getAllProducts()])
-
   return (
 
     <>

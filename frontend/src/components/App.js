@@ -12,6 +12,7 @@ import { Box, CssBaseline, responsiveFontSizes } from "@mui/material";
 import CartDrawer from "./CartDrawer";
 import { main } from "../styles/mainStyle";
 import { StoreContextProvider } from "../controllers/StoreContext";
+import NavBar from "./navBar";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/" element={<CartDrawer />} />
             </Routes>
+            {/* <NavBar/> */}
 
             <div className="footer-section" sx={{ marginBottom: "0" }}>
               <Footer />

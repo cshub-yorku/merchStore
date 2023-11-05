@@ -1,23 +1,20 @@
 export const bodyGrid = (theme) => {
     return ({
         width: '100%',
-        height: '100%',
+        height: 'auto',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, 1fr)',
-        gridTemplateRows: 'repeat(auto-fit, 1fr)',
-    })
-}
+        alignItems: 'start',
 
-export const container = (theme) => {
-    return ({
-        backgroundColor: '#000',
+        backgroundColor: 'black',
         boxShadow: "10px",
         borderRadius: '8px',
+
+        pb: '5vh',
         [theme.breakpoints.up('mobile')]: {
             width: '90vw',
             minHeight: '90vh',
             mx: 'auto',
-            my: 'auto',
+            my: '5vh'
         },
         [theme.breakpoints.down('mobile')]: {
             m: '0px',
@@ -28,11 +25,18 @@ export const container = (theme) => {
     })
 }
 
+export const container = (theme) => {
+    return ({
+        
+    })
+}
+
 export const contacts = (theme) => {
     return ({
         gridColumn: "1",
         gridRow: "1 / 3",
         display: 'flex',
+
         flexDirection: 'column',
         width: '65%',
         mx: 'auto',
@@ -41,6 +45,12 @@ export const contacts = (theme) => {
             width: '95%',
             gridColumn: "1 / 3",
             gridRow: "1",
+        },
+        [theme.breakpoints.up('mobile')]: {
+            position: 'sticky',
+            alignSelf: 'start',
+            top: '10%',
+            // top: 0,
         }
     })
 }

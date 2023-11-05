@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { bold } from '../styles/fontStyles';
 import { useStoreContext } from '../controllers/StoreContext';
-import { DeleteOutline } from '@mui/icons-material';
+import { ArrowBackIos, DeleteOutline } from '@mui/icons-material';
 import { useTheme } from '@emotion/react';
 import { bodyGrid, cartItems, contacts, container } from '../styles/checkoutStyles';
 import { button_theme, field_styled } from '../styles/Styles';
@@ -28,9 +28,12 @@ export default function Checkout() {
     }
 
     return (
-        <Box sx={{ width: '100vw', minHeight: '100vh', display: 'flex', }}>
-            <Box sx={container(theme)}>
-                <Box sx={bodyGrid(theme)}>
+        <Box sx={{ width: '100vw', minHeight: 'auto', display: 'flex', }}>
+            {/* <Box sx={container(theme)}>
+                
+            </Box> */}
+
+            <Box sx={bodyGrid(theme)}>
                     <Box sx={contacts(theme)}>
                         <Box sx={{ mx: 'auto', textAlign: 'center' }}>
                             <Box
@@ -63,47 +66,55 @@ export default function Checkout() {
                                 <Typography sx={{ marginLeft: 'auto' }}>$25.00</Typography>
                             </Grid> */}
 
-                            <Divider />
+                            <Divider sx={{ '&.MuiDivider-root': {borderColor: '#793CEE'}, mb: '2rem'}} />
                             <Grid sx={{ display: 'flex', gridTemplateColumn: '1fr 1fr' }}>
                                 <Typography sx={{ fontWeight: '600' }}>Total</Typography>
                                 <Typography sx={{ marginLeft: 'auto' }}>${store.getProductTotal()}</Typography>
                             </Grid>
                             <Divider />
 
-                            <Grid sx={{ display: 'flex', gridTemplateColumn: '1fr 2fr' }}>
+                            <Box sx={{ display: 'flex', gridTemplateColumn: '1fr 2fr',
+                            [theme.breakpoints.down('mobile')]:{
+                                height: '7vh'
+                            },
+                            [theme.breakpoints.down('hd')]:{
+                                height: '6vh'
+                            }}}>
                                 <Box sx={{ marginRight: 'auto' }}>
-                                    <Button sx={[button_theme, { padding: '1rem', fontSize: '1rem' }]}
+                                    <Button sx={[button_theme, { padding: '1rem', fontSize: '1rem', backgroundColor: 'transparent', height: '100%' }]}
                                         onClick={() => navigate('/')}>
-                                        Return to Cart
+                                        <ArrowBackIos/>
+                                        Continue shopping
                                     </Button>
                                 </Box>
                                 <Box sx={{ marginLeft: 'auto' }}>
-                                    <Button variant='contained' sx={[button_theme, { padding: '1rem', fontSize: '1rem' }]}
+                                    <Button variant='contained' sx={[button_theme, { padding: '1rem', fontSize: '1rem', height: '100%' }]}
                                         onClick={handleClose}>
-                                        Place Order
+                                        <Typography variant='subtitle1' >Place Order</Typography>
                                     </Button>
                                 </Box>
-                            </Grid>
+                            </Box>
                         </Grid>
                     </Box>
 
                     {/* Left side of the screen */}
                     <Box sx={cartItems(theme)}>
                         <Box sx={{ width: '85%', margin: '0 auto' }}>
-                            <Grid sx={{ display: 'grid', gridAutoRows: 'auto', rowGap: '3rem', width: '100%' }}>
+                            <Grid sx={{ display: 'grid', gridAutoRows: 'auto', rowGap: '5vh', width: '100%' }}>
                                 {Array.from(cart).map((id, index) => {
                                     const item = store.getProduct(id[0])
                                     return (
-                                        <Stack key={index} direction="row" justifyContent="space-between" alignItems="center">
-                                            <Box component="img" src={item.images[0]} sx={{ width: '12vw', borderRadius: '20px' }}></Box>
+                                        <Stack sx={{height: '20vh'}} key={index} direction="row" justifyContent="space-between" alignItems="center">
+                                            <Box component="img" src={item.images[0]} sx={{height: '100%', borderRadius: '20px', objectFit: 'cover' }}></Box>
                                             <Box>
-                                                <Typography sx={{ fontWeight: '800', fontFamily: 'Montserrat' }}>{item.title}</Typography>
+                                                <Typography sx={{ fontWeight: '800', fontFamily: 'Montserrat' }}>{item.name}</Typography>
                                                 <Typography>XL</Typography>
                                             </Box>
                                             <Typography sx={{ textAlign: 'center' }}>{id[1]}</Typography>
                                             <Typography>${item.price}</Typography>
 
-                                            <IconButton sx={{ color: "#793CEE", '&:hover': {color: "#282A4E", } }} onClick={() => store.removeItem(id[0])}>
+                                            <IconButton sx={{ color: "#793CEE", '&:hover': {color: "#282A4E", } }} onClick={() => {store.removeItem(item);
+                                            console.log(id[0]);}}>
                                                 <DeleteOutline />
                                             </IconButton>
                                         </Stack>
@@ -112,7 +123,6 @@ export default function Checkout() {
                             </Grid>
                         </Box>
                     </Box>
-                </Box>
             </Box>
             <Dialog open={trigger}
                 onClose={handleClose}

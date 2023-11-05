@@ -105,6 +105,19 @@ coreTheme.typography.body1 = {
   
 };
 
+coreTheme.typography.subtitle1 = {
+  [coreTheme.breakpoints.down("tablet")]: {
+    fontSize: "0.675rem",
+  },
+  [coreTheme.breakpoints.up("fhd")]: {
+    fontSize: "0.875rem",
+  },
+  [coreTheme.breakpoints.up("uhd")]: {
+    fontSize: "1.074rem",
+  },
+  
+};
+
 export const dark_Theme = createTheme(coreTheme, {
 
   palette: {

@@ -72,7 +72,7 @@ export default function ProductPopup({
 
   const cart = useStoreContext();
 
-  useEffect(() => { console.log(bSmallScreen); }, [])
+  // useEffect(() => { console.log(bSmallScreen); }, [])
 
   return product ? (
     <Dialog
@@ -163,7 +163,7 @@ export default function ProductPopup({
             </Box>
 
             <Box sx={cart_controls_box(theme)}>
-              <Box sx={{ m:'auto', ml: '1%'}}>
+              <Box sx={{ m: 'auto', ml: '1%' }}>
                 <ToggleButtonGroup
                   value={size}
                   exclusive
@@ -214,7 +214,7 @@ export default function ProductPopup({
                 </Typography>
               </Box>}
               <ButtonGroup sx={productBuyButton}>
-                {!bSmallScreen && <Button
+                <Button
                   onClick={() => { cart.changeItemAmount(product, quantity) }}
                   variant="outlined"
                   sx={[button_black, productBuyButton]}
@@ -222,7 +222,16 @@ export default function ProductPopup({
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Add To Cart
                   </Typography>
-                </Button>}
+                </Button>
+                {/* {!bSmallScreen && <Button
+                  onClick={() => { cart.changeItemAmount(product, quantity) }}
+                  variant="outlined"
+                  sx={[button_black, productBuyButton]}
+                >
+                  <Typography variant="body1" sx={[bold, fontJura]}>
+                    Add To Cart
+                  </Typography>
+                </Button>} */}
                 <Button sx={[button_black, productBuyButton]} onClick={() => { navigate("/product"); }}>
                   <Typography variant="body1" sx={[bold, fontJura]}>
                     Buy Now

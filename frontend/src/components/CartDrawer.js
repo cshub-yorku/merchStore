@@ -92,7 +92,7 @@ export default function CartDrawer({ setCart, trigger, passFunction }) {
               // console.log(product);
               return (
 
-                <Box sx={{ mr: 3 }}>
+                <Box sx={{ mr: 3, width: '90%' }}>
                   <Stack sx={itemStackStyle} direction="row" alignItems="center">
                     {/* Item Image */}
                     <Avatar sx={[itemImage]} variant="rounded" src={product.images[0]}></Avatar>

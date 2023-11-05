@@ -132,13 +132,24 @@ export default function Checkout() {
                         width: "25vw",
                         height: "30vh",
                         borderRadius: "12px",
+
+                        [theme.breakpoints.down('hd')]: {
+                            width: "35vw",
+                            height: "40vh",
+                            borderRadius: "12px",
+                        },
+                        [theme.breakpoints.down('mobile')]: {
+                            width: "100vw",
+                            height: "35vh",
+                            borderRadius: "8px",
+                        }
                     },
                 }}>
                 <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
                     <Grid container sx={{ textAlign: 'center', width: '100%' }} direction='column' justifyContent='center' alignItems='center' rowSpacing={2}>
                         <Grid item>
                             <Typography sx={{ textAlign: 'start' }} variant='h4'>
-                                Your Order WasSuccessfully Placed!
+                                Your order was successfully placed!
                             </Typography>
                         </Grid>
                         <Grid item sx={{  }}>

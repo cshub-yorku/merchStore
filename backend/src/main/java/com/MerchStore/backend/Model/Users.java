@@ -7,13 +7,13 @@ public class Users {
 
     private final long userId;
 
-    private String firstName; // Not final: What if wrong first name entered upon signup
+    private String firstName;
 
     private String lastName;
 
     private String email;
 
-    private String phoneNumber; // Not String: Drop down for country code and for future use (Maybe messaging)
+    private String phoneNumber;
 
     private boolean active;
 

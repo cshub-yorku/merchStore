@@ -26,11 +26,9 @@ function createData(order, date, ship, total, status) {
 }
 
 const rows = [
-  createData("1", 1 / 1 / 1, "User Name", 24, "Complete"),
-  createData("2", 1 / 1 / 1, "User Name", 37, "Complete"),
-  createData("3", 1 / 1 / 1, "User Name", 24, "Complete"),
-  createData("4", 1 / 1 / 1, "User Name", 67, "Complete"),
-  createData("5", 1 / 1 / 1, "User Name", 49, "Complete"),
+  createData("1", "30/09/23", "John Doe", "x1 CSHUB Shirt", "Cancelled"),
+  createData("2", "30/09/23", "Rick Astley", "x2 CSHUB Sweater", "Completed"),
+  createData("3", "30/09/23", "Bob Mcverylonglastname", "x2 CSHUB Sweater", "Pending")
 ];
 
 export default function Admin() {

@@ -97,7 +97,7 @@ export default function Login({ trigger, onClick }) {
               sx={{ "&.MuiDialogContent-root": marginPaddingZero}}
             >
               <Box align="center" sx={registerSign} >
-                <Typography variant="h1">Login or Sign up</Typography>
+              <Typography variant="h3" >Login or Sign up</Typography>
                 <Box sx={registerFields}>
                   <TextField
                     error={emailError}

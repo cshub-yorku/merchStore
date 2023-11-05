@@ -13,7 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 
-export default function Profile( {userDetails, onUpdate}) {
+export default function Profile({ userDetails, onUpdate }) {
   const navigate = useNavigate();
 
   let userID = userDetails.userId;
@@ -125,60 +125,65 @@ export default function Profile( {userDetails, onUpdate}) {
     <>
       <Box
         sx={{
-          width: "24vw",
-          height: "16rem",
+          width: "100%",
+          height: "auto",
           backgroundColor: "white",
           border: "none",
           borderRadius: "8px",
           marginTop: "15px",
           display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          flexDirection: "column",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          flexDirection: "row",
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
+          padding: "15px",
+          boxSizing: "border-box",
 
-          [theme.breakpoints.down('mobile')]: {
-            width: "69vw",
-            height: "15rem",
+          [theme.breakpoints.down("mobile")]: {
+            flexDirection: "column",
           },
 
-          [theme.breakpoints.between('mobile', 'tablet')]: {
+          [theme.breakpoints.between("mobile", "tablet")]: {
             width: "50vw",
             height: "14.5rem",
           },
 
-          [theme.breakpoints.between('tablet', 'hd')]: {
+          [theme.breakpoints.between("tablet", "hd")]: {
             width: "41vw",
             height: "15rem",
           },
 
-          [theme.breakpoints.between('hd', 'fhd')]: {
+          [theme.breakpoints.between("hd", "fhd")]: {
             width: "22vw",
             height: "15.5rem",
           },
 
-          [theme.breakpoints.between('fhd', 'uhd')]: {
-            width: "20vw",
-            height: "15.5rem",
+          [theme.breakpoints.between("fhd", "uhd")]: {
+            width: "70vw",
+            height: "5rem",
           },
-          
-          [theme.breakpoints.up('uhd')]: {
-            width: "20vw"
+
+          [theme.breakpoints.up("uhd")]: {
+            width: "70vw",
           },
         }}
       >
-
-
         {editName ? (
           <>
             {" "}
-            <Box sx={{ marginLeft: "1.5rem",display: "flex",
-                                                justifyContent:"center",
-                                                alignItems:"flex-start",
-                                                flexDirection:"column",
-                                                transform:"scale(90%)" }}>
+            <Box
+              sx={{
+                marginLeft: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+                transform: "scale(90%)",
+                gap: '3rem'
+              }}
+            >
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => {
@@ -189,13 +194,13 @@ export default function Profile( {userDetails, onUpdate}) {
                   className="navMenu"
                   size="large"
                   edge="start"
-                  sx={{ color: "text.primary" }}
+                  sx={{ color: "text.primary"}}
                   onClick={() => setEditName(false)}
                 >
                   <ArrowBackIcon
                     sx={{ fontSize: 25, color: "black" }}
                   ></ArrowBackIcon>
-                </IconButton>
+                </IconButton >
                 GO BACK
               </Typography>
               <TextField
@@ -261,11 +266,17 @@ export default function Profile( {userDetails, onUpdate}) {
           </>
         ) : editEmail ? (
           <>
-            <Box sx={{ marginLeft: "1.5rem",display: "flex",
-                                                justifyContent:"center",
-                                                alignItems:"flex-start",
-                                                flexDirection:"column",
-                                                transform:"scale(90%)" }}>
+            <Box
+              sx={{
+                marginLeft: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+                transform: "scale(90%)",
+                gap: '3rem'
+              }}
+            >
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => setEditEmail(false)}
@@ -325,11 +336,17 @@ export default function Profile( {userDetails, onUpdate}) {
           </>
         ) : editNumber ? (
           <>
-            <Box sx={{ marginLeft: "1.5rem",display: "flex",
-                                                justifyContent:"center",
-                                                alignItems:"flex-start",
-                                                flexDirection:"column",
-                                                transform:"scale(90%)" }}>
+            <Box
+              sx={{
+                marginLeft: "1.5rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+                transform: "scale(90%)",
+                gap: '3rem'
+              }}
+            >
               <Typography
                 sx={{ color: "black" }}
                 onClick={() => setEditNumber(false)}

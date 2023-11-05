@@ -41,7 +41,7 @@ export default function ForgotPassword({ onClose }) {
 
   return (
     <Box align="center" sx={registerSign}>
-      <Typography variant="h1">Forgot Password</Typography>
+      <Typography variant="h3">Forgot Password</Typography>
       <Box sx={registerFields}>
         <TextField
           error={emailError}

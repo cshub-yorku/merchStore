@@ -41,7 +41,7 @@ export function StoreContextProvider(props){
 // API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"
 // localhost database http://localhost:9000/v1/products/
 
-        fetch("http://localhost:9000/v1/products/", {
+        fetch("http://192.168.3.7:9000/v1/products/", {
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,
@@ -61,6 +61,12 @@ export function StoreContextProvider(props){
         return products.find(x => x.productId === id);
     }
 
+    function getProductTotal() {
+        return Array.from(cart).reduce((acum, current) => {
+            return acum += getProduct(current[0]).price * current[1]
+          }, 0)
+    }
+
 
 
     return(
@@ -73,7 +79,8 @@ export function StoreContextProvider(props){
             setnotificationPopup,
             updateProudcts,
             getAllProducts,
-            getProduct
+            getProduct,
+            getProductTotal
         }}>
             {props.children}
         </StoreContext.Provider>

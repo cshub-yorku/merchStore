@@ -1,17 +1,17 @@
 import {
-    IconButton,
-    Typography,
-    ToggleButtonGroup,
-    ToggleButton,
-  } from "@mui/material";
-  import { Box, Stack } from "@mui/system";
-  import React, { useContext, useState } from "react";
-  import {
-    toggle_button_black,
-  } from "../styles/Styles";
-  import {
-    ToggleButtonSeparations,
-  } from "../styles/ProductPopupStyles";
+  IconButton,
+  Typography,
+  ToggleButtonGroup,
+  ToggleButton,
+} from "@mui/material";
+import { Box, Stack } from "@mui/system";
+import React, { useContext, useState } from "react";
+import {
+  toggle_button_black,
+} from "../styles/Styles";
+import {
+  ToggleButtonSeparations,
+} from "../styles/ProductPopupStyles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
@@ -19,9 +19,9 @@ import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 
 
 
-export default function CartQuantityButton(){
-  const [quantity, setQuantity] = useState(1);
-  
+export default function CartQuantityButton( {quantity, setQuantity}) {
+  // const [quantity, setQuantity] = useState(1);
+
   const setDecrease = () => {
     quantity > 1 ? setQuantity(prev => prev - 1) : setQuantity(1);
   };
@@ -32,41 +32,42 @@ export default function CartQuantityButton(){
   const setIncrease = () => {
     quantity < stocklimit ? setQuantity(prev => prev + 1) : setQuantity(stocklimit);
   };
+  
+  return (
+    <Box sx={{ marginBottom: "1rem", transform: "scale(80%)", marginLeft: "-11%" }}>
+      <ToggleButtonGroup>
+        <ToggleButton
+          sx={toggle_button_black} onClick={() => setDecrease()}>
+          <IconButton
+            size="medium"
+            edge="start"
+            sx={{
+              color: "text.primary",
+            }}
+          >
+            <RemoveIcon fontSize="large"></RemoveIcon>
+          </IconButton>
+        </ToggleButton>
 
-    return (
-        <Box sx={{ marginBottom: "1rem" , transform: "scale(80%)", marginLeft: "-11%" }}>
-            <Typography variant="h6" sx={[medium, fontJura, {my: '2%'}]}>Quantity</Typography>
-            <ToggleButtonGroup>
-              <ToggleButton
-                sx={toggle_button_black}onClick={() => setDecrease()}>
-                    <IconButton
-                                        size="medium"
-                                        edge="start"
-                                        sx={{ color: "text.primary",
-                                        }}
-                                        >
-                                    <RemoveIcon fontSize="large"></RemoveIcon>
-                    </IconButton>
-              </ToggleButton>
+        <ToggleButton
+          sx={[toggle_button_black, ToggleButtonSeparations]}
+        >
+          <Typography variant="h6">{quantity}</Typography>
+        </ToggleButton>
 
-              <ToggleButton
-                sx={[toggle_button_black, ToggleButtonSeparations]}
-              >
-                <Typography variant="h6">{quantity}</Typography>
-              </ToggleButton>
-
-              <ToggleButton
-                sx={toggle_button_black}onClick={() => setIncrease()}>
-                    <IconButton
-                                        size="medium"
-                                        edge="start"
-                                        sx={{ color: "text.primary",
-                                        }}
-                                        >
-                                    <AddIcon fontSize="large"></AddIcon>
-                    </IconButton>
-              </ToggleButton>
-            </ToggleButtonGroup>
-        </Box>
-    );
+        <ToggleButton
+          sx={toggle_button_black} onClick={() => setIncrease()}>
+          <IconButton
+            size="medium"
+            edge="start"
+            sx={{
+              color: "text.primary",
+            }}
+          >
+            <AddIcon fontSize="large"></AddIcon>
+          </IconButton>
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </Box>
+  );
 }

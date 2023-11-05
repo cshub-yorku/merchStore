@@ -105,7 +105,7 @@ export default function NavBar() {
                 <Dehaze sx={{ fontSize: 40 }}></Dehaze>
               </IconButton>
 
-              {isLoggedIn() ? (
+              {/* {isLoggedIn() ? (
                 <IconButton
                   size="large"
                   edge="start"
@@ -123,14 +123,14 @@ export default function NavBar() {
                 >
                   <AccountCircle sx={{ fontSize: 40 }}></AccountCircle>
                 </IconButton>
-              )}
+              )} */}
 
               <NavSidebar
                 trigger={openNav}
                 passFunction={setOpenNav}
                 login={setOpenLogin}
               />
-              <Box sx={[centerItem]}>
+              <Box sx={centerItem}>
                 <Box
                   component="img"
                   src="./global/logo.svg"

@@ -37,7 +37,7 @@ export const accountStyle = {
 
 export const cartStyle = {
     color: "text.primary",
-    m: 'auto',
+    my: 'auto',
     mr: '1%',
     position: 'relative',
 }
@@ -61,10 +61,7 @@ export const centerItem = {
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    mx: '1',
-    marginLeft: "-25px",
-    marginTop: "5px",
-   
+    m: 'auto',
 }
 
 export const cartNotification = {

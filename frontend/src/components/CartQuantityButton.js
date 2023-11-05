@@ -14,6 +14,7 @@ import {
 } from "../styles/ProductPopupStyles";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
 
 
 
@@ -31,7 +32,7 @@ export default function CartQuantityButton( {quantity, setQuantity}) {
   const setIncrease = () => {
     quantity < stocklimit ? setQuantity(prev => prev + 1) : setQuantity(stocklimit);
   };
-
+  
   return (
     <Box sx={{ marginBottom: "1rem", transform: "scale(80%)", marginLeft: "-11%" }}>
       <ToggleButtonGroup>

@@ -45,8 +45,8 @@ export default function Footer(){
                     flexDirection: 'row',
                     [theme.breakpoints.down('tablet')]: {
                         flexDirection: 'column',
-                        justifyContent: 'flex-start',
-                        alignItems: 'flex-start',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}}>
 
             <Box sx={{marginLeft: '3vw',
@@ -57,7 +57,12 @@ export default function Footer(){
                           paddingLeft: '0.8rem',
                           [theme.breakpoints.down('tablet')]: {
                             marginTop: '2vw'
-                        }}}>
+                        },
+                        [theme.breakpoints.down('mobile')]: {
+                            paddingLeft: "35%",
+                            padingRight: "auto"
+                        }
+                        }}>
                     Socials
                 </Box>
                     <List sx={{display: 'flex',
@@ -125,14 +130,27 @@ export default function Footer(){
                     </List>
             </Box>
             <Box sx={{marginRight: '10vw',
+            
                     [theme.breakpoints.down('tablet')]: {
                         marginLeft: '4vw',
                         marginTop: '1vh'
-                    }}}>
+                    },
+                    [theme.breakpoints.down('mobile')]: {
+                        paddingLeft: "13%",
+                        padingRight: "auto"
+                    }
+                    }}>
                 <Box sx={{fontSize: '1.5rem',
                           paddingLeft: '0.8rem',
+                          [theme.breakpoints.down('mobile')]: {
+                            paddingLeft: "20%",
+                            padingRight: "auto"
+                        }
                           }}>
                     Contact Us
+                 
+                     
+                     
                 </Box>
                 <Box sx={{ padding: '0.8rem'}}>
                     <FormControl className='email-box'>

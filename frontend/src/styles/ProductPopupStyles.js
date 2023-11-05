@@ -27,12 +27,13 @@ export const gridContainer = (theme) => ({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gridTemplateRows: 'repeat(auto-fit, 1fr)',
+    bgcolor: 'black',
 
     [theme.breakpoints.down('tablet')]: {
         width: 'auto',
         height: 'auto',
         height: 'auto',
-        bgcolor: 'white',
+        bgcolor: 'black',
         m: '2%',
         borderRadius: '4px'
     },
@@ -41,7 +42,7 @@ export const gridContainer = (theme) => ({
         width: '100%', height: '100%',
         overflow: 'hidden',
         m: 0,
-        bgcolor: 'transparent',
+        bgcolor: 'black',
     },
 
     //
@@ -65,7 +66,7 @@ export const gridContainer = (theme) => ({
 })
 
 export const imageGridContainer = (theme) => ({
-
+    
     position: 'relative',
 
     [theme.breakpoints.down('tablet')]: {
@@ -99,7 +100,7 @@ export const headerGridContainer = (theme) => ({
         gridColumn: '1/3',
         gridRow: '1/1',
         ml: ' 3%',
-        color: 'black',
+        color: 'white',
     },
     [theme.breakpoints.up('hd')]: {
         gridColumn: '2/2',
@@ -130,7 +131,7 @@ export const bodyGridContainer = (theme) => ({
     [theme.breakpoints.down('tablet')]: {
         gridColumn: '1/3',
         gridRow: '9/17',
-        color: 'black'
+        color: 'white'
     },
     [theme.breakpoints.up('hd')]: {
         gridColumn: '2/2',
@@ -166,8 +167,11 @@ export const productSubImage = {
 
 export const productMainImage = (theme) => ({
     aspectRatio: '1 / 1',
-    width: "100%",
-    height: '100%',
+    marginLeft: "13%",
+    marginRight: "auto",
+    marginTop: "3%",
+    width: "80%",
+    height: '90%',
     objectFit: 'cover',
 
     // [theme.breakpoints.up('mobile')]: {
@@ -175,7 +179,7 @@ export const productMainImage = (theme) => ({
     // },
 
     [theme.breakpoints.up('hd')]: {
-        height: '100%',
+        height: '90%',
     },
 })
 
@@ -221,7 +225,7 @@ export const productPriceBox = {
     justifyContent: "center",
     alignItems: "center",
 
-    bgcolor: "#2C3555",
+    bgcolor: "#793BEE",
     borderRadius: "5px",
     px: "12%",
 }
@@ -248,7 +252,8 @@ export const productBuy = (theme) => ({
 
 export const productBuyButton = {
     height: "100%",
-    width: "100%"
+    width: "100%",
+    bgcolor: "#793BEE"
 }
 
 export const ToggledButton = {
@@ -263,7 +268,21 @@ export const ToggleButtonSeparations = {
 }
 
 export const SizeButtonGroup = (theme) => ({
-
+    marginTop: "1rem",  
+    backgroundColor: '#282A4E',
+    backrgound: "black",
+    color: "#FFF",
+    '&.Mui-selected': {
+        color: '#000',
+        backgroundColor: '#FFF',
+        '&:hover': {
+            backgroundColor: '#FFF',
+            color: '#000',
+        },
+    },
+    '&:hover': {
+        backgroundColor: 'black',
+    },
 
     "& .MuiToggleButtonGroup-grouped": {
         width: '33%',

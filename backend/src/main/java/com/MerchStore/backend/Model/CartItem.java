@@ -1,20 +1,17 @@
 package com.MerchStore.backend.Model;
 
-public class CartList {
+public class CartItem {
 
-    private final long cartId;
+
     private final long productId;
     private int quantity;
 
-    public CartList(long cartId, long productId, int quantity){
-        this.cartId = cartId;
+    public CartItem(long productId, int quantity){
         this.productId = productId;
         this.quantity = quantity;
     }
 
-    public long getCartId() {
-        return cartId;
-    }
+
 
     public long getProductId() {
         return productId;

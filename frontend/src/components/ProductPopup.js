@@ -47,6 +47,7 @@ import { useStoreContext } from "../controllers/StoreContext";
 import CartQuantityButton from "./CartQuantityButton";
 import { cart_controls_box } from "../styles/CartDrawer";
 
+
 export default function ProductPopup({
   trigger,
   onClick,
@@ -55,6 +56,11 @@ export default function ProductPopup({
   const theme = useTheme();
   const mainPic = 0;
   const navigate = useNavigate();
+
+  const menuPaperStyles = {
+    // Change the background color for the dropdown list
+    background: '#282A4E', // Change to your desired color
+  };
 
   const [pic, setPic] = useState(mainPic);
   const [shippingPopover, setShippingPopover] = useState(null);
@@ -193,7 +199,6 @@ export default function ProductPopup({
                     <Typography variant="h6">L</Typography>
                   </ToggleButton>
                 </ToggleButtonGroup>
-
                 <Typography variant="body1" sx={helperNotation}>
                   ⓘ Size Guide
                 </Typography>
@@ -206,7 +211,7 @@ export default function ProductPopup({
               />
             </Box>
 
-
+            
             <Box sx={productBuy(theme)}>
               {!bSmallScreen && <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
@@ -254,6 +259,21 @@ export default function ProductPopup({
             >
               ⓘ Shipping Details
             </Typography>
+            <hr></hr>
+            <Typography variant="body1" sx={bold}>
+              Product Details:
+            </Typography>
+
+            <List>
+              <List sx={{ listStyleType: 'disc', pl: 4, py: 0 }}>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>Adult Heavyweight Hoodie</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>70% Cotton, 30% Polyester</ListItem>
+                <ListItem sx={{ display: 'list-item', px: 0, py: 0.5 }}>
+                  Washing Instructions: Wash 30C. Wash inside out like with
+                  colors. DO NOT BLEACH. Tumble dry low, DO NOT IRON.
+                </ListItem>
+              </List>
+            </List>
             <Popover
               id="shippingP"
               sx={[PopoverStyle, ProductPopover]}

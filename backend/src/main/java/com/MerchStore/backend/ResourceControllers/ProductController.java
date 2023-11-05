@@ -1,6 +1,7 @@
 package com.MerchStore.backend.ResourceControllers;
 
 import com.MerchStore.backend.Model.Product;
+import com.MerchStore.backend.ResourceControllers.RequestBodies.NewProduct;
 import com.MerchStore.backend.Service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,9 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addProduct(@RequestBody Product product) {
-        if (ProductService.addProduct(product)) {
+    public ResponseEntity<String> addProduct(@RequestBody NewProduct product) {
+        Product newProduct = new Product(product);
+        if (ProductService.addProduct(newProduct)) {
             return new ResponseEntity<>("Product added successfully", HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Product not added", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,15 +67,14 @@ public class ProductController {
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<Product> deleteProduct(@RequestBody Product product) {
-        if(ProductService.deleteProduct(product)){
-            System.out.println("Product deleted successfully");
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> deleteProduct(@RequestParam long id) {
+        Optional<Product> product = ProductService.getById(id);
+        if(product.isPresent() && ProductService.deleteProduct(product.get())){
+            return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
         }
         else
         {
-            System.out.println("Product not deleted");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Product not deleted", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

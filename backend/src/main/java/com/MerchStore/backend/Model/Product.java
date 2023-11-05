@@ -1,5 +1,9 @@
 package com.MerchStore.backend.Model;
 
+import com.MerchStore.backend.ResourceControllers.RequestBodies.NewProduct;
+
+import java.time.LocalDateTime;
+
 public class Product {
 
     private final long productId;
@@ -22,6 +26,16 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.images = images;
+    }
+    // This constructor should be used for creating new objects.
+
+    public Product(NewProduct product){
+        this.productId = LocalDateTime.now().getNano() % 997;
+        this.description = product.description();
+        this.name = product.name();
+        this.price = product.price();
+        this.stock = product.stock();
+        this.images = product.images();
     }
 
     public long getProductId() {

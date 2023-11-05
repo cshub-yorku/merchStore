@@ -107,16 +107,16 @@ export default function CartDrawer({ setCart, trigger, passFunction }) {
                         </Typography>
                       </Box>
 
-                      <Stack direction="row" alignItems="center">
-                        <Box>
-                          <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                      <Stack direction="column">
+                        <Box sx={{width: '40%', mb: '5%'}}>
+                          <ButtonGroup sx={{width: '100%'}} variant="contained" aria-label="outlined primary button group">
                             <Button sx={[button_theme, { borderRightWidth: '0px !important' }]} onClick={() => store.changeItemAmount(product, -1)}>-</Button>
                             <Box sx={[quantity]}>{item[1]}</Box>
                             <Button sx={[button_theme, { border: 'none' }]} onClick={() => store.changeItemAmount(product, 1)}>+</Button>
                           </ButtonGroup>
                         </Box>
 
-                        <Stack direction="row" alignItems="center">
+                        <Stack sx={{mb: '3%'}} direction="row">
                           <Typography sx={[prices]}>
                             ${product.price}x{item[1]}=${product.price * item[1]}
                           </Typography>

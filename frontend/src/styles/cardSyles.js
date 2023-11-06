@@ -21,17 +21,24 @@ export const cardStyle = (theme) => ({
         height: '25vw',
     },
 
-    boxShadow: 4,
-    backgroundColor: "#624F82",
+    boxShadow: 0,
+    // backgroundColor: "#624F82",
+    backgroundColor: "transparent",
     borderRadius: 2.5,
 
-    mb: '10%'
+    mb: '10%',
+
+    border: '2px solid transparent',
+    transition: '200ms',
+
+    '&:hover': {
+        borderColor: 'white',
+        transform: 'scale(1.1)',
+    }
 });
 export const cardImage = {
-    width: '95%',
+    width: '100%',
     height: '77%',
-    mx: 'auto',
-    mt: '2.5%',
     borderRadius: 2.5,
 
     boxShadow: 4,
@@ -44,18 +51,21 @@ export const cardImage = {
 
 export const cardButton = {
     alignItems: 'center',
+    justifyContent: 'start',
     height: '70%',
-    width: '60%',
-    ml: 'auto',
-    mr: '5%',
-    boxShadow: 4,
+    width: '20%',
+    mr: 'auto',
+    boxShadow: 0,
+
+    color: '#FD8A21',
+    bgcolor: 'transparent'
 }
 
 export const cardTextBox = {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    ml: '1vw',
+    mt: '2%'
 }
 
 export const cardLabel = {
@@ -73,7 +83,9 @@ export const center = {
 
 export const cardNav = (theme) => ({
     my: 'auto',
+    ml: '3%',
     height: '20hv',
+
 
     [theme.breakpoints.down('tablet')]: {
         mx: '4%',

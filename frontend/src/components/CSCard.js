@@ -15,20 +15,20 @@ export default function CSCard({ productState, data, src, onClick }) {
   const theme = useTheme()
   return (
     <>
-      <Card sx={cardStyle}>
-        <Box component='img' onClick={() => { onClick(); productState(data) }} src={images[0]} sx={cardImage}></Box>
-        <Box display='flex' alignItems='center' sx={cardNav(theme)}>
+      <Card sx={cardStyle} onClick={() => { onClick(); productState(data) }}>
+        <Box component='img'  src={images[0]} sx={cardImage}></Box>
+        <Box display='flex' flexDirection='column' alignItems='center' sx={cardNav(theme)}>
           <Box sx={cardTextBox}>
             <Typography variant='h5' sx={[cardLabel, bold, fontInter]}>{name}</Typography>
-            <Typography variant='h6' sx={[cardSubtitle, normal, fontInter]}>Type</Typography>
+            <Typography variant='body1' sx={[cardSubtitle, normal, fontInter]}>Type</Typography>
           </Box>
-          <Button
-            onClick={() => { onClick(); productState(data) }}
-            sx={[button_theme, cardButton]}
+          <Box
+            // onClick={() => { onClick(); productState(data) }}
+            sx={[cardButton]}
             variant="contained"
           >
             <Typography variant="h6" fontWeight={600} sx={[fontInter, customFontWeight(600)]}>C$ {price}</Typography>
-          </Button>
+          </Box>
         </Box>
       </Card>
     </>

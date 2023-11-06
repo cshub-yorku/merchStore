@@ -92,26 +92,31 @@ export default function Merch() {
   }, [])
 
   return (
+    <Box className="mt-20">
+      <NavBar />
+      {!merch.getAllProducts() && <Loader />}
 
-    <>
-      <NavBar></NavBar>
+      {merch.getAllProducts() && (
+        <Box>
+          {/* Hero section */}
+          <Box sx={merchBillboardContainer}>
+            <Box
+              component="img"
+              src="./global/stock.jpg"
+              sx={merchBillboardImage}
+            ></Box>
 
-      <Box sx={merchBillboardContainer}>
-        <Box
-          component="img"
-          src="./global/stock.jpg"
-          sx={merchBillboardImage}
-        ></Box>
+            <Box sx={merchTextboard}>
+              <Typography variant="h3" sx={bold}>
+                50% off of select merch items
+              </Typography>
+              <Typography variant="h5" className="text-zinc-200">
+                Sale ends March 30th, 2023
+              </Typography>
+            </Box>
+          </Box>
 
-        <Box sx={merchTextboard}>
-          <Typography variant="h3" sx={bold}>
-            50% off of select merch items
-          </Typography>
-          <Typography variant="h4">Sale ends March 30th, 2023</Typography>
-        </Box>
-      </Box>
-
-      {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+          {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
             <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
               <Button>
@@ -126,7 +131,6 @@ export default function Merch() {
               </Button>
             </Box>
           </Box> */}
-
       <Box display="flex" justifyContent="center">
         {merch.getAllProducts() ? (
           <Grid

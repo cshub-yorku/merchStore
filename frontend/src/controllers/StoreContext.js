@@ -41,7 +41,7 @@ export function StoreContextProvider(props){
 // API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"
 // localhost database http://localhost:9000/v1/products/
 
-        fetch("http://192.168.3.7:9000/v1/products/", {
+        fetch("https://api.escuelajs.co/api/v1/products", {
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${token}`,

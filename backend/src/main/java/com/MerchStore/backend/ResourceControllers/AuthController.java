@@ -14,7 +14,9 @@ import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
 import com.MerchStore.backend.jwt.JwtTokenProvider;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,15 +63,17 @@ public class AuthController extends ResponseHandler {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
         Optional<Users> optionalActiveStatus = activeDao.getByEmail(loginRequest.getEmail());
-        try{
+        // Inside your authentication method
+
+        try {
             if (optionalActiveStatus.isEmpty()) {
                 return ResponseEntity
                         .badRequest()
                         .body(new MessageResponse("Error: Please Signup first!"));
-            }else {
+            } else {
                 Users user = optionalActiveStatus.get();
                 if (user.isActive()) {
                     Authentication authentication = authenticationManager.authenticate(
@@ -81,20 +85,34 @@ public class AuthController extends ResponseHandler {
                     List<String> roles = new ArrayList<>();
                     roles.add(userDetails.getRole().toString());
 
-                    return ResponseEntity.ok(new JwtResponse(jwt,
+                    // Create a cookie
+                    Cookie jwtCookie = new Cookie("token", jwt);
+                    jwtCookie.setHttpOnly(true);
+                    jwtCookie.setSecure(true); // Should be true in production to send the cookie over HTTPS only
+                    jwtCookie.setPath("/");
+                    // Set cookie expiry to match JWT expiry
+                    jwtCookie.setMaxAge(jwtTokenProvider.getJwtExpirationMs());
+                    // Add cookie to the response
+                    response.addCookie(jwtCookie);
+
+                    // Return the response without JWT in the body
+                    return ResponseEntity.ok(new JwtResponse(
                             userDetails.getUserId(),
                             userDetails.getEmail(),
-                            roles));
-                }else{
+                            roles // Assuming this method correctly retrieves the role as a string
+                    ));
+                } else {
                     return ResponseEntity
                             .badRequest()
                             .body(new MessageResponse("Error: Please verify your email!"));
                 }
             }
-        }catch (Exception e){
-            e.getMessage();
-            return ResponseEntity.internalServerError().body("Unknown error");
+        } catch (Exception e) {
+            // It's a good practice to log the actual error as well
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(new MessageResponse("Unknown error"));
         }
+
     }
 
     @PostMapping("/signup")
@@ -160,4 +178,22 @@ public class AuthController extends ResponseHandler {
             return "verify_fail";
         }
     }
+
+    @PostMapping("/signout")
+    public ResponseEntity<?> logoutUser(HttpServletResponse response) {
+        // Create a cookie that will overwrite the existing one with an immediate expiration date
+        Cookie jwtCookie = new Cookie("token", null);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(true); // Set to true if you're using HTTPS
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(0); // Set the cookie to expire immediately
+        response.addCookie(jwtCookie);
+
+        // Optionally, you can also clear the SecurityContext if you are using it
+        SecurityContextHolder.clearContext();
+
+        // Return a response indicating the user has been signed out
+        return ResponseEntity.ok(new MessageResponse("User signed out successfully!"));
+    }
+
 }

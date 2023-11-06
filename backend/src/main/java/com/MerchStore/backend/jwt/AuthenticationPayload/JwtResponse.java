@@ -16,6 +16,12 @@ public class JwtResponse {
         this.roles = roles;
     }
 
+    public JwtResponse(Long id, String email, List<String> roles) {
+        this.id = id;
+        this.email = email;
+        this.roles = roles;
+    }
+
     public String getAccessToken() {
         return token;
     }

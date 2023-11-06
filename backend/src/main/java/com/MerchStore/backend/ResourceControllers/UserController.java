@@ -23,8 +23,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import jakarta.servlet.http.Cookie;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -40,10 +41,30 @@ public class UserController extends ResponseHandler{
     PasswordEncoder encoder;
     private static final Logger logger = LoggerFactory.getLogger(Driver.class);
     @GetMapping("/user")
-    public ResponseEntity<?> getUserDetails(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(this.getEmailFromToken(token));
-        return ResponseEntity.ok(user.getUserDetails());
+    public ResponseEntity<?> getUserDetails(HttpServletRequest request) {
+        // Extract the JWT token from the cookie
+        String jwt = Arrays.stream(request.getCookies())
+                .filter(cookie -> "token".equals(cookie.getName()))
+                .findFirst()
+                .map(Cookie::getValue)
+                .orElse(null);
+
+        // Check if the JWT token is present
+        if (jwt == null || jwt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No authentication token found.");
+        }
+
+        try {
+            // Get email from token
+            String email = getEmailFromToken(jwt);
+            UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(email);
+            return ResponseEntity.ok(user.getUserDetails());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching user details.");
+        }
     }
+
 
     @GetMapping("/")
     public List<Users> getUsers() {

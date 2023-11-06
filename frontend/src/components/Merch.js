@@ -3,8 +3,8 @@ import CSCard from "./CSCard";
 import ProductPopup from "./ProductPopup";
 import { useTheme } from "@emotion/react";
 import NavBar from "./navBar";
-import ProductNotification  from "./ProductNotification";
-import { field_white} from "../styles/Styles";
+import ProductNotification from "./ProductNotification";
+import { field_white } from "../styles/Styles";
 import { useStoreContext } from "../controllers/StoreContext";
 import CartDrawer from "./CartDrawer";
 import Login from "./Login";
@@ -76,16 +76,16 @@ export default function Merch() {
 
   useEffect(() => {
     merch.updateProudcts();
-  }, [])
+  }, []);
 
   return (
-    <Box sx={{ marginBottom: "8%" }}>
+    <Box>
       {!merch.getAllProducts() && <div>Loading...</div>}
 
       {merch.getAllProducts() && (
         <>
-          <NavBar></NavBar>
-          
+          <NavBar />
+
           <Box sx={merchBillboardContainer}>
             <Box
               component="img"
@@ -100,7 +100,7 @@ export default function Merch() {
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>
             </Box>
           </Box>
-          
+
           {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
             <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>

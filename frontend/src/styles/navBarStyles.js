@@ -4,13 +4,12 @@
 
 
 export const logo = (offset) => {
-    let rate = 120 - offset / 2;
-    let picSize = rate > 80 ? rate : 80;
+    let rate = 111 - offset / 2;
+    let picSize = rate > 70 ? rate : 70;
 
     return {
         width: picSize,
-        m: 'auto',
-        my: "0.5vw",
+        mx: 'auto',
     }
 }
 
@@ -25,21 +24,14 @@ export const MerchAppBar = (theme) => {
 
 export const dehazeStyle = {
     color: "text.primary",
-    my: 'auto',
-    ml: '1%',
 }
 
 export const accountStyle = {
     color: "text.primary",
-    m: 'auto',
-    ml: '1%',
 }
 
 export const cartStyle = {
     color: "text.primary",
-    m: 'auto',
-    mr: '1%',
-    position: 'relative',
 }
 
 export const StackStyle = {

@@ -4,10 +4,8 @@ import { textAlign } from "@mui/system"
 export const merchBillboardContainer = {
     width: "100vw",
     height: "40vh",
-    margin: "4vh auto",
+    margin: "auto",
     position: "relative",
-
-    mt: '5vw',
 }
 
 export const merchBillboardImage = {

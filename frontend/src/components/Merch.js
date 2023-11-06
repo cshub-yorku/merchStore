@@ -84,8 +84,6 @@ export default function Merch() {
   }
 
   useEffect(() => {
-    console.log('Location ' + location.state.modal);
-    console.log('popup ' + openPopup);
     if (location.state || location.state.modal) setOpenPopup(!openPopup);
   }, [location])
 

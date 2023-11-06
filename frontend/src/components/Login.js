@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
-import Signup from "./Signup";
-import ForgotPassword from "./ForgotPassword";
 import { signUpSwitch, dialogPaperStyle, forgotPasswordStyle, forgotPasswordLink, haveAccount, signupSwitch, marginPaddingZero, registerText, signupText, inputFieldsTextColor, registerFields, registerButton, registerLink, registerSignFields, registerSign, signupStyle } from '../styles/LoginSignupStyles';
 
 export default function Login({ trigger, onClick }) {
@@ -14,7 +12,6 @@ export default function Login({ trigger, onClick }) {
   const [password, setPassword] = useState("");
   const [loginStatusMessage, setLoginStatusMessage] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const changeToFalse = () => {
     setSwtichSignup(false);
@@ -82,96 +79,7 @@ export default function Login({ trigger, onClick }) {
           sx: dialogPaperStyle,
         }}
       >
-        <Box>
-          {switchSignup ? (
-            <Box>
-              <Signup changeToFalse={changeToFalse} />
-            </Box>
-          ) : showForgotPassword ? (
-            <Box>
-              <ForgotPassword onClose={() => setShowForgotPassword(false)} />
-            </Box>
-          ) : (
-            <DialogContent
-              classes={{ root: marginPaddingZero }}
-              sx={{ "&.MuiDialogContent-root": marginPaddingZero}}
-            >
-              <Box align="center" sx={registerSign} >
-                <Typography variant="h1">Login or Sign up</Typography>
-                <Box sx={registerFields}>
-                  <TextField
-                    error={emailError}
-                    helperText={
-                      emailError ? "Please enter a valid email adress" : ""
-                    }
-                    inputProps={{ style: inputFieldsTextColor }}
-                    color="secondary"
-                    margin="normal"
-                    sx={registerText}
-                    label="Email Address"
-                    variant="outlined"
-                    required
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      validateEmail(e.target.value);
-                    }}
-                  />
-                  <TextField
-                    inputProps={{ style: inputFieldsTextColor }}
-                    color="secondary"
-                    margin="normal"
-                    sx={registerText}
-                    label="Password"
-                    variant="outlined"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                </Box>
 
-                <Box>
-                  <Box>{loginStatusMessage}</Box>
-                  <Button
-                    onClick={handleClick}
-                    type="submit"
-                    color="primary"
-                    variant="contained"
-                    sx={registerButton}
-                  >
-                    Login
-                  </Button>
-                </Box>
-                <Typography
-                  sx={forgotPasswordLink}
-                >
-                  <Link
-                    onClick={() => setShowForgotPassword(true)}
-                    sx={forgotPasswordStyle}
-                  >
-                    Forgot Password?
-                  </Link>
-                </Typography>
-
-                <Typography
-                  sx={haveAccount}
-                >
-                  {" "}
-                  Do you have an account ?
-                  <Link
-                    onClick={() => setSwtichSignup(true)}
-                    sx={signUpSwitch}
-                  >
-                    Sign up
-                  </Link>
-                </Typography>
-              </Box>
-            </DialogContent>
-          )}
-        </Box>
       </Dialog>
     </>
   );

@@ -16,35 +16,33 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
+import { useUser } from '@clerk/clerk-react';
+import { useClerk } from '@clerk/clerk-react';
 
 export default function NavSidebar({ trigger, passFunction, login }) {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
   const navigate = useNavigate();
-
-  const isLoggedIn = () => {
-    return localStorage.getItem("token") !== null;
-  };
 
   const handleProfileClick = () => {
     setIsDrawerOpen(false);
-    navigate("/admin");
+    navigate("/user"); 
   };
 
   const handleLoginClick = () => {
     setIsDrawerOpen(false);
-    passFunction(!trigger);
-    login(true);
+    navigate("/sign-in"); 
   };
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
     setIsDrawerOpen(false);
-    localStorage.removeItem("token");
-    navigate("/");
+    await signOut();
+    navigate("/"); 
   };
 
-  
+  const { isSignedIn, user } = useUser();
+
+  const { signOut } = useClerk();
 
   return (
     <>
@@ -102,7 +100,7 @@ export default function NavSidebar({ trigger, passFunction, login }) {
             </CloseIcon>
           </IconButton>
           <List>
-            {isLoggedIn() ? (
+          {isSignedIn ? (
               <ListItem disablePadding onClick={handleProfileClick}>
                 <ListItemButton>
                   <ListItemIcon>
@@ -130,8 +128,9 @@ export default function NavSidebar({ trigger, passFunction, login }) {
                   <ListItemText primary="Login/Signup" />
                 </ListItemButton>
               </ListItem>
+              
             )}
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <HomeIcon
@@ -143,7 +142,7 @@ export default function NavSidebar({ trigger, passFunction, login }) {
                 </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItemButton>
-            </ListItem>
+            </ListItem> */}
 
             <ListItem disablePadding>
               <ListItemButton>
@@ -159,7 +158,7 @@ export default function NavSidebar({ trigger, passFunction, login }) {
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding>
+            {/* <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <GroupsIcon
@@ -199,8 +198,8 @@ export default function NavSidebar({ trigger, passFunction, login }) {
                 </ListItemIcon>
                 <ListItemText primary="Resources" />
               </ListItemButton>
-            </ListItem>
-            {isLoggedIn() && (
+            </ListItem> */}
+            {isSignedIn && (
               <ListItem disablePadding onClick={handleLogout}>
                 <ListItemButton>
                   <ListItemIcon>

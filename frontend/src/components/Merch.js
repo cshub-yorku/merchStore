@@ -7,8 +7,6 @@ import ProductNotification  from "./ProductNotification";
 import { field_white} from "../styles/Styles";
 import { useStoreContext } from "../controllers/StoreContext";
 import CartDrawer from "./CartDrawer";
-import Login from "./Login";
-import Signup from "./Signup";
 import NavSidebar from "./NavSidebar";
 import {
   AppBar,

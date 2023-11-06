@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -23,17 +24,21 @@ public class CartDao{
         Connection connection = ConnectionManager.getConnection();
         try{
             ResultSet resultSet = statement.executeQuery();
-            List<CartItem> itemList = new LinkedList<>();
+            HashMap<Long,CartItem> itemList = new HashMap<>();
             long userId = 0;
+            long cartId = 0;
             while(resultSet.next()){
-                itemList.add(
-                        new CartItem(resultSet.getLong("product_id"),resultSet.getInt("qty"))
+                itemList.put(
+                        resultSet.getLong("product_id"),new CartItem(resultSet.getLong("product_id"),resultSet.getInt("qty"))
                 );
-                if(resultSet.isFirst()) userId = resultSet.getLong("user_id");
+                if(resultSet.isFirst()){
+                    cartId = resultSet.getLong("cart_id");
+                    userId = resultSet.getLong("user_id");
+                }
             }
 
             if(userId != 0){
-                return Optional.of(new Cart(userId,userId,itemList));
+                return Optional.of(new Cart(cartId,userId,itemList));
             }
 
         } catch (SQLException e) {
@@ -78,8 +83,10 @@ public class CartDao{
     public Optional<Cart> getCartByUserId(long id) {
         Connection connection = ConnectionManager.getConnection();
         try{
-            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart, cart_list where cart.user_id = ?";
+            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart left join cart_list " +
+                    "on cart.user_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1,id);
             return this.get(preparedStatement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -91,8 +98,10 @@ public class CartDao{
     public Optional<Cart> getCartByCartId(long id) {
         Connection connection = ConnectionManager.getConnection();
         try{
-            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart, cart_list where cart.cart_id = ?";
+            String statement = "SELECT cart.cart_id as cart_id, user_id as user_id, product_id as product_id, product_quantity as qty FROM cart left join cart_list " +
+                    "on cart.cart_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setLong(1,id);
             return this.get(preparedStatement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

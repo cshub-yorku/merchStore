@@ -1,4 +1,4 @@
-package com.MerchStore.backend.Model;
+package com.MerchStore.backend.Model.enums;
 
 public enum OrderStatus {
     /**

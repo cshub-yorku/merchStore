@@ -22,7 +22,7 @@ public class CartController extends ResponseHandler {
     public ResponseEntity<?> addItemsToCart(@Valid @RequestBody NewCartItem newItem,
                                             @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(this.getEmailFromToken(token));
-        APIResponse<Cart> response = CartLogic.addItemToCart(newItem.quantity(), newItem.productId(), user.getUserDetails());
+        APIResponse<?> response = CartLogic.addItemToCart(newItem.quantity(), newItem.productId(), user.getUserDetails());
 
         if(!response.getErrors().isEmpty()){
             return this.responseObj(response,400);

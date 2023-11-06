@@ -2,7 +2,7 @@ package com.MerchStore.backend.Dao;
 
 import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.UserAuthenticator;
-import com.MerchStore.backend.Model.UserRoles;
+import com.MerchStore.backend.Model.enums.UserRoles;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.jwt.AuthenticationPayload.SignupRequest;
 import org.springframework.security.core.userdetails.UserDetails;

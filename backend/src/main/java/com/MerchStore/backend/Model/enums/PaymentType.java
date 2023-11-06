@@ -1,18 +1,18 @@
-package com.MerchStore.backend.Model;
+package com.MerchStore.backend.Model.enums;
 
-public enum UserRoles {
-    Customer("CUSTOMER_ROLE"),
-    Admin("ADMIN_ROLE");
+public enum PaymentType {
+    Square("Square"),
+    Cash("Cash");
 
     private String value;
 
-    UserRoles(String value) {
+    PaymentType(String value) {
         this.value = value;
     }
 
-    public static UserRoles of(String value){
+    public static PaymentType of(String value){
         try{
-            return UserRoles.valueOf(value);
+            return PaymentType.valueOf(value);
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
             e.printStackTrace();

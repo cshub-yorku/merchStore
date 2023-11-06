@@ -40,6 +40,7 @@ import {
   MerchToolbar,
   varColor,
 } from "../styles/MerchStyle";
+import Loader from "./Loader";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -79,13 +80,13 @@ export default function Merch() {
   }, []);
 
   return (
-    <Box>
-      {!merch.getAllProducts() && <div>Loading...</div>}
+    <Box className="mt-20">
+      <NavBar />
+      {!merch.getAllProducts() && <Loader />}
 
       {merch.getAllProducts() && (
         <Box>
-          <NavBar />
-
+          {/* Hero section */}
           <Box sx={merchBillboardContainer}>
             <Box
               component="img"
@@ -94,10 +95,17 @@ export default function Merch() {
             ></Box>
 
             <Box sx={merchTextboard}>
+              {/* <Typography variant="h3" sx={bold}>
+                50% off of select merch items
+              </Typography>
+              <Typography variant="h4">Sale ends March 30th, 2023</Typography> */}
+
               <Typography variant="h3" sx={bold}>
                 50% off of select merch items
               </Typography>
-              <Typography variant="h4">Sale ends March 30th, 2023</Typography>
+              <Typography variant="h5" className="text-zinc-200">
+                Sale ends March 30th, 2023
+              </Typography>
             </Box>
           </Box>
 
@@ -117,40 +125,39 @@ export default function Merch() {
             </Box>
           </Box> */}
 
-          <Box display="flex" justifyContent="center">
+          {/* Products */}
+          <div className="pt-12 px-4">
+            <div className="max-w-[1680px] mx-auto space-y-2">
+              <p className="text-3xl md:text-4xl font-semibold">Our Products</p>
+              <hr className="border-purple-600 w-32 border-b-8" />
+            </div>
             {merch.getAllProducts() ? (
-              <Grid
-                container
-                rowSpacing={1}
-                spacing={0}
-                justifyContent="center"
-                sx={{ width: "90%" }}
-              >
+              <div className="grid grid-cols-1 2xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 pt-8 w-full mx-auto gap-4 md:gap-8 max-w-[1680px]">
                 {merch.getAllProducts().map((item, index) => {
                   return (
-                    <Grid
+                    // <Grid
+                    //   key={index}
+                    //   uhd={4}
+                    //   fhd={4}
+                    //   tablet={6}
+                    //   mobile={12}
+                    //   display="flex"
+                    //   justifyContent="center"
+                    // >
+                    <CSCard
                       key={index}
-                      uhd={4}
-                      fhd={4}
-                      tablet={6}
-                      mobile={12}
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      <CSCard
-                        key={index}
-                        productState={setProduct}
-                        onClick={() => setStates(index)}
-                        data={item}
-                      />
-                    </Grid>
+                      productState={setProduct}
+                      onClick={() => setStates(index)}
+                      data={item}
+                    />
+                    // </Grid>
                   );
                 })}
-              </Grid>
+              </div>
             ) : (
-              <p>Loading</p>
+              <Loader />
             )}
-          </Box>
+          </div>
 
           <ProductPopup
             product={userActive}

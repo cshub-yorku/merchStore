@@ -49,7 +49,7 @@ export const merchColor = {
 export const centerItem = {
   display: "flex",
   justifyContent: "center",
-  flexDirection: "column",
+  // flexDirection: "column",
   m: "auto",
 };
 

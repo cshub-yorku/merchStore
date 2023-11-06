@@ -61,6 +61,7 @@ export default function NavBar() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [cart, setCart] = useState([]);
+  const [showHeading, setShowHeading] = useState(false);
   const NavbarRef = useRef(null);
 
   const [offset, setOffset] = useState(0);
@@ -88,22 +89,19 @@ export default function NavBar() {
 
   return (
     <header
-      className={`px-4 transition-all top-0 z-20 bg-[#2D2C42] flex items-center md:px-8 xl:px-12 py-4 border-b border-zinc-700 w-full ${
-        offset === 0 ? "md:h-[18vh] block" : "sticky h-[10vh]"
-      }`}
+      className={`px-4 h-20 transition-all top-0 z-20 bg-[#2D2C42] flex items-center md:px-8 xl:px-12 py-4 border-b border-zinc-700 w-full fixed`}
     >
       <nav className="w-full flex items-center justify-between">
-        <div className="flex md:gap-4">
-          <IconButton
-            size="large"
-            edge="start"
-            sx={dehazeStyle}
-            onClick={() => setOpenNav(true)}
-          >
-            <Dehaze sx={{ fontSize: 40 }}></Dehaze>
-          </IconButton>
+        <IconButton
+          size="large"
+          edge="start"
+          sx={dehazeStyle}
+          onClick={() => setOpenNav(true)}
+        >
+          <Dehaze sx={{ fontSize: 32 }}></Dehaze>
+        </IconButton>
 
-          {isLoggedIn() ? (
+        {/* {isLoggedIn() ? (
             <IconButton
               size="large"
               edge="start"
@@ -121,19 +119,36 @@ export default function NavBar() {
             >
               <AccountCircle sx={{ fontSize: 40 }}></AccountCircle>
             </IconButton>
-          )}
-        </div>
-        {/* sx={[logoStyle]} */}
-        <Box sx={[centerItem]}>
+          )} */}
+
+        <Box
+          className={`${
+            offset < 1 ? "" : "md:translate-x-[50%]"
+          } duration-300 transition-all flex gap-4 items-center`}
+          sx={[centerItem]}
+        >
+          {/* Logo */}
           <Box
             component="img"
             src="./global/logo.svg"
-            className={`w-12 mx-auto transition-all ${
-              offset === 0 ? "md:w-24" : "md:w-16"
+            className={`w-12 duration-500 ${
+              offset < 1 ? "" : "md:-translate-x-[50%]"
             }`}
           />
 
-          {!isMobile && (
+          <div
+            className={`origin-center max-md:hidden duration-300 transition ${
+              offset < 1 ? "opacity-1" : "opacity-0 -translate-x-[50%]"
+            }`}
+          >
+            <Typography variant="h6" sx={[bold, fontIBM]}>
+              <span className="text-amber-500">var</span> store = "
+              <span className="text-purple-600">MerchStore</span>";
+            </Typography>
+          </div>
+
+          {/* Text under logo */}
+          {/* {!isMobile && (
             <Slide
               direction="down"
               in={!offset}
@@ -146,7 +161,7 @@ export default function NavBar() {
                 <span className="text-purple-600">MerchStore</span>";
               </Typography>
             </Slide>
-          )}
+          )} */}
         </Box>
 
         <IconButton
@@ -162,6 +177,21 @@ export default function NavBar() {
           <ShoppingBag sx={{ fontSize: 40 }}></ShoppingBag>
         </IconButton>
       </nav>
+
+      {/* Menu Sidebar */}
+      <NavSidebar
+        trigger={openNav}
+        passFunction={setOpenNav}
+        login={setOpenLogin}
+      />
+
+      {/* Cart Sidebar */}
+      <CartDrawer
+        cart={cart}
+        setCart={setCart}
+        trigger={openCart}
+        passFunction={setOpenCart}
+      />
     </header>
   );
 

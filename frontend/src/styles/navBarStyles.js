@@ -1,90 +1,78 @@
-
-
 //animation is in page file
 
-
 export const logo = (offset) => {
-    let rate = 120 - offset / 2;
-    let picSize = rate > 80 ? rate : 80;
+  let rate = 111 - offset / 2;
+  let picSize = rate > 70 ? rate : 70;
 
-    return {
-        width: picSize,
-        m: 'auto',
-        my: "0.5vw",
-    }
-}
+  return {
+    width: picSize,
+    mx: "auto",
+  };
+};
 
 export const MerchAppBar = (theme) => {
-    return {
-        bgcolor: theme.palette.background.default,
-        boxShadow: "none",
-        align: "center",
-        justifyItems: "center",
-    }
-}
+  return {
+    bgcolor: theme.palette.background.default,
+    boxShadow: "none",
+    align: "center",
+    justifyItems: "center",
+  };
+};
 
 export const dehazeStyle = {
-    color: "text.primary",
-    my: 'auto',
-    ml: '1%',
-}
+  color: "text.primary",
+};
 
 export const accountStyle = {
-    color: "text.primary",
-    m: 'auto',
-    ml: '1%',
-}
+  color: "text.primary",
+};
 
 export const cartStyle = {
-    color: "text.primary",
-    my: 'auto',
-    mr: '1%',
-    position: 'relative',
-}
+  color: "text.primary",
+};
 
 export const StackStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%'
-}
+  display: "flex",
+  flexDirection: "row",
+  width: "100%",
+};
 
 export const varColor = {
-    color: "#ed6d11",
-    fontSize: "2rem"
-}
+  color: "#ed6d11",
+  fontSize: "2rem",
+};
 export const merchColor = {
-    color: "#624f82",
-    fontSize: "2rem"
-}
+  color: "#624f82",
+  fontSize: "2rem",
+};
 
 export const centerItem = {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    m: 'auto',
-}
+  display: "flex",
+  justifyContent: "center",
+  // flexDirection: "column",
+  m: "auto",
+};
 
 export const cartNotification = {
-    position: 'absolute',
-    top: "20%",
-    right: "10%",
-    width: '30%',
-    height: '30%',
-    bgcolor: 'red',
-    borderRadius: '50%',
+  position: "absolute",
+  top: "20%",
+  right: "10%",
+  width: "30%",
+  height: "30%",
+  bgcolor: "red",
+  borderRadius: "50%",
 
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
 
-    // animation: `${notifAnim} 0.5s ease-in-out infinite both`,
-}
+  // animation: `${notifAnim} 0.5s ease-in-out infinite both`,
+};
 
 export const title = {
-    mb: '3%', fontSize: "2rem"
-}
+  mb: "3%",
+  fontSize: "2rem",
+};
 
-export const cartNotificationText = {
-}
-
+export const cartNotificationText = {};

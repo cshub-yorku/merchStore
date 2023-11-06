@@ -40,6 +40,7 @@ import {
   MerchToolbar,
   varColor,
 } from "../styles/MerchStyle";
+import Loader from "./Loader";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -76,30 +77,34 @@ export default function Merch() {
 
   useEffect(() => {
     merch.updateProudcts();
-
-  }, [])
+  }, []);
 
   return (
+    <Box className="mt-20">
+      <NavBar />
+      {!merch.getAllProducts() && <Loader />}
 
-    <>
-      <NavBar></NavBar>
+      {merch.getAllProducts() && (
+        <Box>
+          {/* Hero section */}
+          <Box sx={merchBillboardContainer}>
+            <Box
+              component="img"
+              src="./global/stock.jpg"
+              sx={merchBillboardImage}
+            ></Box>
 
-      <Box sx={merchBillboardContainer}>
-        <Box
-          component="img"
-          src="./global/stock.jpg"
-          sx={merchBillboardImage}
-        ></Box>
+            <Box sx={merchTextboard}>
+              <Typography variant="h3" sx={bold}>
+                50% off of select merch items
+              </Typography>
+              <Typography variant="h5" className="text-zinc-200">
+                Sale ends March 30th, 2023
+              </Typography>
+            </Box>
+          </Box>
 
-        <Box sx={merchTextboard}>
-          <Typography variant="h3" sx={bold}>
-            50% off of select merch items
-          </Typography>
-          <Typography variant="h4">Sale ends March 30th, 2023</Typography>
-        </Box>
-      </Box>
-
-      {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+          {/* <Box sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography>Sort</Typography>
             <Box sx={{ display: "flex", justifyContent: "center", mb: "4vh" }}>
               <Button>
@@ -115,46 +120,38 @@ export default function Merch() {
             </Box>
           </Box> */}
 
-      <Box display="flex" justifyContent="center">
-        {merch.getAllProducts() ? (
-          <Grid
-            container
-            rowSpacing={1}
-            spacing={0}
-            justifyContent="center"
-            sx={{ width: "90%" }}
-          >
-            {merch.getAllProducts().map((item, index) => {
-              return (
-                <Grid
-                  key={index}
-                  uhd={4}
-                  fhd={4}
-                  tablet={6}
-                  mobile={12}
-                  display="flex"
-                  justifyContent="center"
-                >
-                  <CSCard
-                    key={index}
-                    productState={setProduct}
-                    onClick={() => setStates(index)}
-                    data={item}
-                  />
-                </Grid>
-              )
-            })}
-          </Grid>
-        ) : <p>Loading</p>}
+          {/* Products */}
+          <div className="pt-12 px-4">
+            <div className="max-w-[1680px] mx-auto space-y-2">
+              <p className="text-3xl md:text-4xl font-semibold">Our Products</p>
+              <hr className="border-[#793CEE] w-32 border-b-8" />
+            </div>
+            {merch.getAllProducts() ? (
+              <div className="grid grid-cols-1 2xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 pt-8 w-full mx-auto gap-4 md:gap-8 max-w-[1680px]">
+                {merch.getAllProducts().map((item, index) => {
+                  return (
+                    <CSCard
+                      key={index}
+                      productState={setProduct}
+                      onClick={() => setStates(index)}
+                      data={item}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <Loader />
+            )}
+          </div>
 
-      </Box>
-
-      <ProductPopup
-        product={userActive}
-        trigger={openPopup}
-        onClick={() => setOpenPopup(!openPopup)}
-        sx={{ width: "100%" }}
-      ></ProductPopup>
-    </>
+          <ProductPopup
+            product={userActive}
+            trigger={openPopup}
+            onClick={() => setOpenPopup(!openPopup)}
+            sx={{ width: "100%" }}
+          ></ProductPopup>
+        </Box>
+      )}
+    </Box>
   );
 }

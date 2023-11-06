@@ -83,7 +83,7 @@ export default function Merch() {
       {!merch.getAllProducts() && <div>Loading...</div>}
 
       {merch.getAllProducts() && (
-        <>
+        <Box>
           <NavBar />
 
           <Box sx={merchBillboardContainer}>
@@ -118,39 +118,38 @@ export default function Merch() {
           </Box> */}
 
           <Box display="flex" justifyContent="center">
-            <Grid
-              container
-              rowSpacing={1}
-              spacing={0}
-              justifyContent="center"
-              sx={{ width: "90%" }}
-            >
-              {(() => {
-                let list = [];
-                if (merch.getAllProducts()) {
-                  for (let i = 0; i < merch.getAllProducts().length; i++) {
-                    list.push(
-                      <Grid
-                        uhd={4}
-                        fhd={4}
-                        tablet={6}
-                        mobile={12}
-                        display="flex"
-                        justifyContent="center"
-                      >
-                        <CSCard
-                          key={i}
-                          productState={setProduct}
-                          onClick={() => setStates(i)}
-                          data={merch.getAllProducts()[i]}
-                        />
-                      </Grid>
-                    );
-                  }
-                }
-                return list;
-              })()}
-            </Grid>
+            {merch.getAllProducts() ? (
+              <Grid
+                container
+                rowSpacing={1}
+                spacing={0}
+                justifyContent="center"
+                sx={{ width: "90%" }}
+              >
+                {merch.getAllProducts().map((item, index) => {
+                  return (
+                    <Grid
+                      key={index}
+                      uhd={4}
+                      fhd={4}
+                      tablet={6}
+                      mobile={12}
+                      display="flex"
+                      justifyContent="center"
+                    >
+                      <CSCard
+                        key={index}
+                        productState={setProduct}
+                        onClick={() => setStates(index)}
+                        data={item}
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <p>Loading</p>
+            )}
           </Box>
 
           <ProductPopup
@@ -159,7 +158,7 @@ export default function Merch() {
             onClick={() => setOpenPopup(!openPopup)}
             sx={{ width: "100%" }}
           ></ProductPopup>
-        </>
+        </Box>
       )}
     </Box>
   );

@@ -1,7 +1,13 @@
-import React, { useState} from 'react'
-import { Dialog, DialogContent, Divider, IconButton, Stack, Box, Grid, Button, Typography, TextField, MenuItem, FormControl, InputLabel, Select} from '@mui/material'
+import React, { useContext, useState } from 'react'
+import { Dialog, DialogContent, Divider, IconButton, Stack, Box, Grid, Button, Typography, TextField } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
+import { bold } from '../styles/fontStyles';
+import { useStoreContext } from '../controllers/StoreContext';
+import { ArrowBackIos, DeleteOutline } from '@mui/icons-material';
+import { useTheme } from '@emotion/react';
+import { bodyGrid, cartItems, contacts, container } from '../styles/checkoutStyles';
+import { button_theme, field_styled } from '../styles/Styles';
 
 const linkStyle = {
     textDecoration: 'none',
@@ -10,152 +16,157 @@ const linkStyle = {
 };
 
 export default function Checkout() {
+    const theme = useTheme()
     const [trigger, setTrigger] = useState(false);
     const navigate = useNavigate();
     let location = useLocation();
-    const cart = location.state.cart;
+    const store = useStoreContext();
+    const cart = store.cart
 
     const handleClose = () => {
         setTrigger(prev => !prev);
     }
 
     return (
-    <>
-        <Box sx={{width: '100vw', height: '100vh'}}>
-            <Grid sx={{width: '100%', height: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
-                <Box sx={{ width: '65%', margin: '0 auto'}}>
-                    <Box
-                        component="img"
-                        src="./global/CSHub.png"
-                        className="cshub-logo-container"
-                        sx={{
-                        height: 125,
-                        mr: "50hw",
-                        my: 2,
-                        }}
-                    ></Box>
+        <Box sx={{ width: '100vw', minHeight: 'auto', display: 'flex', }}>
+            {/* <Box sx={container(theme)}>
+                
+            </Box> */}
 
-                    {/* Navigation */}
-                    {/* <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'start', paddingBottom: '4vh'}}>
-                        <Stack direction="row" alignItems="center">
-                            <Typography sx={linkStyle}>Cart</Typography>
-                            <KeyboardArrowRightIcon />
-
-                            <Typography sx={linkStyle}>Information</Typography>
-                            <KeyboardArrowRightIcon />
-
-                            <Typography sx={linkStyle}>Shipping</Typography>
-                            <KeyboardArrowRightIcon />
-
-                            <Typography sx={linkStyle}>Payment</Typography>
-                        </Stack>
-                    </Box> */}
-
-                    <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem'}}>
-                    <Typography variant="h6" sx={{fontWeight: '600'}}>
-                        Contact Information
-                    </Typography>
-                    <TextField id="outlined-basic" label="Full Name" variant="outlined" />
-                    <TextField id="outlined-basic" label="Email Address" variant="outlined" />
-                    <TextField id="outlined-basic" label="Phone Number" variant="outlined" />
-
-                    <Typography variant="h6" sx={{fontWeight: '600'}}>
-                        Order Details
-                    </Typography>
-                    <Grid sx={{display: 'flex', gridTemplateColumn: '1fr 1fr'}}>
-                        <Typography sx={{fontWeight: '600'}}>Subtotal</Typography>
-                        <Typography sx={{marginLeft: 'auto'}}>$25.00</Typography>
-                    </Grid>
-
-                    <Divider />
-                    <Grid sx={{display: 'flex', gridTemplateColumn: '1fr 1fr'}}>
-                        <Typography sx={{fontWeight: '600'}}>Total</Typography>
-                        <Typography sx={{marginLeft: 'auto'}}>$25.00</Typography>
-                    </Grid>
-                    <Divider />
-
-                    <Grid sx={{display: 'flex', gridTemplateColumn: '1fr 2fr'}}>
-                        <Box sx={{marginRight: 'auto'}}>
-                            <Button sx={{padding: '1rem', fontSize: '1rem'}} 
-                                    onClick={() => navigate('/')}>
-                                Return to Cart
-                            </Button>
+            <Box sx={bodyGrid(theme)}>
+                    <Box sx={contacts(theme)}>
+                        <Box sx={{ mx: 'auto', textAlign: 'center' }}>
+                            <Box
+                                component="img"
+                                src="./global/CSHub.png"
+                                className="cshub-logo-container"
+                                sx={[{
+                                    display: 'flex',
+                                    height: 125,
+                                    mx: 'auto',
+                                    mb: '5%'
+                                }]}
+                            />
+                            <Typography variant='h3' sx={bold} >Checkout</Typography>
+                            <Typography variant='h6'>Please fill out form below to place your order</Typography>
                         </Box>
-                        <Box sx={{marginLeft: 'auto'}}>
-                            <Button variant='contained' sx={{padding: '1rem', fontSize: '1rem'}}
-                                    onClick={handleClose}>
-                                        Place Order
-                            </Button> 
-                        </Box>
-                    </Grid>
-                    </Grid>
-                </Box>
-
-                {/* Left side of the screen */}
-                <Box sx={{backgroundColor: '#C0BDDB', paddingTop: '4vh'}}>
-                <Box sx={{width: '85%', margin: '0 auto'}}>
-                <Grid sx={{display: 'grid', gridAutoRows: 'auto', rowGap: '1rem', width: '100%'}}>
-                    {(() => {
-                        let list = [];
-                        if (cart != undefined) {
-                            
-                            for(let i = 0; i < cart.length; i++){
-                                list.push(
-                                <Stack key={i} direction="row" justifyContent="space-between" alignItems="center">
-                                    <Box component="img" src={cart[i].images[0]} sx={{width: '12vw', borderRadius: '20px'}}></Box>
-                                    <Box>
-                                        <Typography sx={{fontWeight: '800', fontFamily: 'Montserrat'}}>{cart[i].title}</Typography>
-                                        <Typography>XL</Typography>
-                                    </Box>
-                                    <Typography sx={{textAlign: 'center'}}>1</Typography>
-                                    <Typography>${cart[i].price}</Typography>
-
-                                    <IconButton sx={{color: "text.primary"}}>
-                                        <CloseIcon />
-                                    </IconButton>
-                                </Stack>
-                                );
-                            }
-                        }
-                        return list;
-                    })()}
-                </Grid>
-                </Box>
-                </Box>
-            </Grid>
-        </Box>
-        <Dialog open={trigger}
-        onClose={handleClose}
-        PaperProps={{
-            sx: {
-                bgcolor: "background",
-                width: "25vw",
-                height: "30vh",
-                borderRadius: "12px",
-            },
-        }}>
-            <DialogContent sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Grid container sx={{textAlign: 'center', width: '100%'}} direction='column' justifyContent='center' alignItems='center' rowSpacing={2}>
-                    <Grid item>
-                        <Typography variant='h4'>
-                            Your Order Was <br/> Successfully Placed!
-                        </Typography>
-                    </Grid>
-                    <Grid item sx={{width: '70%'}}>
-                        <Typography variant='h6'>
-                            You may head back to the home page or continue shopping!
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button onClick={() => navigate('/')}>
-                            <Typography>
-                                Home
+                        <Grid sx={{ display: 'grid', gridAutoRows: 'auto', rowGap: '1rem' }}>
+                            <Typography variant="h6" sx={{ fontWeight: '600' }}>
+                                Contact Information
                             </Typography>
-                        </Button>
+                            <TextField sx={field_styled} id="outlined-basic" label="Full Name" variant="outlined" />
+                            <TextField sx={field_styled} id="outlined-basic" label="Email Address" variant="outlined" />
+                            <TextField sx={field_styled} id="outlined-basic" label="Phone Number" variant="outlined" />
+
+                            <Typography variant="h6" sx={{ fontWeight: '600' }}>
+                                Order Details
+                            </Typography>
+                            {/* <Grid sx={{ display: 'flex', gridTemplateColumn: '1fr 1fr' }}>
+                                <Typography sx={{ fontWeight: '600' }}>Subtotal</Typography>
+                                <Typography sx={{ marginLeft: 'auto' }}>$25.00</Typography>
+                            </Grid> */}
+
+                            <Divider sx={{ '&.MuiDivider-root': {borderColor: '#793CEE'}, mb: '2rem'}} />
+                            <Grid sx={{ display: 'flex', gridTemplateColumn: '1fr 1fr' }}>
+                                <Typography sx={{ fontWeight: '600' }}>Total</Typography>
+                                <Typography sx={{ marginLeft: 'auto' }}>${store.getProductTotal()}</Typography>
+                            </Grid>
+                            <Divider />
+
+                            <Box sx={{ display: 'flex', gridTemplateColumn: '1fr 2fr',
+                            [theme.breakpoints.down('mobile')]:{
+                                height: '7vh'
+                            },
+                            [theme.breakpoints.down('hd')]:{
+                                height: '6vh'
+                            }}}>
+                                <Box sx={{ marginRight: 'auto' }}>
+                                    <Button sx={[button_theme, { padding: '1rem', fontSize: '1rem', backgroundColor: 'transparent', height: '100%' }]}
+                                        onClick={() => navigate('/')}>
+                                        <ArrowBackIos/>
+                                        Continue shopping
+                                    </Button>
+                                </Box>
+                                <Box sx={{ marginLeft: 'auto' }}>
+                                    <Button variant='contained' sx={[button_theme, { padding: '1rem', fontSize: '1rem', height: '100%' }]}
+                                        onClick={handleClose}>
+                                        <Typography variant='subtitle1' >Place Order</Typography>
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </Grid>
+                    </Box>
+
+                    {/* Left side of the screen */}
+                    <Box sx={cartItems(theme)}>
+                        <Box sx={{ width: '85%', margin: '0 auto' }}>
+                            <Grid sx={{ display: 'grid', gridAutoRows: 'auto', rowGap: '5vh', width: '100%' }}>
+                                {Array.from(cart).map((id, index) => {
+                                    const item = store.getProduct(id[0])
+                                    return (
+                                        <Stack sx={{height: '20vh'}} key={index} direction="row" justifyContent="space-between" alignItems="center">
+                                            <Box component="img" src={item.images[0]} sx={{height: '100%', borderRadius: '20px', objectFit: 'cover' }}></Box>
+                                            <Box>
+                                                <Typography sx={{ fontWeight: '800', fontFamily: 'Montserrat' }}>{item.name}</Typography>
+                                                <Typography>XL</Typography>
+                                            </Box>
+                                            <Typography sx={{ textAlign: 'center' }}>{id[1]}</Typography>
+                                            <Typography>${item.price}</Typography>
+
+                                            <IconButton sx={{ color: "#793CEE", '&:hover': {color: "#282A4E", } }} onClick={() => {store.removeItem(item);
+                                            console.log(id[0]);}}>
+                                                <DeleteOutline />
+                                            </IconButton>
+                                        </Stack>
+                                    )
+                                })}
+                            </Grid>
+                        </Box>
+                    </Box>
+            </Box>
+            <Dialog open={trigger}
+                onClose={handleClose}
+                PaperProps={{
+                    sx: {
+                        bgcolor: "background",
+                        width: "25vw",
+                        height: "30vh",
+                        borderRadius: "12px",
+
+                        [theme.breakpoints.down('hd')]: {
+                            width: "35vw",
+                            height: "40vh",
+                            borderRadius: "12px",
+                        },
+                        [theme.breakpoints.down('mobile')]: {
+                            width: "100vw",
+                            height: "35vh",
+                            borderRadius: "8px",
+                        }
+                    },
+                }}>
+                <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'black' }}>
+                    <Grid container sx={{ textAlign: 'center', width: '100%' }} direction='column' justifyContent='center' alignItems='center' rowSpacing={2}>
+                        <Grid item>
+                            <Typography sx={{ textAlign: 'start' }} variant='h4'>
+                                Your order was successfully placed!
+                            </Typography>
+                        </Grid>
+                        <Grid item sx={{  }}>
+                            <Typography sx={{ textAlign: 'start' }} variant='h6'>
+                                You may head back to the home page or continue shopping!
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Button sx={button_theme} onClick={() => navigate('/')}>
+                                <Typography>
+                                    Great!
+                                </Typography>
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </DialogContent>
-        </Dialog>
-    </>
+                </DialogContent>
+            </Dialog>
+        </Box>
     )
 }

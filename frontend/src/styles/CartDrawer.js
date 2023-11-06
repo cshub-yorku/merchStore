@@ -28,7 +28,7 @@ export const itemImage = {
 }
 
 export const itemContainer = {
-    minWidth: "75%",
+    minWidth: "65%",
     m: 1,
 }
 
@@ -50,11 +50,11 @@ export const itemBtnGroup = {
     height: '30px',
 }
 
-export const quantity_black = {
-    bgcolor: "#000",
+export const quantity = {
+    bgcolor: "#793CEE",
     color: '#FFF',
 
-    height: '30px',
+    flex: '1',
     px: 2,
 
     display: 'flex',
@@ -62,9 +62,6 @@ export const quantity_black = {
     alignItems: 'center',
 }
 
-export const btnStyle = {
-    height: '30px'
-}
 
 export const prices = {
     ml: 1,
@@ -72,11 +69,9 @@ export const prices = {
 }
 
 export const bottomBtnBox = {
-    position: 'absolute',
-    bottom: '3%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-
+    m: 'auto',
+    mt: '0px',
+    mb: '2%',
     width: '100%',
 }
 
@@ -101,7 +96,19 @@ export const white_divider = {
 }
 
 export const cart_item_total = {
-    textAlign: 'right', 
-    m: 1, 
+    textAlign: 'right',
+    m: 1,
     fontSize: '24px'
+}
+
+export const cart_controls_box = (theme) => {
+    return (
+        {
+            display: 'flex',
+
+            [theme.breakpoints.up("mobile")]: {
+                flexDirection: 'column'
+            },
+        }
+    )
 }

@@ -61,6 +61,12 @@ export function StoreContextProvider(props){
         return products.find(x => x.productId === id);
     }
 
+    function getProductTotal() {
+        return Array.from(cart).reduce((acum, current) => {
+            return acum += getProduct(current[0]).price * current[1]
+          }, 0)
+    }
+
 
 
     return(
@@ -73,7 +79,8 @@ export function StoreContextProvider(props){
             setnotificationPopup,
             updateProudcts,
             getAllProducts,
-            getProduct
+            getProduct,
+            getProductTotal
         }}>
             {props.children}
         </StoreContext.Provider>

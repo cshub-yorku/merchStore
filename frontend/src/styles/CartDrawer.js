@@ -1,114 +1,111 @@
 export const cardStyle = (theme) => ({
-    [theme.breakpoints.down("tablet")]: {
-        width: '90vw',
-        height: '90vw',
-    },
-    [theme.breakpoints.up("tablet")]: {
-        width: '33vw',
-        height: '33vw',
-    },
-    [theme.breakpoints.up("hd")]: {
-        width: '33vw',
-        height: '33vw',
-    },
-    [theme.breakpoints.up("fhd")]: {
-        width: '25vw',
-        height: '25vw',
-    },
+  [theme.breakpoints.down("tablet")]: {
+    width: "90vw",
+    height: "90vw",
+  },
+  [theme.breakpoints.up("tablet")]: {
+    width: "33vw",
+    height: "33vw",
+  },
+  [theme.breakpoints.up("hd")]: {
+    width: "33vw",
+    height: "33vw",
+  },
+  [theme.breakpoints.up("fhd")]: {
+    width: "25vw",
+    height: "25vw",
+  },
 });
 
 export const itemStackStyle = {
-    maxWidth: '100%',
-}
+  maxWidth: "100%",
+};
 
 export const itemImage = {
-    width: '25%',
-    height: '100%',
-    mr: 1,
-}
+  width: "25%",
+  height: "100%",
+  mr: 1,
+};
 
 export const itemContainer = {
-    minWidth: "65%",
-    m: 1,
-}
+  minWidth: "65%",
+  m: 1,
+};
 
 export const headers = {
-    textAlign: 'left',
-    mb: 1
-}
+  textAlign: "left",
+  mb: 1,
+};
 
 export const mainHeader = {
-    fontSize: '1.5em'
-}
+  fontSize: "1.5em",
+};
 
 export const subHeader = {
-    fontSize: '0.75em'
-}
+  fontSize: "0.75em",
+};
 
 export const itemBtnGroup = {
-    width: '35%',
-    height: '30px',
-}
+  width: "35%",
+  height: "30px",
+};
 
 export const quantity = {
-    bgcolor: "#793CEE",
-    color: '#FFF',
+  bgcolor: "#793CEE",
+  color: "#FFF",
 
-    flex: '1',
-    px: 2,
+  flex: "1",
+  px: 2,
 
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-}
-
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 export const prices = {
-    ml: 1,
-    fontSize: "0.85em",
-}
+  ml: 1,
+  fontSize: "0.85em",
+};
 
 export const bottomBtnBox = {
-    m: 'auto',
-    mt: '0px',
-    mb: '2%',
-    width: '100%',
-}
+  m: "auto",
+  mt: "0px",
+  mb: "2%",
+  width: "100%",
+};
 
 export const checkoutBtn = {
-    p: 3,
-    mt: 3,
-    width: '80%',
-    borderRadius: '12px',
-}
+  p: 3,
+  mt: 3,
+  width: "80%",
+  borderRadius: "12px",
+};
 
 export const button_gray = {
-    bgcolor: "#3E3E3E",
-    color: '#FFFFFF',
-    '&:hover': {
-        bgcolor: '#FFF',
-        color: '#3E3E3E'
-    }
-}
+  bgcolor: "#3E3E3E",
+  color: "#FFFFFF",
+  "&:hover": {
+    bgcolor: "#FFF",
+    color: "#3E3E3E",
+  },
+};
 
 export const white_divider = {
-    background: 'white',
-}
+  background: "white",
+};
 
 export const cart_item_total = {
-    textAlign: 'right',
-    m: 1,
-    fontSize: '24px'
-}
+  textAlign: "right",
+  m: 1,
+  fontSize: "24px",
+};
 
 export const cart_controls_box = (theme) => {
-    return (
-        {
-            display: 'flex',
+  return {
+    display: "flex",
 
-            [theme.breakpoints.up("mobile")]: {
-                flexDirection: 'column'
-            },
-        }
-    )
-}
+    [theme.breakpoints.up("mobile")]: {
+      flexDirection: "column",
+    },
+  };
+};

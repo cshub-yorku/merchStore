@@ -18,6 +18,7 @@ import {
   Toolbar,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PersonIcon from "@mui/icons-material/Person";
@@ -73,8 +74,8 @@ export default function Merch() {
 
   const [productNotification, setProductNotification] = useState(false);
 
-  const setStates =  (index) => {
-    navigate(location.pathname, {state: { modal: true }})
+  const setStates = (index) => {
+    navigate(location.pathname, { state: { modal: true } })
     setUserActive(merch.getAllProducts()[index]);
   };
 
@@ -85,7 +86,7 @@ export default function Merch() {
   useEffect(() => {
     console.log('Location ' + location.state.modal);
     console.log('popup ' + openPopup);
-    if(location.state || location.state.modal) setOpenPopup(!openPopup);
+    if (location.state || location.state.modal) setOpenPopup(!openPopup);
   }, [location])
 
   useEffect(() => {
@@ -158,7 +159,14 @@ export default function Merch() {
               )
             })}
           </Grid>
-        ) : <p>Loading</p>}
+        ) :
+          <Box sx={{display: 'flex', mb: '4%', mt: '2%'}}>
+            <CircularProgress />
+            <Typography variant="h5" sx={[bold, {ml: '2rem'}]}>Loading</Typography>
+            {/* <Box sx={{ml: '10%'}}></Box>   */}
+          </Box>
+        }
+
 
       </Box>
 

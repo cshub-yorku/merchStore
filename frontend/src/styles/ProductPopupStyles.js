@@ -167,9 +167,9 @@ export const productSubImage = {
 
 export const productMainImage = (theme) => ({
     aspectRatio: '1 / 1',
-    marginLeft: "13%",
+    marginLeft: "3.5vw",
     marginRight: "auto",
-    marginTop: "3%",
+    marginTop: "5%",
     width: "80%",
     height: '90%',
     objectFit: 'cover',
@@ -179,17 +179,24 @@ export const productMainImage = (theme) => ({
     // },
 
     [theme.breakpoints.up('hd')]: {
-        height: '90%',
+        height: '80%',
+    },
+    [theme.breakpoints.down('mobile')]: {
+        marginLeft: "9.5vw",
     },
 })
-
-export const subImages = {
+                                                                                                 
+export const subImages = (theme) => ({
     // left: '-25%',
-    bottom: 0,
+    bottom: "5vh",
     position: 'absolute',
     width: "100%",
-    borderRadius: 2
-}
+    borderRadius: 2,
+
+    [theme.breakpoints.down('mobile')]: {
+        bottom: 0,
+    },
+})
 
 export const productMain = (theme) => (
     {

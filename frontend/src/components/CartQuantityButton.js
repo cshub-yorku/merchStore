@@ -15,12 +15,14 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { bold, fontJura, medium, themeColor } from "../styles/fontStyles";
+import { useTheme } from "@emotion/react";
 
 
 
 
 export default function CartQuantityButton(){
   const [quantity, setQuantity] = useState(1);
+  const theme = useTheme();
   
   const setDecrease = () => {
     quantity > 1 ? setQuantity(prev => prev - 1) : setQuantity(1);
@@ -34,7 +36,10 @@ export default function CartQuantityButton(){
   };
 
     return (
-        <Box sx={{ marginBottom: "1rem" , transform: "scale(80%)", marginLeft: "-11%" }}>
+        <Box sx={{ marginBottom: "1rem" , transform: "scale(80%)", marginLeft: "-11%",
+        [theme.breakpoints.down('mobile')]: {
+          transform: "scale(70%)", marginLeft: "-17%"
+      }, }}>
             <Typography variant="h6" sx={[medium, fontJura, {my: '2%'}]}>Quantity</Typography>
             <ToggleButtonGroup>
               <ToggleButton

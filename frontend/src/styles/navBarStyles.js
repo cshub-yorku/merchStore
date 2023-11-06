@@ -45,7 +45,8 @@ export const cartStyle = {
 export const StackStyle = {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%'
+    width: '100%',
+    
 }
 
 export const varColor = {

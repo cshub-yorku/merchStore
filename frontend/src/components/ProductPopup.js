@@ -78,8 +78,6 @@ export default function ProductPopup({
 
   const cart = useStoreContext();
 
-  // useEffect(() => { console.log(bSmallScreen); }, [])
-
   return product ? (
     <Dialog
       open={trigger}
@@ -211,7 +209,7 @@ export default function ProductPopup({
               />
             </Box>
 
-            
+
             <Box sx={productBuy(theme)}>
               {!bSmallScreen && <Box sx={productPriceBox}>
                 <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>

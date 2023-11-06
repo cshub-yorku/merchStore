@@ -40,6 +40,7 @@ import {
   MerchToolbar,
   varColor,
 } from "../styles/MerchStyle";
+import { useLocation, useNavigate } from "react-router";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -62,21 +63,33 @@ const testProduct = {
 export default function Merch() {
   const theme = useTheme();
   const merch = useStoreContext();
+  const navigate = useNavigate();
+  const location = useLocation()
 
-  const [openPopup, setOpenPopup] = useState(false);
+  //true fromm the beginning just to make navigate work 
+  const [openPopup, setOpenPopup] = useState(true);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
 
   const [productNotification, setProductNotification] = useState(false);
 
-  const setStates = (index) => {
-    setOpenPopup(!openPopup);
+  const setStates =  (index) => {
+    navigate(location.pathname, {state: { modal: true }})
     setUserActive(merch.getAllProducts()[index]);
   };
 
+  const closeModal = () => {
+    navigate(-1);
+  }
+
+  useEffect(() => {
+    console.log('Location ' + location.state.modal);
+    console.log('popup ' + openPopup);
+    if(location.state || location.state.modal) setOpenPopup(!openPopup);
+  }, [location])
+
   useEffect(() => {
     merch.updateProudcts();
-
   }, [])
 
   return (
@@ -152,7 +165,7 @@ export default function Merch() {
       <ProductPopup
         product={userActive}
         trigger={openPopup}
-        onClick={() => setOpenPopup(!openPopup)}
+        onClick={closeModal}
         sx={{ width: "100%" }}
       ></ProductPopup>
     </>

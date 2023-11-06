@@ -88,7 +88,10 @@ export default function ProductPopup({
     >
       <DialogContent
         classes={{ root: { m: 0, p: 0 } }}
-        sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 }, bgcolor: theme.palette.primary.main }}
+        sx={{ "&.MuiDialogContent-root": { m: 0, p: 0 }, bgcolor: theme.palette.primary.main,
+        [theme.breakpoints.down('mobile')]: {
+          transform: "scale(90%)"
+      },}}
       >
         <Box sx={ gridContainer(theme) }>
           <Box sx={ imageGridContainer(theme) }>

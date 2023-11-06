@@ -94,7 +94,13 @@ export default function Merch() {
             ></Box>
 
             <Box sx={merchTextboard}>
-              <Typography variant="h3" sx={bold}>
+              <Typography variant="h3" sx={{fontSize: '2rem',fontWeight: "700",
+                          
+                        [theme.breakpoints.down('mobile')]: {
+                            fontSize: "1.5rem",
+                            fontWeight: "700"
+                        }
+                        }}>
                 50% off of select merch items
               </Typography>
               <Typography variant="h4">Sale ends March 30th, 2023</Typography>

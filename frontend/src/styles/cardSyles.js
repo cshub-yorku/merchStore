@@ -28,12 +28,7 @@ export const cardStyle = (theme) => ({
     mb: '10%'
 });
 export const cardImage = {
-    width: '95%',
-    height: '77%',
-    mx: 'auto',
-    mt: '2.5%',
-    borderRadius: 2.5,
-
+    borderRadius: 1,
     boxShadow: 4,
 
     objectFit: 'cover',

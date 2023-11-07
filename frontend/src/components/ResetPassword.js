@@ -53,8 +53,11 @@ export default function ResetPassword() {
               ? "Password should have at least one digit, lowercase letter, uppercase letter, special character, and is at least 8 characters long"
               : ""
           }
-          inputProps={{ style: { color: "black" } }}
-          color="secondary"
+          InputLabelProps={{
+            style: { color: "white" },
+          }}
+          inputProps={{ style: { color: "white" } }}
+          color="primary"
           margin="normal"
           className="register-text"
           label="New Password"

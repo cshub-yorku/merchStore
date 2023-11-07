@@ -79,8 +79,6 @@ export default function ProductPopup({ trigger, onClick, product }) {
 
   const cart = useStoreContext();
 
-  // useEffect(() => { console.log(bSmallScreen); }, [])
-
   return product ? (
     <Dialog
       open={trigger}
@@ -212,9 +210,13 @@ export default function ProductPopup({ trigger, onClick, product }) {
             </div>
 
             <CartQuantityButton quantity={quantity} setQuantity={setQuantity} />
-
-            <Box>
-              <ButtonGroup className="w-full flex gap-4">
+            <Box sx={productBuy(theme)}>
+              {!bSmallScreen && <Box sx={productPriceBox}>
+                <Typography variant="h5" sx={[bold, fontJura, productPriceText]}>
+                  {product.price}$
+                </Typography>
+              </Box>}
+              <ButtonGroup sx={productBuyButton}>
                 <Button
                   onClick={() => {
                     cart.changeItemAmount(product, quantity);

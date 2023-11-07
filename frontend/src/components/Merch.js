@@ -18,6 +18,7 @@ import {
   Toolbar,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import PersonIcon from "@mui/icons-material/Person";
@@ -40,7 +41,7 @@ import {
   MerchToolbar,
   varColor,
 } from "../styles/MerchStyle";
-import Loader from "./Loader";
+import { useLocation, useNavigate } from "react-router";
 
 const sortState = Object.freeze({
   NONE: 0,
@@ -63,21 +64,32 @@ const testProduct = {
 export default function Merch() {
   const theme = useTheme();
   const merch = useStoreContext();
+  const navigate = useNavigate();
+  const location = useLocation()
 
-  const [openPopup, setOpenPopup] = useState(false);
+  //true fromm the beginning just to make navigate work 
+  const [openPopup, setOpenPopup] = useState(true);
   const [product, setProduct] = useState(testProduct);
   const [userActive, setUserActive] = useState();
 
   const [productNotification, setProductNotification] = useState(false);
 
   const setStates = (index) => {
-    setOpenPopup(!openPopup);
+    navigate(location.pathname, { state: { modal: true } })
     setUserActive(merch.getAllProducts()[index]);
   };
 
+  const closeModal = () => {
+    navigate(-1);
+  }
+
+  useEffect(() => {
+    if (location.state || location.state.modal) setOpenPopup(!openPopup);
+  }, [location])
+
   useEffect(() => {
     merch.updateProudcts();
-  }, []);
+  }, [])
 
   return (
     <Box className="mt-20">
@@ -119,39 +131,53 @@ export default function Merch() {
               </Button>
             </Box>
           </Box> */}
+      <Box display="flex" justifyContent="center">
+        {merch.getAllProducts() ? (
+          <Grid
+            container
+            rowSpacing={1}
+            spacing={0}
+            justifyContent="center"
+            sx={{ width: "90%" }}
+          >
+            {merch.getAllProducts().map((item, index) => {
+              return (
+                <Grid
+                  key={index}
+                  uhd={4}
+                  fhd={4}
+                  tablet={6}
+                  mobile={12}
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <CSCard
+                    key={index}
+                    productState={setProduct}
+                    onClick={() => setStates(index)}
+                    data={item}
+                  />
+                </Grid>
+              )
+            })}
+          </Grid>
+        ) :
+          <Box sx={{display: 'flex', mb: '4%', mt: '2%'}}>
+            <CircularProgress />
+            <Typography variant="h5" sx={[bold, {ml: '2rem'}]}>Loading</Typography>
+            {/* <Box sx={{ml: '10%'}}></Box>   */}
+          </Box>
+        }
 
-          {/* Products */}
-          <div className="pt-12 px-4">
-            <div className="max-w-[1680px] mx-auto space-y-2">
-              <p className="text-3xl md:text-4xl font-semibold">Our Products</p>
-              <hr className="border-[#793CEE] w-32 border-b-8" />
-            </div>
-            {merch.getAllProducts() ? (
-              <div className="grid grid-cols-1 2xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 pt-8 w-full mx-auto gap-4 md:gap-8 max-w-[1680px]">
-                {merch.getAllProducts().map((item, index) => {
-                  return (
-                    <CSCard
-                      key={index}
-                      productState={setProduct}
-                      onClick={() => setStates(index)}
-                      data={item}
-                    />
-                  );
-                })}
-              </div>
-            ) : (
-              <Loader />
-            )}
-          </div>
 
-          <ProductPopup
-            product={userActive}
-            trigger={openPopup}
-            onClick={() => setOpenPopup(!openPopup)}
-            sx={{ width: "100%" }}
-          ></ProductPopup>
-        </Box>
-      )}
-    </Box>
+      </Box>
+
+      <ProductPopup
+        product={userActive}
+        trigger={openPopup}
+        onClick={closeModal}
+        sx={{ width: "100%" }}
+      ></ProductPopup>
+    </>
   );
 }

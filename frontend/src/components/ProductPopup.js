@@ -91,8 +91,8 @@ export default function ProductPopup({ trigger, onClick, product }) {
       }}
       className="backdrop-blur-sm"
     >
-      <DialogContent>
-        <div className="grid relative md:p-4 grid-cols-1 gap-8 lg:grid-cols-2">
+      <DialogContent className="">
+        <div className="grid relative md:p-2 grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
           {/* Product Image Container */}
           <div className="space-y-2">
             {/* For mobile only, the price and the name on top */}
@@ -107,9 +107,8 @@ export default function ProductPopup({ trigger, onClick, product }) {
             <Box
               component="img"
               src={product.images[pic]}
-              // sx={productMainImage(theme)}
-              className="object-cover"
-            ></Box>
+              className="object-cover rounded-sm lg:pr-4"
+            />
 
             {/* Extra images */}
             <div className="flex gap-2 w-full">
@@ -123,7 +122,7 @@ export default function ProductPopup({ trigger, onClick, product }) {
                     setPic(mainPic);
                   }}
                   component="img"
-                  src={product.images[index]}
+                  src={img}
                   className={`w-16 md:w-20 xl:w-24 border-2 border-purple-600 transition ${
                     pic === index ? "border-white" : ""
                   }`}

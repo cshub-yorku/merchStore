@@ -19,7 +19,6 @@ import { useTheme } from "@emotion/react";
 
 export default function CSCard({ productState, data, src, onClick }) {
   const { name, price, description, images } = data;
-  console.log(images);
   const theme = useTheme();
   return (
     <div className="flex p-4 gap-4 flex-col bg-[#624F82] rounded-md">
@@ -30,10 +29,13 @@ export default function CSCard({ productState, data, src, onClick }) {
           productState(data);
         }}
         src={
-          "https://digital-collage.vercel.app/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F611b7606-d2ed-4c74-aaff-7a4d5c66d365-9w6i5v.jpg&w=2048&q=75"
+          images[0] ||
+          "https://stores.maxfashion.in/VendorpageTheme/Enterprise/EThemeForMax/images/product-not-found.jpg"
         }
         sx={cardImage}
-      ></Box>
+        className="h-full w-full aspect-square
+        "
+      />
 
       {/* Product Details */}
       <div className="flex gap-4 h-fit justify-between">
@@ -42,9 +44,7 @@ export default function CSCard({ productState, data, src, onClick }) {
             {name}
             Product name goes here okay? :((
           </p>
-          <p className="text-sm font-light">
-            Product Type
-          </p>
+          <p className="text-sm font-light">Product Type</p>
         </div>
 
         <Button
@@ -57,7 +57,7 @@ export default function CSCard({ productState, data, src, onClick }) {
           variant="contained"
           className="h-fit"
         >
-            CA${price}
+          CA${price}
         </Button>
       </div>
     </div>

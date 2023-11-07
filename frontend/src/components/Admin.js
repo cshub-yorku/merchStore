@@ -14,23 +14,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "@emotion/react";
-import {
-
-  AdminSwitch,
-} from "../styles/Styles";
-
-
+import { AdminSwitch } from "../styles/Styles";
 
 function createData(order, date, ship, total, status) {
   return { order, date, ship, total, status };
 }
 
 const rows = [
-  createData("1", 1 / 1 / 1, "User Name", 24, "Complete"),
-  createData("2", 1 / 1 / 1, "User Name", 37, "Complete"),
-  createData("3", 1 / 1 / 1, "User Name", 24, "Complete"),
-  createData("4", 1 / 1 / 1, "User Name", 67, "Complete"),
-  createData("5", 1 / 1 / 1, "User Name", 49, "Complete"),
+  createData("1", "30/09/23", "John Doe", "x1 CSHUB Shirt", "Cancelled"),
+  createData("2", "30/09/23", "Rick Astley", "x2 CSHUB Sweater", "Completed"),
+  createData(
+    "3",
+    "30/09/23",
+    "Bob Mcverylonglastname",
+    "x2 CSHUB Sweater",
+    "Pending"
+  ),
 ];
 
 export default function Admin() {
@@ -90,7 +89,14 @@ export default function Admin() {
 
   return (
     <>
-      <Typography sx={{ fontSize: "1.5rem", fontWeight: "700", margin: "5vw" , marginBottom: "8vh"}}>
+      <Typography
+        sx={{
+          fontSize: "1.5rem",
+          fontWeight: "700",
+          margin: "1vw",
+          marginBottom: "3vh",
+        }}
+      >
         <IconButton
           className="navMenu"
           size="large"
@@ -107,11 +113,9 @@ export default function Admin() {
         className="container-admin"
         sx={{
           width: "80%",
-          height: "45rem",
-          marginTop: "5vw",
           backgroundColor: "none",
-
           marginLeft: "10vw",
+          marginTop: "0vh",
           marginRight: "auto",
         }}
       >
@@ -127,30 +131,36 @@ export default function Admin() {
             width: "71vw",
             height: "13rem",
             marginLeft: "4vw",
-            marginTop: "1vw",
+            marginTop: "0",
             marginRight: "auto",
-            
           }}
         >
-
-
-
-
           <Box
             className="account-info"
             sx={{
               fontSize: "1.5rem",
               fontWeight: "700",
               margin: "5px",
-              
 
-          [theme.breakpoints.down('mobile')]: {
-            textAlign: "center"
-          },
-              
+              [theme.breakpoints.down("mobile")]: {
+                textAlign: "center",
+              },
             }}
           >
-            Account Details
+            {" "}
+            <Box>
+              <Box
+                className="address-info"
+                sx={{
+                  fontSize: "1.5rem",
+                  fontWeight: "700",
+                  margin: "1rem",
+                  textAlign: "center",
+                }}
+              >
+                Account Details
+              </Box>
+            </Box>
             {!hasError && userDetails && (
               <Profile
                 userDetails={userDetails}
@@ -190,12 +200,12 @@ export default function Admin() {
             width: "71vw",
             height: "25rem",
             marginLeft: "4vw",
-            marginTop: "5vw",
+            marginTop: "1vw",
             marginRight: "auto",
-            [theme.breakpoints.down('mobile')]: {
+            [theme.breakpoints.down("mobile")]: {
               marginTop: "15vw",
             },
-            [theme.breakpoints.between('mobile', 'tablet')]: {
+            [theme.breakpoints.between("mobile", "tablet")]: {
               marginTop: "10vw",
             },
           }}
@@ -206,8 +216,7 @@ export default function Admin() {
               sx={{
                 fontSize: "1.5rem",
                 fontWeight: "700",
-                margin: "5px",
-                
+                margin: "1rem",
               }}
             >
               {" "}
@@ -216,7 +225,7 @@ export default function Admin() {
           </Box>
 
           <TableContainer
-            sx={{ color: "black", marginTop: "1rem",}}
+            sx={{ color: "black", marginTop: "1rem" }}
             component={Paper}
           >
             <Table
@@ -265,7 +274,17 @@ export default function Admin() {
                     <TableCell sx={{ color: "black" }} align="right">
                       {row.total}
                     </TableCell>
-                    <TableCell sx={{ color: "black" }} align="right">
+                    <TableCell
+                      align="right"
+                      sx={{
+                        color:
+                          row.status === "Cancelled"
+                            ? "red"
+                            : row.status === "Completed"
+                            ? "green"
+                            : "black",
+                      }}
+                    >
                       {row.status}
                     </TableCell>
                   </TableRow>

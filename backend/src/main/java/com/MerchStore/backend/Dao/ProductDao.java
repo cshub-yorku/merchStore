@@ -4,9 +4,7 @@ import com.MerchStore.backend.ConnectionPooling.ConnectionManager;
 import com.MerchStore.backend.Model.Product;
 
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ProductDao implements Dao<Product> {
 
@@ -102,6 +100,30 @@ public class ProductDao implements Dao<Product> {
         return false;
     }
 
+    public boolean updateProductBatch(HashMap<Long,Integer> productsCurrentState){
+        String statement = "UPDATE product set stock = (select stock from product where product_id = ?) - ? where product_id = ?";
+        Connection connection = ConnectionManager.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            productsCurrentState.forEach((id,qty) -> {
+                try {
+                    preparedStatement.setLong(1,id);
+                    preparedStatement.setInt(2,qty);
+                    preparedStatement.setLong(3,id);
+                    preparedStatement.addBatch();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            return preparedStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
+        }
+        return false;
+    }
     @Override
     public boolean delete(Product product) {
         String statement = "DELETE from product where product_id = ?";
@@ -117,5 +139,32 @@ public class ProductDao implements Dao<Product> {
             ConnectionManager.releaseConnection(connection);
         }
         return false;
+    }
+
+    public List<Product> getProductsById(List<Long> productIds){
+        String sql = "SELECT * FROM products WHERE product_id IN (%s)";
+
+        StringJoiner joiner = new StringJoiner(",");
+        for (int i = 0; i < productIds.size(); i++) {
+            joiner.add("?");
+        }
+
+        sql = String.format(sql,joiner.toString());
+        LinkedList<Product> resultList = new LinkedList<>();
+        Connection connection = ConnectionManager.getConnection();
+        try {
+            ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
+            while (resultSet.next()) {
+                Array imagesArray = resultSet.getArray("images");
+                String[] images = (String[])imagesArray.getArray();
+                Product product = new Product(resultSet.getLong("product_id"), resultSet.getString("description"), resultSet.getString("name"), resultSet.getDouble("price"), resultSet.getInt("stock"), images);
+                resultList.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            ConnectionManager.releaseConnection(connection);
+        }
+        return resultList;
     }
 }

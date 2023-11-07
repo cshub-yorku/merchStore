@@ -1,5 +1,6 @@
 package com.MerchStore.backend.Model;
 
+import com.MerchStore.backend.Model.enums.UserRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

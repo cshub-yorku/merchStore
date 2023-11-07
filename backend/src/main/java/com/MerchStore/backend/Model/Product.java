@@ -1,5 +1,6 @@
 package com.MerchStore.backend.Model;
 
+import com.MerchStore.backend.Exceptions.ItemOutOfStockException;
 import com.MerchStore.backend.ResourceControllers.RequestBodies.NewProduct;
 
 import java.time.LocalDateTime;
@@ -60,5 +61,12 @@ public class Product {
 
     public int getStock() {
         return stock;
+    }
+
+    public OrderedItems orderItem(int quantity){
+        if(quantity > this.stock)
+            throw new ItemOutOfStockException("Current available quantity is " + this.stock);
+
+         return new OrderedItems(this.productId,this.price,quantity);
     }
 }

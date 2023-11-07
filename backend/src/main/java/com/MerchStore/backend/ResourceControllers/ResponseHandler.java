@@ -1,7 +1,7 @@
 package com.MerchStore.backend.ResourceControllers;
 
 import com.MerchStore.backend.Model.APIResponse;
-import com.MerchStore.backend.Model.UserRoles;
+import com.MerchStore.backend.Model.enums.UserRoles;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

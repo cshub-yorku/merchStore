@@ -13,6 +13,11 @@ import CartDrawer from "./CartDrawer";
 import { main } from "../styles/mainStyle";
 import { StoreContextProvider } from "../controllers/StoreContext";
 import NavBar from "./navBar";
+import {
+  appBoxStyle,
+  contentBoxStyle,
+  footerBoxStyle,
+} from "../styles/AppStyles";
 
 function App() {
   return (
@@ -20,21 +25,22 @@ function App() {
       <ThemeProvider theme={dark_Theme}>
         <CssBaseline />
         <StoreContextProvider>
-          <Box sx={main(dark_Theme)}>
-            <Routes>
-              <Route path="/" element={<Merch />} />
-              <Route path="/csshop" element={<Merch />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/" element={<CartDrawer />} />
-            </Routes>
-            {/* <NavBar/> */}
-
-            <div className="footer-section" sx={{ marginBottom: "0" }}>
+          <Box sx={appBoxStyle}>
+            <Box sx={contentBoxStyle}>
+              <Routes>
+                <Route path="/" element={<Merch />} />
+                <Route path="/csshop" element={<Merch />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/" element={<CartDrawer />} />
+              </Routes>
+              {/* <NavBar/> */}
+            </Box>
+            <Box component="footer" sx={footerBoxStyle}>
               <Footer />
-            </div>
+            </Box>
           </Box>
         </StoreContextProvider>
       </ThemeProvider>

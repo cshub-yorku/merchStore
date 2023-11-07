@@ -76,7 +76,7 @@ export default function Merch() {
   };
 
   useEffect(() => {
-    merch.updateProudcts();
+    merch.updateProducts();
   }, []);
 
   return (
@@ -127,7 +127,10 @@ export default function Merch() {
               <hr className="border-[#793CEE] w-32 border-b-8" />
             </div>
             {merch.getAllProducts() ? (
-              <div className="grid grid-cols-1 2xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 pt-8 w-full mx-auto gap-4 md:gap-8 max-w-[1680px]">
+              <div
+                style={{ breakInside: "avoid" }}
+                className="grid grid-cols-1 2xl:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 pt-8 w-full mx-auto gap-4 md:gap-8 max-w-[1680px]"
+              >
                 {merch.getAllProducts().map((item, index) => {
                   return (
                     <CSCard

@@ -36,7 +36,7 @@ export function StoreContextProvider(props){
     }
 
 
-    function updateProudcts(){
+    function updateProducts(){
         const token = localStorage.getItem("token");
 // API LINK FOR TEST : "https://api.escuelajs.co/api/v1/products"
 // localhost database http://localhost:9000/v1/products/
@@ -77,7 +77,7 @@ export function StoreContextProvider(props){
             getAllItems,
             notificationPopup,
             setnotificationPopup,
-            updateProudcts,
+            updateProducts,
             getAllProducts,
             getProduct,
             getProductTotal

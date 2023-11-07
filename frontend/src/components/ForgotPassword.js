@@ -1,5 +1,10 @@
 import { useState } from "react";
-import {forgotPasswordStyle, haveAccount, registerFields, registerSign } from '../styles/LoginSignupStyles';
+import {
+  forgotPasswordStyle,
+  haveAccount,
+  registerFields,
+  registerSign,
+} from "../styles/LoginSignupStyles";
 import { Box, Button, TextField, Typography, Link } from "@mui/material";
 
 export default function ForgotPassword({ onClose }) {
@@ -41,7 +46,7 @@ export default function ForgotPassword({ onClose }) {
 
   return (
     <Box align="center" sx={registerSign}>
-      <Typography variant="h1">Forgot Password</Typography>
+      <Typography variant="h3">Forgot Password</Typography>
       <Box sx={registerFields}>
         <TextField
           error={emailError}
@@ -49,7 +54,7 @@ export default function ForgotPassword({ onClose }) {
           inputProps={{ style: { color: "black" } }}
           color="secondary"
           margin="normal"
-          sx={{borderRadius: '8px', backgroundColor: 'white'}}
+          sx={{ borderRadius: "8px", backgroundColor: "white" }}
           label="Email Address"
           variant="outlined"
           required
@@ -73,13 +78,8 @@ export default function ForgotPassword({ onClose }) {
         </Button>
       </Box>
 
-      <Typography
-        sx={haveAccount}
-      >
-        <Link
-          onClick={onClose}
-          sx={forgotPasswordStyle}
-        >
+      <Typography sx={haveAccount}>
+        <Link onClick={onClose} sx={forgotPasswordStyle}>
           Back to Login
         </Link>
       </Typography>

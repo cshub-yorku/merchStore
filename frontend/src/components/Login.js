@@ -1,10 +1,34 @@
 import React, { useState } from "react";
-import { Box, Button, Dialog, DialogContent, Link, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  Link,
+  Typography,
+} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 import ForgotPassword from "./ForgotPassword";
-import { signUpSwitch, dialogPaperStyle, forgotPasswordStyle, forgotPasswordLink, haveAccount, signupSwitch, marginPaddingZero, registerText, signupText, inputFieldsTextColor, registerFields, registerButton, registerLink, registerSignFields, registerSign, signupStyle } from '../styles/LoginSignupStyles';
+import {
+  signUpSwitch,
+  dialogPaperStyle,
+  forgotPasswordStyle,
+  forgotPasswordLink,
+  haveAccount,
+  signupSwitch,
+  marginPaddingZero,
+  registerText,
+  signupText,
+  inputFieldsTextColor,
+  registerFields,
+  registerButton,
+  registerLink,
+  registerSignFields,
+  registerSign,
+  signupStyle,
+} from "../styles/LoginSignupStyles";
 
 export default function Login({ trigger, onClick }) {
   const navigate = useNavigate();
@@ -94,10 +118,10 @@ export default function Login({ trigger, onClick }) {
           ) : (
             <DialogContent
               classes={{ root: marginPaddingZero }}
-              sx={{ "&.MuiDialogContent-root": marginPaddingZero}}
+              sx={{ "&.MuiDialogContent-root": marginPaddingZero }}
             >
-              <Box align="center" sx={registerSign} >
-                <Typography variant="h1">Login or Sign up</Typography>
+              <Box align="center" sx={registerSign}>
+                <Typography variant="h3">Login or Sign up</Typography>
                 <Box sx={registerFields}>
                   <TextField
                     error={emailError}
@@ -145,9 +169,7 @@ export default function Login({ trigger, onClick }) {
                     Login
                   </Button>
                 </Box>
-                <Typography
-                  sx={forgotPasswordLink}
-                >
+                <Typography sx={forgotPasswordLink}>
                   <Link
                     onClick={() => setShowForgotPassword(true)}
                     sx={forgotPasswordStyle}
@@ -156,15 +178,10 @@ export default function Login({ trigger, onClick }) {
                   </Link>
                 </Typography>
 
-                <Typography
-                  sx={haveAccount}
-                >
+                <Typography sx={haveAccount}>
                   {" "}
                   Do you have an account ?
-                  <Link
-                    onClick={() => setSwtichSignup(true)}
-                    sx={signUpSwitch}
-                  >
+                  <Link onClick={() => setSwtichSignup(true)} sx={signUpSwitch}>
                     Sign up
                   </Link>
                 </Typography>

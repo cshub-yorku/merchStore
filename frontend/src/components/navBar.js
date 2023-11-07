@@ -192,6 +192,14 @@ export default function NavBar() {
         trigger={openCart}
         passFunction={setOpenCart}
       />
+
+      <Login
+        trigger={openLogin}
+        onClick={() => {
+          setOpenLogin(!openLogin);
+          console.log("ji log");
+        }}
+      ></Login>
     </header>
   );
 

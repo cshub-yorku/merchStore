@@ -11,18 +11,15 @@ import java.util.List;
 
 public class CartListDao {
 
-    public boolean save(Cart cart){
-        String statement = "INSERT INTO cart_list values (?, ?, ?)";
+    public boolean save(long cartId,CartItem item){
+        String statement = "INSERT INTO cart_list values (?, ?, ?) ";
         Connection connection = ConnectionManager.getConnection();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            for(CartItem i: cart.getItemList()){
-                preparedStatement.setLong(1, cart.getCartId());
-                preparedStatement.setLong(2, i.getProductId());
-                preparedStatement.setInt(3, i.getQuantity());
-                preparedStatement.addBatch();
-            }
-            return preparedStatement.executeUpdate() == cart.getItemList().size();
+            preparedStatement.setLong(1,cartId);
+            preparedStatement.setLong(2, item.getProductId());
+            preparedStatement.setInt(3, item.getQuantity());
+            return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -32,19 +29,16 @@ public class CartListDao {
         return false;
     }
 
-    public boolean update(List<CartItem> cart_list, long cartId) {
-        String statement = "UPDATE cart_list set product_quantity = ? where cart_id = ? AND product_id= ? ";
+    public boolean update(long cartId,CartItem item) {
+        String statement = "UPDATE cart_list set product_quantity = ? where cart_id = ? AND product_id= ?";
         Connection connection = ConnectionManager.getConnection();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.setInt(1, item.getQuantity());
+            preparedStatement.setLong(2,cartId);
+            preparedStatement.setLong(3, item.getProductId());
 
-            for(CartItem i: cart_list){
-                preparedStatement.setInt(1, i.getQuantity());
-                preparedStatement.setLong(2, cartId);
-                preparedStatement.setLong(3, i.getProductId());
-                preparedStatement.addBatch();
-            }
-            return preparedStatement.executeUpdate() == cart_list.size();
+            return preparedStatement.executeUpdate() == 1;
         }catch (SQLException e){
             System.out.println(e.getMessage());
             e.printStackTrace();

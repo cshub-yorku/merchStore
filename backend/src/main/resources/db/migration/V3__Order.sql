@@ -1,12 +1,14 @@
 CREATE TABLE IF NOT EXISTS orders
 (
     order_id bigint NOT NULL,
-    product_quantity integer NOT NULL,
     total_amount money NOT NULL,
     order_status character varying(30) NOT NULL,
-    cart_id bigint NOT NULL,
-    PRIMARY KEY (order_id),
-    FOREIGN KEY (cart_id)
-        REFERENCES cart (cart_id) MATCH SIMPLE
-        ON UPDATE CASCADE
+    user_id bigint NOT NULL,
+    payment_type char(50) NOT NULL,
+    order_date Date NOT NULL default CURRENT_DATE,
+    FOREIGN KEY (user_id)
+    REFERENCES users (user_id) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    PRIMARY KEY (order_id)
 );

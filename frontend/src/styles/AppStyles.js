@@ -9,7 +9,6 @@ export const contentBoxStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center",
   paddingBottom: "1rem",
 };
 

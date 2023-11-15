@@ -30,4 +30,16 @@ public class CartController extends ResponseHandler {
             return this.responseObj(response,200);
         }
     }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getMyCartItems(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(this.getEmailFromToken(token));
+        APIResponse<?> response = CartLogic.getMyCartItems(user.getUserId());
+
+        if(!response.getErrors().isEmpty()){
+            return this.responseObj(response,204);
+        }else{
+            return this.responseObj(response,200);
+        }
+    }
 }

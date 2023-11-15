@@ -28,9 +28,11 @@ public class CartDao{
             long userId = 0;
             long cartId = 0;
             while(resultSet.next()){
-                itemList.put(
-                        resultSet.getLong("product_id"),new CartItem(resultSet.getLong("product_id"),resultSet.getInt("qty"))
-                );
+                if(resultSet.getLong("product_id") > 0){
+                    itemList.put(
+                            resultSet.getLong("product_id"),new CartItem(resultSet.getLong("product_id"),resultSet.getInt("qty"))
+                    );
+                }
                 if(resultSet.isFirst()){
                     cartId = resultSet.getLong("cart_id");
                     userId = resultSet.getLong("user_id");

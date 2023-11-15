@@ -116,7 +116,7 @@ public class ProductDao implements Dao<Product> {
                 }
             });
 
-            return preparedStatement.executeUpdate() == 1;
+            return preparedStatement.executeBatch().length == productsCurrentState.size();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {
@@ -142,13 +142,12 @@ public class ProductDao implements Dao<Product> {
     }
 
     public List<Product> getProductsById(List<Long> productIds){
-        String sql = "SELECT * FROM products WHERE product_id IN (%s)";
+        String sql = "SELECT * FROM product WHERE product_id IN (%s)";
 
         StringJoiner joiner = new StringJoiner(",");
         for (int i = 0; i < productIds.size(); i++) {
-            joiner.add("?");
+            joiner.add(productIds.get(i).toString());
         }
-
         sql = String.format(sql,joiner.toString());
         LinkedList<Product> resultList = new LinkedList<>();
         Connection connection = ConnectionManager.getConnection();
@@ -162,6 +161,7 @@ public class ProductDao implements Dao<Product> {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }finally {
             ConnectionManager.releaseConnection(connection);
         }

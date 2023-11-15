@@ -2,6 +2,7 @@ package com.MerchStore.backend.Model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Cart {
     private final long cartId;
@@ -13,6 +14,11 @@ public class Cart {
         this.cartId = cartId;
         this.userId = userId;
         this.itemList = itemList;
+    }
+    public Cart(long userId){
+        this.userId = userId;
+        this.cartId = generateCartId();
+        this.itemList = new HashMap<>();
     }
 
     public long getCartId() {
@@ -37,5 +43,9 @@ public class Cart {
 
     public void addItemToCart(CartItem item){
         this.itemList.put(item.getProductId(),item);
+    }
+
+    private long generateCartId(){
+        return new Random(System.currentTimeMillis()).nextInt();
     }
 }

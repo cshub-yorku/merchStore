@@ -66,13 +66,13 @@ public class CartDao{
         return false;
     }
     public boolean delete(Cart cart) {
-        String statement = "DELETE from cart where cart_id = ?";
+        String statement = "DELETE from cart_list where cart_id = ?";
         Connection connection = ConnectionManager.getConnection();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
             preparedStatement.setLong(1, cart.getCartId());
 
-            return preparedStatement.executeUpdate() == 1;
+            return preparedStatement.executeUpdate() == cart.getItemList().size();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {

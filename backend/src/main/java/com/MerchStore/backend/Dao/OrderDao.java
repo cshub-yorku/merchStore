@@ -70,7 +70,7 @@ public class OrderDao{
 
             while(resultSet.next()){
                 long orderId = resultSet.getLong("order_id");
-                PaymentType type = PaymentType.valueOf(resultSet.getString("ptype"));
+                PaymentType type = PaymentType.of(resultSet.getString("ptype").trim());
                 Order order = new Order(
                         resultSet.getLong("user_id"),
                         orderId,

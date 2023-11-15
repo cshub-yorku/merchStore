@@ -1,8 +1,10 @@
 package com.MerchStore.backend.ResourceControllers;
 
+import com.MerchStore.backend.Dao.CartDao;
 import com.MerchStore.backend.Dao.UserAuthenticatorDao;
 import com.MerchStore.backend.Dao.UsersDao;
 import com.MerchStore.backend.Dao.VerifyUserDao;
+import com.MerchStore.backend.Model.Cart;
 import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.Model.Users;
 import com.MerchStore.backend.Model.VerifyUser;
@@ -151,6 +153,8 @@ public class AuthController extends ResponseHandler {
                 Users user = usersOptional.get();
                 user.setActive(true);
                 activeDao.update(user);
+                Cart newCart = new Cart(user.getUserId());
+                new CartDao().save(newCart);
             }
         }
 

@@ -8,10 +8,7 @@ import com.MerchStore.backend.Model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class CartLogic {
@@ -52,6 +49,21 @@ public class CartLogic {
         return new APIResponse<Object>(errors, Collections.emptyList());
     }
 
+    public static APIResponse<?> getMyCartItems(long userId){
+        CartDao cartDao = new CartDao();
+        List<CartItem> items = new LinkedList<>();
+        List<String> errors = new LinkedList<>();
+
+        cartDao.getCartByUserId(userId).ifPresent(cart -> {
+            items.addAll(cart.getItemList().values());
+        });
+
+        if(items.isEmpty()){
+            errors.add("Empty Cart");
+        }
+
+        return new APIResponse<>(errors,items);
+    }
     private static Optional<Product> getProduct(long id){
         return new ProductDao().get(id);
     }

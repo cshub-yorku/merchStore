@@ -1,9 +1,13 @@
 package com.MerchStore.backend.Model;
 
 import com.MerchStore.backend.Dao.ProductDao;
+import com.MerchStore.backend.Dao.UsersDao;
 import com.MerchStore.backend.Model.enums.OrderStatus;
 import com.MerchStore.backend.Model.enums.PaymentType;
+import jakarta.servlet.http.HttpServletRequest;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -68,7 +72,7 @@ public class Order {
 
     public void addItemToOrderList(OrderedItems newItem){
         this.orderedItems.add(newItem);
-        this.calculateTotalAmount();
+        this.totalAmount += newItem.getPrice();
     }
 
     public long getUserId() {
@@ -90,6 +94,40 @@ public class Order {
             items.add(new OrderedItems(product.getProductId(),product.getPrice(),qty));
         });
         return new Order(cart.getUserId(), type, orderStatus,items);
+    }
+
+    public static String prepareConfirmationEmail(Order order, HttpServletRequest request){
+        String body = """
+                Dear [[name]],<br><br>
+                
+                             
+                Thank you for your purchase! We're excited to let you know that your order has been confirmed. Here are the details of your transaction:<br><br>
+                
+                                
+                Order Number: [[orderNumber]]<br>
+                Date: [[orderDate]]<br>
+                                
+                Total Amount: $[[totalAmount]]<br><br>
+                                
+                Pickup date & location:<br><br>
+                [[pickupInfo]]<br><br>
+                                 
+                Need Help?<br><br>
+                If you have any questions or need to make changes to your order, feel free to contact us at [[CSHUBEmail]].<br><br>
+                                
+                Thank you for supporting the CSHUB Club. We hope you enjoy your purchase!<br><br>
+                                
+                Best Regards,<br>
+                CSHUB Club Team<br>
+                """;
+        Users user  = new UsersDao().get(order.userId).orElseThrow(RuntimeException::new);
+        body = body.replace("[[name]]",user.getFirstName());
+        body = body.replace("[[orderDate]]", LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm")));
+        body = body.replace("[[orderNumber]]",String.valueOf(order.getOrderId()));
+        body = body.replace("[[totalAmount]]",String.valueOf(order.getTotalAmount()));
+        body = body.replace("URL",request.getLocalAddr()+"/my/"+order.getOrderId());
+
+        return body;
     }
 }
 

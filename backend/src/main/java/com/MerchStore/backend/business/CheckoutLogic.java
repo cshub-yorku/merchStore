@@ -1,5 +1,6 @@
 package com.MerchStore.backend.business;
 
+import com.MerchStore.backend.Dao.CartDao;
 import com.MerchStore.backend.Dao.OrderDao;
 import com.MerchStore.backend.Dao.OrderedItemsDao;
 import com.MerchStore.backend.Dao.ProductDao;
@@ -30,8 +31,10 @@ public class CheckoutLogic {
             throw new EmptyCartException("Can't place order, you're cart is empty.");
         }else{
             Order order = Order.createNewOrder(custoemrCart,OrderStatus.PROCESSING, PaymentType.Cash);
+            if(order.getTotalAmount() == 0) throw new EmptyCartException("Your cart is empty.");
             reduceProductStock(order);
             saveNewOrder(order);
+            new CartDao().delete(custoemrCart);
             return order;
         }
     }
@@ -55,8 +58,7 @@ public class CheckoutLogic {
     private static void saveNewOrder(Order order){
         OrderDao dao = new OrderDao();
         dao.save(order);
-
         OrderedItemsDao orderedItemsDao = new OrderedItemsDao();
-        orderedItemsDao.save(order.getOrderedItems(),order.getOrderId());
+       orderedItemsDao.save(order.getOrderedItems(),order.getOrderId());
     }
 }

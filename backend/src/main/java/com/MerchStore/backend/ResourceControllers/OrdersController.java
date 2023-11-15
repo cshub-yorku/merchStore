@@ -9,10 +9,13 @@ import com.MerchStore.backend.Model.Cart;
 import com.MerchStore.backend.Model.Order;
 import com.MerchStore.backend.Model.UserAuthenticator;
 import com.MerchStore.backend.Model.enums.PaymentType;
+import com.MerchStore.backend.Service.EmailService;
 import com.MerchStore.backend.business.fetchOrders;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -28,6 +31,8 @@ import static com.MerchStore.backend.business.fetchOrders.getOrderById;
 public class OrdersController extends ResponseHandler {
     @Autowired
     UserAuthenticatorDao dao;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @GetMapping("/my")
     public ResponseEntity<?> getMyOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
@@ -66,7 +71,7 @@ public class OrdersController extends ResponseHandler {
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestParam String paymentType){
+    public ResponseEntity<?> checkout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestParam String paymentType, HttpServletRequest request){
         UserAuthenticator user = (UserAuthenticator) dao.loadUserByUsername(this.getEmailFromToken(token));
         PaymentType type = PaymentType.of(paymentType);
         List<String> errors = new LinkedList<>();
@@ -80,6 +85,8 @@ public class OrdersController extends ResponseHandler {
                     Cart cart = customerCart.get();
                     Order order = finializeOrder(cart,type);
                     responseData.add(order);
+                    EmailService emailService = new EmailService(mailSender);
+                    emailService.sendOrderConfirmationEmail(user.getEmail(), "Your CSHUB Order Confirmation #" + order.getOrderId(), Order.prepareConfirmationEmail(order,request));
                     return this.responseObj(orderAPIResponse,200);
                 }
                 return this.responseObj(orderAPIResponse,204);

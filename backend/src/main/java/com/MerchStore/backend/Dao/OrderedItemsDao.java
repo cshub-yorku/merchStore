@@ -18,7 +18,6 @@ public class OrderedItemsDao {
         Connection connection = ConnectionManager.getConnection();
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(statement);
-
             for(OrderedItems i: orderedItems){
                 preparedStatement.setLong(1, order_id);
                 preparedStatement.setDouble(2, i.getPrice());
@@ -26,7 +25,7 @@ public class OrderedItemsDao {
                 preparedStatement.setLong(4, i.getProductId());
                 preparedStatement.addBatch();
             }
-            return preparedStatement.executeUpdate() == orderedItems.size();
+            return preparedStatement.executeBatch().length == orderedItems.size();
         }catch (SQLException e){
             System.out.println(e.getMessage());
             e.printStackTrace();

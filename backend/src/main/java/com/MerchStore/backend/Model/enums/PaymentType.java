@@ -1,5 +1,7 @@
 package com.MerchStore.backend.Model.enums;
 
+import java.util.Locale;
+
 public enum PaymentType {
     Square("Square"),
     Cash("Cash");
@@ -12,7 +14,7 @@ public enum PaymentType {
 
     public static PaymentType of(String value){
         try{
-            return PaymentType.valueOf(value);
+           return PaymentType.valueOf(value);
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
             e.printStackTrace();

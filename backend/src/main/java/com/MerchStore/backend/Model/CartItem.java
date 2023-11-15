@@ -1,8 +1,6 @@
 package com.MerchStore.backend.Model;
 
 public class CartItem {
-
-
     private final long productId;
     private int quantity;
 
